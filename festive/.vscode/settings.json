@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/usr/bin/python3",
+    "python.pythonPath": "test/bin/python",
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
     "python.testing.pytestArgs": [
@@ -7,5 +7,6 @@
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.nosetestsEnabled": false,
-    "python.testing.pytestEnabled": true
+    "python.testing.pytestEnabled": false,
+    "python.testing.promptToConfigure": false
 }
