@@ -7,8 +7,8 @@ from . import views
 
 urlpatterns = [
     # path('route',include(router.urls)),
-    path('',views.main,name='festive-circle'),
-    path('add',views.add,name='add-venue'),
+    path('',views.main, name='festive-circle'),
+    path('add',views.add, name='add-venue'),
     # path('edit/<id>/',views.edit,name='edit'),
     # path('main/<id>/',views.delete,name='delete'),
     # path('record/json/',views.json,name='json'),

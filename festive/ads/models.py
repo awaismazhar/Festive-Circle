@@ -29,7 +29,7 @@ class Detail(models.Model):
 
 	title = models.CharField(max_length=100)
 	loction_id = models.ForeignKey(Location, verbose_name="Location", on_delete=models.CASCADE)
-	phoneNo = models.IntegerField()
+	phoneNo = models.CharField( max_length=20)
 	postDate = models.DateTimeField(default=timezone.now)
 	featured = models.BooleanField()
 	description = models.TextField()
@@ -48,7 +48,7 @@ class Detail(models.Model):
 
 
 def upload_location(instance, filename):
-    return "%s/%s/%s" % (instance.detail_id.loction_id.city,instance.detail.id.title, filename)
+    return "%s/%s/%s" % (instance.detail_id.loction_id.city,instance.detail_id.title, filename)
 
 
 class images(models.Model):
@@ -60,7 +60,7 @@ class images(models.Model):
 							blank=True,
 							width_field="width_field",
 							height_field="height_field",
-							default='def.jfif'
+							default='model/def.jfif'
 							)
 
 	height_field = models.IntegerField(default=800)
@@ -77,7 +77,7 @@ class images(models.Model):
 				width, height = 700, 800
 			img.thumbnail( (width, height), PILImage.ANTIALIAS )
 			save_buff = BytesIO()
-			img2 = PILImage.open('cooltext333913402881516.png')
+			img2 = PILImage.open('media/cooltext333913402881516.png')
 			img2.convert('RGBA')
 			img.convert('RGBA')
 			img.paste(img2, (0, 0), img2)
