@@ -7,41 +7,63 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <script>
+        function preview_images() {
+            var total_file = document.getElementById("images").files.length;
+            for (var i = 0; i < total_file; i++) {
+                
+                $('#image_preview').append("<div class='col-md-3'><img class='img-responsive' src='" + URL
+                    .createObjectURL(event.target.files[i]) + "'></div>");
+            }
+        }
+    </script>
     <title>Add Venue Details</title>
 </head>
 
 <body style="background-color:rgb(238, 236, 236)">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#"><h2>Festive Circle</h2> </a></nav>
+        <a class="navbar-brand" href="#">
+            <h2>Festive Circle</h2>
+        </a></nav>
     <div class="container" style="padding: 3%">
         <div class="row">
             <div class="container">
-                <form action="" method="POST">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
 
                     <div class="container" style="background-color:rgb(255, 255, 255)">
                         <h2 style="padding: 3%">Add Information</h2>
                         <div class="col-md-10" style="padding-left: 20%;padding-bottom:10%">
                             <div class="form-group has-error">
-                                <label for="slug">Title <span class="require">*</span></label>
-                                <input type="text" class="form-control" name="slug" />
+                                <label for="title">Title <span class="require">*</span></label>
+                                <input type="text" class="form-control" name="post_title" />
                             </div>
                             <div class="form-group">
-                                <label for="title">Phone No <span class="require">*</span></label>
-                                <input type="text" class="form-control" name="title" />
+                                <label for="phone">Phone No <span class="require">*</span></label>
+                                <input type="text" class="form-control" name="phone" />
                             </div>
                             <div class="form-group">
-                                <label for="title">Loction<span class="require">*</span></label>
-                                <input type="text" class="form-control" name="title" />
+                                <label for="location">City<span class="require">*</span></label>
+                                <input type="text" class="form-control" name="city" />
                             </div>
                             <div class="form-group">
-                                <label for="title">image<span class="require">*</span></label>
-                                <input type="text" class="form-control" name="title" />
+                                <label for="location">Area<span class="require">*</span></label>
+                                <input type="text" class="form-control" name="area" />
                             </div>
-
+                            <div class="form-group">
+                                <label for="location">Sreet<span class="require">*</span></label>
+                                <input type="text" class="form-control" name="street" />
+                            </div>
+                            <div class="form-group">
+                                <label for="image">Images<span class="require">*</span></label>
+                                <input type="file" class="form-control" id="images" name="images[]"
+                                    onchange="preview_images();" multiple />
+                            </div>
+                            <div class="row" id="image_preview"></div>
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea rows="5" class="form-control" name="description"></textarea>
+                                <textarea rows="5" class="form-control" name="post_description"></textarea>
                             </div>
                         </div>
                     </div>
@@ -50,24 +72,24 @@
                         <h2 style="padding: 3%">Venue Price</h2>
                         <div class="col-md-10" style="padding-left: 20%;padding-bottom:10%">
                             <div class="form-group">
-                                <label for="title">Per guest<span class="require">*</span></label>
-                                <input type="text" class="form-control" name="title" />
+                                <label for="Price per guest">Per guest Price<span class="require">*</span></label>
+                                <input type="text" class="form-control" name="guest_price" />
                             </div>
                             <div class="form-group">
-                                <label for="title">Air condition<span class="require">*</span></label>
-                                <input type="text" class="form-control" name="title" />
+                                <label for="Air condition">Air condition Price<span class="require">*</span></label>
+                                <input type="text" class="form-control" name="ac_price" />
                             </div>
                             <div class="form-group">
-                                <label for="title">Heater<span class="require">*</span></label>
-                                <input type="text" class="form-control" name="title" />
+                                <label for="title">Heater Price<span class="require">*</span></label>
+                                <input type="text" class="form-control" name="heater_price" />
                             </div>
                             <div class="form-group">
-                                <label for="title">DJ System<span class="require">*</span></label>
-                                <input type="text" class="form-control" name="title" />
+                                <label for="title">DJ System Price<span class="require">*</span></label>
+                                <input type="text" class="form-control" name="dj_system_price" />
                             </div>
                             <div class="form-group">
-                                <label for="title">Decoration<span class="require">*</span></label>
-                                <input type="text" class="form-control" name="title" />
+                                <label for="title">Decoration Price<span class="require">*</span></label>
+                                <input type="text" class="form-control" name="decoration_price" />
                             </div>
                         </div>
                     </div>
@@ -75,16 +97,16 @@
                         <h2 style="padding: 3%">Dish Menu</h2>
                         <div class="col-md-10" style="padding-left: 20%;padding-bottom:10%">
                             <div class="form-group">
-                                <label for="title">Title<span class="require">*</span></label>
-                                <input type="text" class="form-control" name="title" />
+                                <label for="title">Dish Title<span class="require">*</span></label>
+                                <input type="text" class="form-control" name="dish_title" />
                             </div>
                             <div class="form-group">
-                                <label for="title">Description<span class="require">*</span></label>
-                                <input type="text" class="form-control" name="title" />
+                                <label for="description">Description<span class="require">*</span></label>
+                                <input type="text" class="form-control" name="dish_description" />
                             </div>
                             <div class="form-group">
-                                <label for="title">Price<span class="require">*</span></label>
-                                <input type="text" class="form-control" name="title" />
+                                <label for="price">Price<span class="require">*</span></label>
+                                <input type="text" class="form-control" name="price" />
                             </div>
                         </div>
                     </div>
@@ -93,64 +115,65 @@
                         <h2 style="padding: 3%">Details</h2>
                         <div class="col-md-10" style="padding-left: 20%;padding-bottom:10%">
                             <div class="form-group">
-                                <label for="title">Sitting Capacity<span class="require">*</span></label>
-                                <input type="text" class="form-control" name="title" />
+                                <label for="Sitting Capacity">Sitting Capacity<span class="require">*</span></label>
+                                <input type="text" class="form-control" name="sitting_capacity" />
                             </div>
                             <div class="form-group">
-                                <label for="title">Parking Capacity<span class="require">*</span></label>
-                                <input type="text" class="form-control" name="title" />
+                                <label for="Parking Capacity">Parking Capacity<span class="require">*</span></label>
+                                <input type="text" class="form-control" name="parking_capacity" />
                             </div>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="">Decoration
+                                    <input type="checkbox" class="form-check-input" name="decoration">Decoration
                                 </label>
                             </div>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="">Wi-fi
+                                    <input type="checkbox" class="form-check-input" name="wifi">Wi-fi
                                 </label>
                             </div>
 
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="">valet parking
+                                    <input type="checkbox" class="form-check-input" name="valet_parking">valet parking
                                 </label>
                             </div>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="">Heater
+                                    <input type="checkbox" class="form-check-input" name="heater">Heater
                                 </label>
                             </div>
                             <div class="fom-check"></div>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="">Air Condition
+                                    <input type="checkbox" class="form-check-input" name="ac">Air Condition
                                 </label>
                             </div>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="">DJ System
+                                    <input type="checkbox" class="form-check-input" name="dj_system">DJ System
                                 </label>
                             </div>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="">Bridal Room
+                                    <input type="checkbox" class="form-check-input" name="bridal_room">Bridal Room
                                 </label>
                             </div>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="">Generator
+                                    <input type="checkbox" class="form-check-input" name="generator">Generator
                                 </label>
                             </div>
-                            <div class="fom-check"></div>                   
+                            <div class="fom-check"></div>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="">Outside DJ
+                                    <input type="checkbox" class="form-check-input" name="outside_dj">Outside DJ
                                 </label>
                             </div>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="">Outside Decoration
+                                    <input type="checkbox" class="form-check-input" name="outside_decoration">Outside
+                                    Decoration
                                 </label>
                             </div>
                         </div>
@@ -158,7 +181,7 @@
 
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">
-                            Create
+                            Add
                         </button>
                         <button class="btn btn-default">
                             Cancel
