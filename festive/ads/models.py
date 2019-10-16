@@ -27,14 +27,22 @@ class Location(models.Model):
 
 class Detail(models.Model):
 
+	hotel_rating_choices  = (
+		('1','1'),
+		('2','2'),
+		('3','3'),
+		('4','4'),
+		('5','5'),
+	)
+
 	title = models.CharField(max_length=100)
 	loction_id = models.ForeignKey(Location, verbose_name="Location", on_delete=models.CASCADE)
 	phoneNo = models.CharField( max_length=20)
 	postDate = models.DateTimeField(default=timezone.now)
-	featured = models.BooleanField()
+	featured = models.BooleanField(default=False)
 	description = models.TextField()
-	rating = models.IntegerField()
-	views = models.IntegerField()
+	rating = models.IntegerField(choices=hotel_rating_choices, default=3)
+	views = models.IntegerField(default=0)
 
 	class Meta:
 		verbose_name = "Detail"
@@ -102,18 +110,17 @@ class Venue(models.Model):
 	sitting_capacity = models.IntegerField()
 	category = models.IntegerField(choices=STATUS_CHOICES, default=1) 
 	parking_capacity = models.IntegerField()
-	min_guest = models.IntegerField()
-	air_conditioner = models.BooleanField()
-	heater = models.BooleanField()
-	dj_system = models.BooleanField()
-	wifi = models.BooleanField()
-	bridal_room = models.BooleanField()
-	valet_parking = models.BooleanField()
-	decoration = models.BooleanField()
-	generator = models.BooleanField()
-	outside_catering = models.BooleanField()
-	outside_dj = models.BooleanField()
-	outside_decoration = models.BooleanField()
+	air_conditioner = models.BooleanField(default=False)
+	heater = models.BooleanField(default=False)
+	dj_system = models.BooleanField(default=False)
+	wifi = models.BooleanField(default=False)
+	bridal_room = models.BooleanField(default=False)
+	valet_parking = models.BooleanField(default=False)
+	decoration = models.BooleanField(default=False)
+	generator = models.BooleanField(default=False)
+	outside_catering = models.BooleanField(default=False)
+	outside_dj = models.BooleanField(default=False)
+	outside_decoration = models.BooleanField(default=False)
 
 	
 

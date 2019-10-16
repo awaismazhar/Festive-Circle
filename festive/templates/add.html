@@ -11,7 +11,7 @@
         function preview_images() {
             var total_file = document.getElementById("images").files.length;
             for (var i = 0; i < total_file; i++) {
-                
+
                 $('#image_preview').append("<div class='col-md-3'><img class='img-responsive' src='" + URL
                     .createObjectURL(event.target.files[i]) + "'></div>");
             }
@@ -20,7 +20,7 @@
     <title>Add Venue Details</title>
 </head>
 
-<body style="background-color:rgb(238, 236, 236)">
+<body style="background-color:rgb(246, 243, 243)">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">
             <h2>Festive Circle</h2>
@@ -32,11 +32,11 @@
                     {% csrf_token %}
 
 
-                    <div class="container" style="background-color:rgb(255, 255, 255)">
+                    <div class="container" style="background-color:rgb(255, 255, 255); margin-bottom: 50px">
                         <h2 style="padding: 3%">Add Information</h2>
                         <div class="col-md-10" style="padding-left: 20%;padding-bottom:10%">
                             <div class="form-group has-error">
-                                <label for="title">Title <span class="require">*</span></label>
+                                <label for="title">Venue Title<span class="require">*</span></label>
                                 <input type="text" class="form-control" name="post_title" />
                             </div>
                             <div class="form-group">
@@ -57,10 +57,10 @@
                             </div>
                             <div class="form-group">
                                 <label for="image">Images<span class="require">*</span></label>
-                                <input type="file" class="form-control" id="images" name="images[]"
+                                <input type="file" class="form-control" id="images" name="images"
                                     onchange="preview_images();" multiple />
                             </div>
-                            <div class="row" id="image_preview"></div>
+                            <div class="form-group" id="image_preview"></div>
                             <div class="form-group">
                                 <label for="description">Description</label>
                                 <textarea rows="5" class="form-control" name="post_description"></textarea>
@@ -68,7 +68,7 @@
                         </div>
                     </div>
 
-                    <div class="container" style="background-color:rgb(255, 255, 255)">
+                    <div class="container" style="background-color:rgb(255, 255, 255); margin-bottom: 50px">
                         <h2 style="padding: 3%">Venue Price</h2>
                         <div class="col-md-10" style="padding-left: 20%;padding-bottom:10%">
                             <div class="form-group">
@@ -93,25 +93,25 @@
                             </div>
                         </div>
                     </div>
-                    <div class="container" style="background-color:rgb(255, 255, 255)">
+                    <div class="container" style="background-color:rgb(255, 255, 255); margin-bottom: 50px">
                         <h2 style="padding: 3%">Dish Menu</h2>
                         <div class="col-md-10" style="padding-left: 20%;padding-bottom:10%">
                             <div class="form-group">
-                                <label for="title">Dish Title<span class="require">*</span></label>
+                                <label for="title">Menu Title<span class="require">*</span></label>
                                 <input type="text" class="form-control" name="dish_title" />
                             </div>
                             <div class="form-group">
-                                <label for="description">Description<span class="require">*</span></label>
+                                <label for="description">Menu Description<span class="require">*</span></label>
                                 <input type="text" class="form-control" name="dish_description" />
                             </div>
                             <div class="form-group">
-                                <label for="price">Price<span class="require">*</span></label>
+                                <label for="price">Menu Price<span class="require">*</span></label>
                                 <input type="text" class="form-control" name="price" />
                             </div>
                         </div>
                     </div>
 
-                    <div class="container" style="background-color:rgb(255, 255, 255)">
+                    <div class="container" style="background-color:rgb(255, 255, 255); margin-bottom: 50px">
                         <h2 style="padding: 3%">Details</h2>
                         <div class="col-md-10" style="padding-left: 20%;padding-bottom:10%">
                             <div class="form-group">
@@ -122,6 +122,22 @@
                                 <label for="Parking Capacity">Parking Capacity<span class="require">*</span></label>
                                 <input type="text" class="form-control" name="parking_capacity" />
                             </div>
+                            <div class="form-group">
+                                <label class="required" for="id_category">Category</label>
+
+                                <select name="category" id="id_category">
+                                    <option value="1">Banquet Hall</option>
+
+                                    <option value="2">Marquee</option>
+
+                                    <option value="3">Hotel Hall</option>
+
+                                    <option value="4">Farmhouse</option>
+
+                                    <option value="5">Lawn</option>
+
+                                </select>
+                            </div>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
                                     <input type="checkbox" class="form-check-input" name="decoration">Decoration
@@ -129,13 +145,13 @@
                             </div>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" name="wifi">Wi-fi
+                                    <input type="checkbox" class="form-check-input" value="True" name="wifi">Wi-fi
                                 </label>
                             </div>
 
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" name="valet_parking">valet parking
+                                    <input type="checkbox" class="form-check-input" value="True" name="valet_parking">valet parking
                                 </label>
                             </div>
                             <div class="form-check-inline">
@@ -174,6 +190,12 @@
                                 <label class="form-check-label">
                                     <input type="checkbox" class="form-check-input" name="outside_decoration">Outside
                                     Decoration
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" name="outside_catering">Outside
+                                    Catering
                                 </label>
                             </div>
                         </div>
