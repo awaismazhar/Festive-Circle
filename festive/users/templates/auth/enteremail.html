@@ -1,0 +1,11 @@
+{% extends 'auth/base.html' %}
+{% block content %}
+<form action='' method = 'POST'> {% csrf_token %}
+    Email:<br>
+    <input type="text" name="email"><br>
+    <button type="sumbit">Enter</button>
+</form>
+<form action="{% url 'home' %}" method='GET'>
+    <button type="sumbit">Goto Home</button>
+</form>
+{% endblock %}

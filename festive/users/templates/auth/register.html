@@ -1,0 +1,20 @@
+{% extends 'auth/base.html' %}
+{% block content %}
+<form action='' enctype='multipart/form-data' method = 'POST'> {% csrf_token %}
+    Email:<br>
+    <input type="text" name="email"><br>
+    Name:<br>
+    <input type="text" name="name"><br>
+    Image:<br>
+    <input type="file" name="pfp" accept="image/*"><br>
+    Address:<br>
+    <textarea name="address" rows="10" cols="30">Enter your address here...</textarea><br>
+    DOB:<br>
+    <input type="date" name="dob"><br>
+    About me:<br>
+    <textarea name="about me" rows="10" cols="30">Tell us about yourself here...</textarea><br>
+    Password:<br>
+    <input type="password" name="password"><br>
+    <button type="sumbit">Enter</button>
+</form>
+{% endblock %}
