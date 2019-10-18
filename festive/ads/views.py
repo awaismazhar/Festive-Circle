@@ -1,10 +1,47 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from .models import Location,Detail,images,Venue,VenuePrice,Dish_Menu
 
 # Create your views here.
+
+def display(request, id):
+    detail = Detail.objects.get(id=id)
+    image = images.objects.get(detail_id=id)
+    venue = Venue.objects.get(detail_id=id)
+    venuePrice = VenuePrice.objects.get(venue_id=venue)
+    dishMenu = Dish_Menu.objects.get(venue_id=venue)
+    context = {
+       'details':detail,
+       'images':image,
+       'venues':venue,
+       'venuePrices':venuePrice,
+       'dishMenus':dishMenu,
+    }
+    return render(request,"display.html", context)
+    
 def main(request):
-    return render(request,"main.html")
+    detail = Detail.objects.all()
+    return render(request,"main.html",{'details':detail})
+
+def edit(request, id):
+    detail = Detail.objects.get(id=id)
+    image = images.objects.get(detail_id=id)
+    venue = Venue.objects.get(detail_id=id)
+    venuePrice = VenuePrice.objects.get(venue_id=venue)
+    dishMenu = Dish_Menu.objects.get(venue_id=venue)
+    context = {
+       'details':detail,
+       'images':image,
+       'venues':venue,
+       'venuePrices':venuePrice,
+       'dishMenus':dishMenu,
+    }
+    return render(request,"edit.html", context)
+
+def delete(request,id):
+      location = Location.objects.get(id=id)
+      return render(request,'delete.html',{'loctions':location})
+
 
 def add(request):
     if request.method == 'POST':
@@ -26,9 +63,7 @@ def add(request):
         parking_capacity =request.POST.get('parking_capacity')
         decoration =request.POST.get('decoration')
         wifi =request.POST.get('wifi')
-        print(wifi)
         valet_parking =request.POST.get('valet_parking')
-        print(valet_parking)
         heater =request.POST.get('heater')
         ac =request.POST.get('ac')
         dj_system =request.POST.get('dj_system')
@@ -50,7 +85,7 @@ def add(request):
         venuePrice = VenuePrice.objects.create(venue_id=venue,per_guest=guest_price,air_conditioner=ac_price,heater=heater_price,dj_system=dj_system_price,decoration=decoration_price)
         dish_Menu = Dish_Menu.objects.create(venue_id=venue,title=dish_title,description=dish_description,price=price)
         print('post add')
-        return redirect('')
+        return redirect('/')
 
     else:
         return render(request,'add.html')

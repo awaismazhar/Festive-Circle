@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Venue</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Festive Circle</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Banquet Hall</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Marquee</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Hotel Hall</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Farmhouse</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Lawn</a>
+                </li>
+
+            </ul>
+
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+    <a href="{% url 'edit' rec.id %}">edit</a>/ <a href="{% url 'delete' rec.id %}">delete</a>
+
+    <div>{{details.title}}</div>
+    <div>{{details.loction_id}}</div>
+    <div>{{details.phoneNo}}</div>
+    <div>{{details.postDate}}</div>
+    <div>{{details.description}}</div>
+
+    <div>{{images.title}}</div>
+    <div>{{images.image}}</div>
+
+    <div>{{venues.category}}</div>
+    <div>{{venues.sitting_capacity}}</div>
+    <div>{{venues.author}}</div>
+    <div>{{venues.parking_capacity}}</div>
+    <div>{{venues.air_conditioner}}</div>
+    <div>{{venues.heater}}</div>
+    <div>{{venues.dj_system}}</div>
+    <div>{{venues.wifi}}</div>
+    <div>{{venues.bridal_room}}</div>
+    <div>{{venues.valet_parking}}</div>
+    <div>{{venues.decoration}}</div>
+    <div>{{venues.generator}}</div>
+    <div>{{venues.outside_catering}}</div>
+    <div>{{venues.outside_dj}}</div>
+    <div>{{venues.outside_decoration}}</div>
+
+    <div>{{venuePrices.per_guest}}</div>
+    <div>{{venuePrices.air_conditioner}}</div>
+    <div>{{venuePrices.heater}}</div>
+    <div>{{venuePrices.dj_system}}</div>
+    <div>{{venuePrices.decoration}}</div>
+
+    <div>{{dishMenus.title}}</div>
+    <div>{{dishMenus.description}}</div>
+    <div>{{dishMenus.price}}</div>
+
+
+
+</body>
+
+</html>
