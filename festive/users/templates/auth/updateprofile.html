@@ -1,0 +1,20 @@
+{% extends 'auth/base.html' %}
+{% block content %}
+<form action='' enctype='multipart/form-data' method = 'POST'> {% csrf_token %}
+    Email<br>
+    <input type="text" name="email" required value="{{ user.email }}"><br><br>
+    Name<br>
+    <input type="text" name="name" required value="{{ user.name }}"><br><br>
+    <img {% if user.pfp %} src="{{ user.pfp.url }}" {% else %} src="/media/images/no_pfp.png" {% endif %} style="width:200px;height:200px;"><br>
+    Choose new picture<br>
+    <input type="file" name="pfp" accept="image/*" ><br><br>
+    Address<br>
+    <textarea maxlength="10" minlength="5" name="address" rows="10" cols="30" >{{ user.address }}</textarea><br><br>
+    DOB<br>
+    <input type="date" id="start" name="dob" value="{{user.dob|date:"Y-m-d"}}"><br>
+    About me<br>
+    <textarea maxlength="20" minlength="10" name="about me" rows="10" cols="30" >{{ user.about_me }}</textarea><br><br>
+   
+    <button type="sumbit">Update</button>
+</form>
+{% endblock %}

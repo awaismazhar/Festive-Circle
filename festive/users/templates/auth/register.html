@@ -2,19 +2,19 @@
 {% block content %}
 <form action='' enctype='multipart/form-data' method = 'POST'> {% csrf_token %}
     Email:<br>
-    <input type="text" name="email"><br>
+    <input type="text" name="email" required><br>
     Name:<br>
-    <input type="text" name="name"><br>
+    <input type="text" name="name" required><br>
     Image:<br>
-    <input type="file" name="pfp" accept="image/*"><br>
+    <input type="file" name="pfp" accept="image/*" ><br>
     Address:<br>
-    <textarea name="address" rows="10" cols="30">Enter your address here...</textarea><br>
+    <textarea name="address" rows="10" cols="30" >Enter your address here...</textarea><br>
     DOB:<br>
-    <input type="date" name="dob"><br>
+    <input type="date" name="dob" required><br>
     About me:<br>
-    <textarea name="about me" rows="10" cols="30">Tell us about yourself here...</textarea><br>
+    <textarea name="about me" rows="10" cols="30" >Tell us about yourself here...</textarea><br>
     Password:<br>
-    <input type="password" name="password"><br>
+    <input type="password" name="password" required><br>
     <button type="sumbit">Enter</button>
 </form>
 {% endblock %}
