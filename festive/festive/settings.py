@@ -183,4 +183,4 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'aliey8998@gmail.com'
-EMAIL_HOST_PASSWORD = 'iamasinner'
+EMAIL_HOST_PASSWORD = 'password'
