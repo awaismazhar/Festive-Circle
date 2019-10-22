@@ -45,9 +45,9 @@ def password_reset_request(request):
             context = {
                 'message': 'This email is not registered'
             }
-            return render(request, 'auth/enteremail.html', context)
+            return render(request, 'users/enteremail.html', context)
     else:
-        return render(request, 'auth/enteremail.html')
+        return render(request, 'users/enteremail.html')
         
 def match_code_request(request):
   if request.method == 'POST':
@@ -66,9 +66,9 @@ def match_code_request(request):
         context = {
              'message': 'You enterd wrong reset code'
           }
-        return render(request, 'auth/emailcode.html', context)
+        return render(request, 'users/emailcode.html', context)
   else:
-    return render(request, 'auth/emailcode.html')
+    return render(request, 'users/emailcode.html')
 
 def new_password_request(request):
   if request.method == 'POST':
@@ -78,7 +78,7 @@ def new_password_request(request):
     user.save()
     return redirect('home')
   else:
-    return render(request, 'auth/enternewpassword.html')
+    return render(request, 'users/enternewpassword.html')
 
 
 def login(request):
@@ -101,12 +101,12 @@ def login(request):
                   return redirect('home')
                 else:
                   context = { 'message': "You've entered incorrect credentials" }
-                return render(request, 'auth/login.html', context)
+                return render(request, 'users/login.html', context)
             else:
               context = {'message': 'This user does not exist'}
-              return render(request, 'auth/login.html', context)
+              return render(request, 'users/login.html', context)
         else:
-            return render(request, 'auth/login.html')
+            return render(request, 'users/login.html')
 
 
 def register_request(request):
@@ -118,7 +118,7 @@ def register_request(request):
             
             if User.objects.filter(email=email).exists():
                 context = {'message': 'This email is already registered'}
-                return render(request, 'auth/login.html', context)
+                return render(request, 'users/login.html', context)
             else:
                 password = request.POST.get('password')
                 name = request.POST.get('name')
@@ -146,7 +146,7 @@ def register_request(request):
                 else:
                   return redirect('home')
         else:
-            return render(request, 'auth/register.html')
+            return render(request, 'users/register.html')
 
 
 @login_required
@@ -170,20 +170,55 @@ def change_password_request(request):
           context = {
              'message': "Your password has been chnaged."
           }
-          return render(request, 'auth/home.html', context)
+          return render(request, 'users/home.html', context)
         else:
           context = {
              'message': "You've entered a wrong password"
           }
-          return render(request, 'auth/change_password.html', context)
+          return render(request, 'users/change_password.html', context)
       else:
         context = {
             'message': "New password fields won't match"
         }
-        return render(request, 'auth/change_password.html', context)      
+        return render(request, 'user/change_password.html', context)      
     else:
-      return render(request, 'auth/change_password.html')
+      return render(request, 'users/change_password.html')
 
 
 def home(request):
-    return render(request, 'auth/home.html')
+    return render(request, 'users/home.html')
+    
+@login_required
+def display_profile_request(request):
+  return render(request, 'users/displayprofile.html')
+
+@login_required
+def update_profile_request(request):
+  if request.method == 'POST':
+    email = request.POST.get('email')
+    name = request.POST.get('name')
+    address = request.POST.get('address')
+    dob = request.POST.get('dob')
+    about_me = request.POST.get('about me')
+    # if request.FILES['pfp'] is None:
+    user = User.objects.get(id=request.session['user_id'])
+    if request.FILES:
+      pfp = request.FILES['pfp']
+    else:
+      pfp = user.pfp
+
+    user.email = email
+    user.name = name
+    user.address = address
+    user.dob = dob
+    user.about_me = about_me
+    user.pfp = pfp
+    user.save()
+    update_session_auth_hash(request, user)
+
+    context = {
+            'message': "Your profile has been updated"
+        }
+    return redirect('displayprofile')      
+  else:
+    return render(request, 'users/updateprofile.html')

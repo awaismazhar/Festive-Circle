@@ -3,7 +3,8 @@ from django.conf.urls import url
 from django.contrib.auth import views
 from .views import (login, register_request, 
 logout_request, password_reset_request, match_code_request,
-new_password_request, home, change_password_request)
+new_password_request, home, change_password_request, update_profile_request, 
+display_profile_request)
 from django.conf import settings
 from django.conf.urls.static import static # new
 
@@ -17,6 +18,8 @@ urlpatterns = [
     path('emailcode/', match_code_request, name='emailcode'),
     path('newpass/', new_password_request, name='newpassword'),
     path('changepassword/', change_password_request, name='changepassword'),
+    path('updateprofile/', update_profile_request, name='updateprofile'),
+    path('displayprofile/', display_profile_request, name='displayprofile'),
 ]
 
 if settings.DEBUG: 
