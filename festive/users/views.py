@@ -189,14 +189,14 @@ def change_password_request(request):
           context = {
              'message': "You've entered a wrong password"
           }
-          return render(request, 'users/change_password.html', context)
+          return render(request, 'users/changepassword.html', context)
       else:
         context = {
             'message': "New password fields won't match"
         }
         return render(request, 'users/change_password.html', context)      
     else:
-      return render(request, 'users/change_password.html')
+      return render(request, 'users/changepassword.html')
 
 
 def home(request):

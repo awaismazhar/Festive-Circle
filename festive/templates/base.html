@@ -18,28 +18,41 @@
   <body style="background-color: #F7F9F9" >
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
       <a class="navbar-brand" href="{% url 'home' %}">Festive Circle</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    
+
       <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav ml-auto">
+          {% if user.is_authenticated %}
+          {% if  user.socialaccount_set.all.0.uid == None %}
+          <li class="nav-item">
+            <a class="nav-link" >Welcome {{ user.name }}</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" >Welcome {{ user.socialaccount_set.all.0.extra_data.name }}</a>
+          </li>
+          {% endif %}
+          {% endif %}
           <li class="nav-item active">
             <a class="nav-link p" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
           </li>
+
           {% if user.is_authenticated %}
-          <li class="nav-item">
-            <a class="nav-link" >Welcome {{ user.email }}</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'changepassword' %}">Change Password</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'updateprofile' %}">Update Profile</a>
-          </li>
+          <div class="dropdown">
+          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+            Account
+          </button>
+          <div class="dropdown-menu dropdown-menu-right">
+          <a class="dropdown-item" href="{% url 'displayprofile' %}">Display Profile</a>    
+          {% if  user.socialaccount_set.all.0.uid == None %}
+
+           
+            <a class="dropdown-item" href="{% url 'updateprofile' %}">Update Profile</a>
+            <a class="dropdown-item" href="{% url 'changepassword' %}">Change Password</a>
+            {% endif %}
+            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+          </div>
+        </div>
+      
           {% else %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'login' %}">Login</a>
