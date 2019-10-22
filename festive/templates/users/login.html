@@ -20,8 +20,8 @@
 <form action="{% provider_login_url 'google' %}" method='GET'>
   <button type="sumbit">Login with gmail</button>
 </form>
-<form action="" method='GET'>
-  <button type="sumbit">Forgot Password</button>
+<form action="{% url 'recoverpassword' %}" method='GET'>
+  <button type="sumbit">Forgot Password?</button>
 </form>
 
 

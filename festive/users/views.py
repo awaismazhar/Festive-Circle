@@ -10,12 +10,13 @@ from django.core.files.storage import FileSystemStorage
 
 User = get_user_model()
 
+
 def generate_code(email):
 
   code = ""
   for x in range(4):
     code = code + str(random.randint(0, 9))
-  
+
   user = User.objects.get(email=email)
   reset_code = reset_codes.objects.filter(user=user)
 
@@ -28,8 +29,9 @@ def generate_code(email):
   subject = 'Password reset code'
   message = 'Your reset code is '+code+'\n\nThank you.'
   email_from = settings.EMAIL_HOST_USER
-  recipient_list = [email,]
+  recipient_list = [email, ]
   send_mail(subject, message, email_from, recipient_list)
+
 
 def password_reset_request(request):
 
@@ -48,11 +50,12 @@ def password_reset_request(request):
             return render(request, 'users/enteremail.html', context)
     else:
         return render(request, 'users/enteremail.html')
-        
+
+
 def match_code_request(request):
   if request.method == 'POST':
     print("This is post")
-    code1 = request.POST.get('code') 
+    code1 = request.POST.get('code')
     email = request.session.get('email')
     user = User.objects.get(email=email)
     code2 = reset_codes.objects.get(user=user)
@@ -70,6 +73,7 @@ def match_code_request(request):
   else:
     return render(request, 'users/emailcode.html')
 
+
 def new_password_request(request):
   if request.method == 'POST':
     password = request.POST.get('password')
@@ -82,71 +86,81 @@ def new_password_request(request):
 
 
 def login(request):
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        if request.method == 'POST':
-            email = request.POST.get('email')
-            password = request.POST.get('password')
-            remember_me = request.POST.get('remember me')
+  if request.user.is_authenticated:
+    return redirect('home')
+  else:
+    if request.method == 'POST':
+      email = request.POST.get('email')
+      password = request.POST.get('password')
+      remember_me = request.POST.get('remember me')
 
-            if(remember_me == "on"):
-              request.session.set_expiry(60 * 10)
+      if email == "":
+        context = {'message': "You haven't entered an email"}
+        return render(request, 'users/login.html', context)
+      elif password == "":
+        context = {'message': "You haven't entered a password"}
+        return render(request, 'users/login.html', context)
 
-            if User.objects.filter(email=email).exists():
-                user = auth.authenticate(email=email, password=password)
-                if user is not None:
-                  auth.login(request, user)
-                  request.session['user_id'] = user.id
-                  return redirect('home')
-                else:
-                  context = { 'message': "You've entered incorrect credentials" }
-                return render(request, 'users/login.html', context)
-            else:
-              context = {'message': 'This user does not exist'}
-              return render(request, 'users/login.html', context)
+      if(remember_me == "on"):
+        request.session.set_expiry(60 * 10)
+
+      if User.objects.filter(email=email).exists():
+        user = auth.authenticate(email=email, password=password)
+        if user is not None:
+          auth.login(request, user)
+          request.session['user_id'] = user.id
+          return redirect('home')
         else:
-            return render(request, 'users/login.html')
+          context = {'message': "You've entered incorrect credentials"}
+          return render(request, 'users/login.html', context)
+      else:
+        context = {'message': 'This user does not exist'}
+        return render(request, 'users/login.html', context)
+    else:
+      return render(request, 'users/login.html')
 
 
 def register_request(request):
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        if request.method == 'POST':
-            email = request.POST.get('email')
-            
-            if User.objects.filter(email=email).exists():
-                context = {'message': 'This email is already registered'}
-                return render(request, 'users/login.html', context)
-            else:
-                password = request.POST.get('password')
-                name = request.POST.get('name')
-                address = request.POST.get('address')
-                dob = request.POST.get('dob')
-                about_me = request.POST.get('about me')
-                pfp = request.FILES['pfp']
-                # fs = FileSystemStorage()
-                # filename = fs.save("11", pfp)
-                # uploaded_file_url = fs.url(filename)
-                # return render(request, 'auth/login.html', {
-                #             'message': uploaded_file_url
-                # })               
-                print(password, name, address, dob, about_me)
-                user = User.objects.create_user(email=email, password=password,
-                                  name=name, dob=dob, pfp=pfp, address=address, 
-                                  about_me=about_me)
-                user.save()
+  if request.user.is_authenticated:
+    return redirect('home')
+  else:
+    if request.method == 'POST':
+      email = request.POST.get('email')
+      password = request.POST.get('password')
+      name = request.POST.get('name')
+      address = request.POST.get('address')
+      dob = request.POST.get('dob')
+      about_me = request.POST.get('about me')
+      if request.FILES:
+        pfp = request.FILES['pfp']
+      else:
+        pfp = None
+      
+      if (email == "" or name == "" or 
+            dob == "" or password == ""):
+        context = {'message': 'Form is not filled properly'}
+        return render(request, 'users/register.html', context)
 
-          
-                user = auth.authenticate(email=email, password=password)
-                if user is not None:
-                  auth.login(request, user)
-                  return redirect('home')
-                else:
-                  return redirect('home')
+      if address == "":
+          address = None
+      if about_me == "":
+          about_me = None
+      if User.objects.filter(email=email).exists():
+        context = {'message': 'This email is already registered'}
+        return render(request, 'users/register.html', context)
+      else:         
+        user = User.objects.create_user(email=email, password=password,
+                  name=name, dob=dob, pfp=pfp, address=address, 
+                    about_me=about_me)
+        user.save()
+        user = auth.authenticate(email=email, password=password)
+        if user is not None:
+          auth.login(request, user)
+          return redirect('home')
         else:
-            return render(request, 'users/register.html')
+            return redirect('home')
+    else:
+      return render(request, 'users/register.html')
 
 
 @login_required
@@ -180,14 +194,16 @@ def change_password_request(request):
         context = {
             'message': "New password fields won't match"
         }
-        return render(request, 'user/change_password.html', context)      
+        return render(request, 'users/change_password.html', context)      
     else:
       return render(request, 'users/change_password.html')
 
 
 def home(request):
-    return render(request, 'users/home.html')
-    
+  for key, value in request.session.items():
+    print('{} => {}'.format(key, value))
+  return render(request, 'main.html')
+
 @login_required
 def display_profile_request(request):
   return render(request, 'users/displayprofile.html')
