@@ -6,7 +6,7 @@ from .models import Location,Detail,images,Venue,VenuePrice,Dish_Menu
 
 def display(request, id):
     detail = Detail.objects.get(id=id)
-    image = images.objects.get(detail_id=id)
+    image = images.objects.filter(detail_id=id)
     venue = Venue.objects.get(detail_id=id)
     venuePrice = VenuePrice.objects.get(venue_id=venue)
     dishMenu = Dish_Menu.objects.get(venue_id=venue)
