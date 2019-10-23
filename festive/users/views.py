@@ -157,6 +157,7 @@ def register_request(request):
         user = auth.authenticate(email=email, password=password)
         if user is not None:
           auth.login(request, user)
+          request.session['user_id'] = user.id
           return redirect('home')
         else:
             return redirect('home')
