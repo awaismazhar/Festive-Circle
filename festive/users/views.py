@@ -181,10 +181,7 @@ def change_password_request(request):
           user.set_password(new_password)
           user.save()
           update_session_auth_hash(request, user)
-          context = {
-             'message': "Your password has been chnaged."
-          }
-          return render(request, 'users/home.html', context)
+          return redirect('home')
         else:
           context = {
              'message': "You've entered a wrong password"
@@ -194,7 +191,7 @@ def change_password_request(request):
         context = {
             'message': "New password fields won't match"
         }
-        return render(request, 'users/change_password.html', context)      
+        return render(request, 'users/changepassword.html', context)      
     else:
       return render(request, 'users/changepassword.html')
 

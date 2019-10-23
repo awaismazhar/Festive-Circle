@@ -2,10 +2,10 @@
 {% block content %}
 <form action='' method = 'POST'> {% csrf_token %}
     Email:<br>
-    <input type="text" name="email"><br>
-    <button type="sumbit">Enter</button>
+    <input type="text" name="email" required><br>
+    <button type="sumbit">Done</button>
 </form>
 <form action="{% url 'home' %}" method='GET'>
-    <button type="sumbit">Goto Home</button>
+    <button type="sumbit">Cancel</button>
 </form>
 {% endblock %}
