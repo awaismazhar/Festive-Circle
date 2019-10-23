@@ -2,20 +2,18 @@
 {% load staticfiles %}
 {% load socialaccount %}
 
-
 {% block content %}
 	
-
 <form method = 'POST'> {% csrf_token %}
         Email:<br>
-        <input type="text" name="email"><br>
+        <input type="text" name="email" required><br>
         Password:<br>
-        <input type="password" name="password"><br>
+        <input type="password" name="password" required><br>
         <label>
             <input type="checkbox" checked="checked" name="remember me">Remember me
           </label><br>       
         <button type="sumbit">Login</button>
-    </form>
+  </form>
 </form> 
 <form action="{% provider_login_url 'google' %}" method='GET'>
   <button type="sumbit">Login with gmail</button>

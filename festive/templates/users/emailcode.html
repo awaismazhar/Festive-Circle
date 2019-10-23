@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-<form action='' method = 'POST'> {% csrf_token %}
+<form action='' method='POST'> {% csrf_token %}
     Email code:<br>
-    <input type="password" name="code"><br>
-    <button type="sumbit">Enter</button>
+    <input type="password" name="code" maxlength="4" minlength="4" required><br>
+    <button type="sumbit">Done</button>
 </form>
 <form action="{% url 'home' %}" method='GET'>
     <button type="sumbit">Cancel</button>
