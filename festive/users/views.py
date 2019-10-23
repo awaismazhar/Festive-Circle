@@ -7,6 +7,7 @@ from django.conf import settings
 from .models import reset_codes
 import random
 from django.core.files.storage import FileSystemStorage
+from ads.views import main
 
 User = get_user_model()
 
@@ -199,7 +200,7 @@ def change_password_request(request):
 def home(request):
   for key, value in request.session.items():
     print('{} => {}'.format(key, value))
-  return render(request, 'main.html')
+  return redirect(main)
 
 @login_required
 def display_profile_request(request):
