@@ -1,12 +1,211 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Edit</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
+<script type="text/javascript" >
+    $("#id_category").val("{{venues.category}}");
     
-</body>
-</html>
+</script>
+  <div class="container" style="padding: 3%">
+        <div class="row">
+            <div class="container">
+                <form action="" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+
+        
+
+                    <div class="container" style="background-color:rgb(255, 255, 255); margin-bottom: 50px">
+                        <h2 style="padding: 3%">Add Information</h2>
+                        <div class="col-md-10" style="padding-left: 20%;padding-bottom:10%">
+                            <div class="form-group has-error">
+                                <label for="title">Venue Title<span class="require">*</span></label>
+                                <input type="text" class="form-control" name="post_title" value="{{ details.title }}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone No <span class="require">*</span></label>
+                                <input type="text" class="form-control" name="phone" value="{{details.phoneNo}}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="location">City<span class="require">*</span></label>
+                                <input type="text" class="form-control" name="city" value="{{details.loction_id.city}}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="location">Area<span class="require">*</span></label>
+                                <input type="text" class="form-control" name="area" value="{{details.loction_id.area}}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="location">Sreet<span class="require">*</span></label>
+                                <input type="text" class="form-control" name="street" value="{{details.loction_id.street}}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="image">Images<span class="require">*</span></label>
+                                <input type="file" class="form-control" id="images" name="images" value="{{images.image}}"
+                                    onchange="preview_images();" multiple />
+                            </div>
+                            <div class="form-group" id="image_preview"></div>
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <textarea rows="5" class="form-control" name="post_description" >{{details.description}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container" style="background-color:rgb(255, 255, 255); margin-bottom: 50px">
+                        <h2 style="padding: 3%">Venue Price</h2>
+                        <div class="col-md-10" style="padding-left: 20%;padding-bottom:10%">
+                            <div class="form-group">
+                                <label for="Price per guest">Per guest Price<span class="require">*</span></label>
+                                <input type="text" class="form-control" name="guest_price" value="{{venuePrices.per_guest}}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="Air condition">Air condition Price<span class="require">*</span></label>
+                                <input type="text" class="form-control" name="ac_price" value="{{venuePrices.air_conditioner}}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="title">Heater Price<span class="require">*</span></label>
+                                <input type="text" class="form-control" name="heater_price" value="{{venuePrices.heater}}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="title">DJ System Price<span class="require">*</span></label>
+                                <input type="text" class="form-control" name="dj_system_price" value="{{venuePrices.dj_system}}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="title">Decoration Price<span class="require">*</span></label>
+                                <input type="text" class="form-control" name="decoration_price" value="{{venuePrices.decoration}}"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container" style="background-color:rgb(255, 255, 255); margin-bottom: 50px">
+                        <h2 style="padding: 3%">Dish Menu</h2>
+                        <div class="col-md-10" style="padding-left: 20%;padding-bottom:10%">
+                            <div class="form-group">
+                                <label for="title">Menu Title<span class="require">*</span></label>
+                                <input type="text" class="form-control" name="dish_title" value="{{dishMenus.title}}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Menu Description<span class="require">*</span></label>
+                                <input type="text" class="form-control" name="dish_description" value="{{dishMenus.description}}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="price">Menu Price<span class="require">*</span></label>
+                                <input type="text" class="form-control" name="price" value="{{dishMenus.price}}"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container" style="background-color:rgb(255, 255, 255); margin-bottom: 50px">
+                        <h2 style="padding: 3%">Details</h2>
+                        <div class="col-md-10" style="padding-left: 20%;padding-bottom:10%">
+                            <div class="form-group">
+                                <label for="Sitting Capacity">Sitting Capacity<span class="require">*</span></label>
+                                <input type="text" class="form-control" name="sitting_capacity" value="{{venues.sitting_capacity}}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="Parking Capacity">Parking Capacity<span class="require">*</span></label>
+                                <input type="text" class="form-control" name="parking_capacity" value="{{venues.parking_capacity}}"/>
+                            </div>
+                            <div class="id_100">
+                                <label class="required" for="id_category">Category</label>
+                                
+                                <select name="category" id="id_category" >
+                                    <option value="Banquet Hall">Banquet Hall</option>
+
+                                    <option value="Marquee">Marquee</option>
+
+                                    <option value="Hotel Hall">Hotel Hall</option>
+
+                                    <option value="Farmhouse">Farmhouse</option>
+
+                                    <option value="Lawn">Lawn</option>
+
+                                </select>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="{{venues.decoration}}"
+                                        name="decoration" >Decoration
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="{{venues.wifi}}" name="wifi" >Wi-fi
+                                </label>
+                            </div>
+
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="{{venues.valet_parking}}"
+                                        name="valet_parking" >valet parking
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="{{venues.heater}}" name="heater">Heater
+                                </label>
+                            </div>
+                            <div class="fom-check"></div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="{{venues.air_conditioner}}" name="ac" >Air Condition
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="{{venues.dj_system}}" name="dj_system" >DJ
+                                    System
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="{{venues.bridal_room}}"
+                                        name="bridal_room" >Bridal Room
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="{{venues.generator}}"
+                                        name="generator" >Generator
+                                </label>
+                            </div>
+                            <div class="fom-check"></div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="{{venues.outside_dj}}"
+                                        name="outside_dj" >Outside DJ
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="{{venues.outside_decoration}}"
+                                        name="outside_decoration" >Outside
+                                    Decoration
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="{{venues.outside_catering}}"
+                                        name="outside_catering" >Outside
+                                    Catering
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+
+                    <div class="form-group">
+                            {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">
+                            Add
+                        </button>
+                        <button class="btn btn-default">
+                            Cancel
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}

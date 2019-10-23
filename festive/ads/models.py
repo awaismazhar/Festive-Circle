@@ -101,16 +101,16 @@ class images(models.Model):
 class Venue(models.Model):
 
 	STATUS_CHOICES = (
-		(1, "Banquet Hall"),
-		(2, "Marquee"),
-		(3, "Hotel Hall"),
-		(4, "Farmhouse"),
-		(5, "Lawn")
+		("Banquet Hall", "Banquet Hall"),
+		("Marquee", "Marquee"),
+		("Hotel Hall", "Hotel Hall"),
+		("Farmhouse", "Farmhouse"),
+		("Lawn", "Lawn")
 	)
 	author =models.ForeignKey(User, on_delete=models.CASCADE)
 	detail_id = models.ForeignKey(Detail, verbose_name="Detail", on_delete=models.CASCADE)
 	sitting_capacity = models.IntegerField()
-	category = models.IntegerField(choices=STATUS_CHOICES, default=1) 
+	category = models.CharField(choices=STATUS_CHOICES,max_length=50, default="Banquet Hall") 
 	parking_capacity = models.IntegerField()
 	air_conditioner = models.BooleanField()
 	heater = models.BooleanField()

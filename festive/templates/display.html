@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-
+<div>
+    <a href="{% url 'edit' details.id %}">edit</a>/ <a href="{% url 'delete' details.id %}">delete</a> 
+</div>
     <form action="" method="get" enctype="multipart/form-data">
-
+        
         <div>{{details.title}}</div>
         <div>{{details.loction_id}}</div>
         <div>{{details.phoneNo}}</div>

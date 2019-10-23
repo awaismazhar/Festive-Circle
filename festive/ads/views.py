@@ -21,11 +21,24 @@ def display(request, id):
     
 def main(request):
     detail = Detail.objects.all()
-    return render(request,"main.html",{'details':detail})
+    location = Location.objects.all()
+    context = {
+        'details':detail,
+        'locations':location,
+    }
+    if request.method == 'POST':
+        category =request.POST.get('category')
+        city =request.POST.get('city')
+        Area =request.POST.get('Area')
+        
+        return redirect('/')
+    else:
+        return render(request,"main.html",context)
 
 def edit(request, id):
     detail = Detail.objects.get(id=id)
-    image = images.objects.get(detail_id=id)
+    # location = Location.objects.get(id=detail.loction_id.id)
+    image = images.objects.filter(detail_id=id)
     venue = Venue.objects.get(detail_id=id)
     venuePrice = VenuePrice.objects.get(venue_id=venue)
     dishMenu = Dish_Menu.objects.get(venue_id=venue)
@@ -39,8 +52,11 @@ def edit(request, id):
     return render(request,"edit.html", context)
 
 def delete(request,id):
-      location = Location.objects.get(id=id)
-      return render(request,'delete.html',{'loctions':location})
+    location = Location.objects.get(id=id)
+    if request.method == 'POST':
+        location.delete()
+        return redirect('/')
+    return render(request,'delete.html')
 
 
 def add(request):

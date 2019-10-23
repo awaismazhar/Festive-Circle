@@ -10,8 +10,8 @@ urlpatterns = [
     path('',views.main, name='festive-circle'),
     path('add-venue',views.add, name='add'),
     path('venue/<id>/',views.display,name='display'),
-    path('<id>/edit',views.edit,name='edit'),
-    path('<id>/delete',views.delete,name='delete'),
+    path('edit/<id>/',views.edit,name='edit'),
+    path('delete/<id>/',views.delete,name='delete'),
 
     # path('main/<id>/',views.delete,name='delete'),
     # path('record/json/',views.json,name='json'),
