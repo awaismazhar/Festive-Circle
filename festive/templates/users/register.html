@@ -1,27 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
-<form action='' enctype='multipart/form-data' method = 'POST'> {% csrf_token %}
-    Email<br>
-    <input type="text" name="email" required><br>
-    Name<br>
-    <input type="text" name="name" required><br>
-    Image(Optional)<br>
-    <input type="file" name="pfp" accept="image/*"><br>
-    DOB<br>
-    <input type="date" name="dob" required><br>
-    Address(Optional)<br>
-    <textarea name="address" rows="10" cols="30">Enter your address here...</textarea><br>
-    About me(Optional)<br>
-    <textarea name="about me" rows="10" cols="30">Tell us about yourself here...</textarea><br>
-    Password<br>
-    <input type="password" name="password" required><br>
-    <button type="sumbit">Create</button>
-</form>
 
-<br><br><br><br><br>
-<div style="width:800px; margin:0 auto;" action='' method='POST'> {% csrf_token %}
-  <form class="form-horizontal" method = 'POST'> {% csrf_token %}
-    
+
+<br><br><br>
+
+<div class="d-flex justify-content-center align-items-center"  action='' enctype='multipart/form-data' method = 'POST'> {% csrf_token %}
+  
+  <form class="form-horizontal col-md-6 bg-light" method = 'POST'> {% csrf_token %}
+
+      <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10 mt-4">
+              <h3>  Registeration Form</h3>
+              <p class="lead">  Fill in the form to register an account.</p>
+          </div>
+        </div>
+
     <div class="form-group">
       <label class="control-label col-sm-2" for="pwd">Email</label>
       <div class="col-sm-10">
@@ -30,24 +23,30 @@
     </div>
 
     <div class="form-group">
-            <label class="control-label col-sm-2" for="pwd">Name</label>
+      <label class="control-label col-sm-2" for="pwd">Password</label>
+      <div class="col-sm-10">
+        <input type="password" class="form-control" id="pwd" placeholder="Enter your password here."  name="password" required>
+      </div>
+  </div>
+
+    <div class="form-group">
+            <label class="control-label col-sm-2" for="pwd">Full Name</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="pwd" placeholder="Name"  name="name" required>
             </div>
     </div>
 
- 
+
+
     <div class="form-group">
             <label class="control-label col-sm-2" for="pwd">Image(Optional)</label>
             <div class="col-sm-10">
                     <div class="input-group">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-                            </div>
+
                             <div class="custom-file">
-                              <input  type="file" name="pfp" accept="image/*" class="custom-file-input" id="inputGroupFile01"
+                              <input id="pic" type="file" name="pfp" accept="image/*" class="custom-file-input" id="inputGroupFile01"
                                 aria-describedby="inputGroupFileAddon01">
-                              <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                              <label class="custom-file-label" for="inputGroupFile01"></label>
                             </div>
                           </div>        
             </div> 
@@ -75,18 +74,13 @@
             </div>
     </div>
 
-    <div class="form-group">
-            <label class="control-label col-sm-2" for="pwd">Password</label>
-            <div class="col-sm-10">
-              <input type="password" class="form-control" id="pwd" placeholder="Enter your password here."  name="password" required>
-            </div>
-    </div>
 
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-primary">Register</button>
       </div>
     </div>
   </form>
 </div>
+
 {% endblock %}
