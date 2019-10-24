@@ -1,5 +1,76 @@
 {% extends 'base.html' %}
 {% block content %}
+
+<br><br><br>
+
+<div class="d-flex justify-content-center align-items-center"  action='' enctype='multipart/form-data' method = 'POST'> {% csrf_token %}
+  
+  <form class="form-horizontal col-md-6 bg-light" method = 'POST'> {% csrf_token %}
+
+      <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10 mt-4">
+              <h3>Add Information</h3>
+              <p class="lead">Fill in information about your Venue.</p>
+          </div>
+        </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-4" for="pwd">Venue Title</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="pwd" placeholder="Enter venue title"  name="post_title" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-4" for="pwd">Phone Number</label>
+      <div class="col-sm-10">
+        <input type="password" class="form-control" id="pwd" placeholder="Enter your phone number here."  name="phone" required>
+      </div>
+  </div>
+
+    <div class="form-group">
+            <label class="control-label col-sm-4" for="pwd">City</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="pwd" placeholder="Enter your city here."  name="city" required>
+            </div>
+    </div>
+    <div class="form-group">
+            <label class="control-label col-sm-4" for="pwd">Area</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="pwd" placeholder="Enter your area here."  name="area" required>
+            </div>
+    </div>
+
+    <div class="form-group">
+            <label class="control-label col-sm-4" for="pwd">Street</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="pwd" placeholder="Enter your street here."  name="street" required>
+            </div>
+    </div>
+    <div class="form-group">
+            <label class="control-label col-sm-4" for="pwd">Images</label>
+            <div class="col-sm-10">
+                    <div class="input-group">
+
+                            <div class="custom-file">
+                              <input id="pic" type="file" name="images" accept="image/*" class="custom-file-input" id="inputGroupFile01"
+                                aria-describedby="inputGroupFileAddon01" multiple>
+                              <label class="custom-file-label" for="inputGroupFile01"></label>
+                            </div>
+                          </div>        
+            </div> 
+    </div>
+    
+    <div class="form-group">
+            <label class="control-label col-md-4" for="pwd">Description</label>
+            <div class="col-sm-10">
+                <textarea name="post_description" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" ></textarea>
+
+            </div>
+    </div>
+
+  </form>
+</div>
     <div class="container" style="padding: 3%">
         <div class="row">
             <div class="container">

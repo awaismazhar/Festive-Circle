@@ -1,7 +1,7 @@
 </html>
 <!doctype html>
 <html lang="en">
-  <head>
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,55 +10,60 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Fontawesome -->
     <script src="https://kit.fontawesome.com/aab5290cf7.js" crossorigin="anonymous"></script> 
+
     <title>Festive Circle</title>
     {% block scripts %}
     {% endblock %}
   </head>
 
-  <body style="background-color: #F7F9F9" >
+  <body >
+    <div class="col-xs-12">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
-      <a class="navbar-brand" href="{% url 'home' %}">Festive Circle</a>
+      <a class="lead navbar-brand" href="{% url 'home' %}">Festive Circle</a>
 
-      <div class="collapse navbar-collapse" id="navbarColor02">
+      <div class="collapse navbar-collapse " >
         <ul class="navbar-nav ml-auto">
           {% if user.is_authenticated %}
           {% if  user.socialaccount_set.all.0.uid == None %}
-          <li class="nav-item">
-            <a class="nav-link" >Welcome {{ user.name }}</a>
+          <li class="nav-item active">
+            <a class="nav-link lead" >Welcome {{ user.name }}</a>
           </li>
           {% else %}
           <li class="nav-item">
-            <a class="nav-link" >Welcome {{ user.socialaccount_set.all.0.extra_data.name }}</a>
+            <a class="lead nav-link" >Welcome {{ user.socialaccount_set.all.0.extra_data.name }}</a>
           </li>
           {% endif %}
           {% endif %}
-          <li class="nav-item active">
-            <a class="nav-link p" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+          <li class="nav-item">
+            <a class="lead nav-link " href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
           </li>
 
           {% if user.is_authenticated %}
+          <li class="nav-item">
+              <a class="lead nav-link" href="{% url 'add'%}">Add Post <span class="sr-only">(current)</span></a>
+          </li>
           <div class="dropdown">
-          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
-            Account
+          <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown">
+            <a class="lead">Account</a>
           </button>
           <div class="dropdown-menu dropdown-menu-right">
-          <a class="dropdown-item" href="{% url 'displayprofile' %}">Display Profile</a>    
+          <a class="lead dropdown-item" href="{% url 'displayprofile' %}"><small>Display Profile</small></small></a>    
           {% if  user.socialaccount_set.all.0.uid == None %}
 
            
-            <a class="dropdown-item" href="{% url 'updateprofile' %}">Update Profile</a>
-            <a class="dropdown-item" href="{% url 'changepassword' %}">Change Password</a>
+            <a class="lead dropdown-item" href="{% url 'updateprofile' %}"><small>Update Profile</small></a>
+            <a class="lead dropdown-item" href="{% url 'changepassword' %}"><small>Password</small></a>
             {% endif %}
-            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+            <a class="lead dropdown-item" href="{% url 'logout' %}"><small>Logout</small></a>
           </div>
         </div>
       
           {% else %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'login' %}">Login</a>
+            <a class="lead nav-link" href="{% url 'login' %}">Login</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'register' %}">Register</a>
+            <a class="lead nav-link" href="{% url 'register' %}">Register</a>
           </li>
 
           {% endif %}
@@ -72,9 +77,8 @@
     {% block messages %}
         <h2>{{ message }}</h2>
     {% endblock %}
-    {% block footscripts %}
-    
-    {% endblock %}
+  </div>
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
