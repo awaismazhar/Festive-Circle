@@ -1,33 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<<<<<<< HEAD
-<form action="{% url 'add'%}" method="GET">
 
-
-  <button type="submit" class="btn btn-primary btn-sm" style="float: right;">Add Post</button>
-</form>
-
-<form action="" method="POST"> {% csrf_token %}
-<div class="form-group">
-
-  <h1>Find your Shadi Ghar</h1>
+<div>
+  <br>
+  <div class="ml-3">
+    <h2>Festive Circle</h2>
+    <p class="lead"> Fill in the search form to find your desired venues and services.
+    </p>
+  </div>
   <select name="category" id="id_category" style="float:left;height:40px;width:200px">
-    <option value="" disabled selected>Category</option>
-=======
+    <option value="">Category</option>
 
-  <div >
-    <br>
-    <div class="ml-3">
-      <h2>Festive Circle</h2>
-      <p class="lead"> Fill in the search form to find your desired venues and services.
-      </p>
-    </div>
-        <select name="category" id="id_category" style="float:left;height:40px;width:200px">
-          <option value="">Category</option>
-
-          <option value="1">Banquet Hall</option>
->>>>>>> 487a09e43afa3abe2f6b27b007f3b8e323c82a3b
+    <option value="1">Banquet Hall</option>
 
     <option value="Banquet Hall">Banquet Hall</option>
 
@@ -41,11 +26,11 @@
 
   </select>
   <select name="city" id="id_city" style="float:left;height:40px;width:200px">
-   
+
     <option value="" disabled selected>City</option>
 
     {% for loc in locations %}
-    
+
     <option value="{{loc.city}}">{{loc.city}}</option>
     {% endfor %}
 
@@ -59,8 +44,8 @@
 
   </select>
 
-    <button type="submit" class="btn btn-primary btn-me" style="float: left">Search</button>
- 
+  <button type="submit" class="btn btn-primary btn-me" style="float: left">Search</button>
+
 
 
 </div>
