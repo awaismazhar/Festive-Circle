@@ -30,6 +30,7 @@
     <option value="" disabled selected>City</option>
 
     {% for loc in locations %}
+    
     <option value="{{loc.city}}">{{loc.city}}</option>
     {% endfor %}
 
@@ -37,7 +38,7 @@
   </select>
   <select name="Area" id="id_area" style="float:left;height:40px;width:200px">
     <option value="" disabled selected>Area</option>
-    {% for loc in loct %}
+    {% for loc in locations %}
     <option value="{{loc.area}}">{{loc.area}}</option>
     {% endfor %}
 

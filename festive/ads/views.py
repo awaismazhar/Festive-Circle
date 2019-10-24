@@ -10,6 +10,7 @@ def display(request, id):
     venue = Venue.objects.get(detail_id=id)
     venuePrice = VenuePrice.objects.get(venue_id=venue)
     dishMenu = Dish_Menu.objects.get(venue_id=venue)
+    print(image)
     context = {
        'details':detail,
        'images':image,
@@ -23,14 +24,13 @@ def main(request):
     detail = Detail.objects.all()
     loc = Location.objects.all()
     loc1 = loc.distinct('city')
-    city =request.POST.get('city')
-    loc2 = loc.filter(city=city)
-    print(loc2)
+    # city =request.POST.get('city')
+    # loc2 = loc.filter(city=city)
+    # print(loc2)
 
     context = {
         'details':detail,
         'locations':loc1,
-        'loct':loc2,
     }
     if request.method == 'POST':
         category = request.POST.get('category')
@@ -48,11 +48,21 @@ def main(request):
                     location = location.filter(area=area)
                     return render(request,"search.html",{'locations':location})
         else:
-            venue = Venue.objects.filter(category=category)
-            detail = Detail.objects.filter(id=venue.detail_id)
-            location = Location.objects.filter(id=detail.loction_id.id)
-            if location.city == city:
-                pass
+            if city is None:
+                location = Location.objects.filter(city=city)
+                return render(request,"search.html",{'locations':location})
+            else:
+                if area is None:
+                    location = Location.objects.filter(city=city)
+                    return render(request,"search.html",{'locations':location})
+                else:
+                    location = Location.objects.filter(city=city)
+                    location = location.filter(area=area)
+                    return render(request,"search.html",{'locations':location})
+            # venue = Venue.objects.filter(category=category)
+            # detail = Detail.objects.filter(id=venue.detail_id)
+            # location = Location.objects.filter(id=detail.loction_id.id)
+
         return redirect('/')
     else:
         return render(request,"main.html",context)

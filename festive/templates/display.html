@@ -11,8 +11,10 @@
         <div>{{details.postDate}}</div>
         <div>{{details.description}}</div>
 
-        <div>{{images.title}}</div>
-        <div>{{images.image}}</div>
+        {% for image in images %}
+        <div>{{image.title}}</div>
+        <div><img src="{{image.image.url}}" style="width:200px;height:200px;"/></div>
+        {% endfor %}
 
         <div>{{venues.category}}</div>
         <div>{{venues.sitting_capacity}}</div>
