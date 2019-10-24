@@ -21,16 +21,38 @@ def display(request, id):
     
 def main(request):
     detail = Detail.objects.all()
-    location = Location.objects.all()
+    loc = Location.objects.all()
+    loc1 = loc.distinct('city')
+    city =request.POST.get('city')
+    loc2 = loc.filter(city=city)
+    print(loc2)
+
     context = {
         'details':detail,
-        'locations':location,
+        'locations':loc1,
+        'loct':loc2,
     }
     if request.method == 'POST':
-        category =request.POST.get('category')
+        category = request.POST.get('category')
         city =request.POST.get('city')
-        Area =request.POST.get('Area')
-        
+        area =request.POST.get('Area')
+        if category is None:
+            if city is None:
+                return redirect('/')
+            else:
+                if area is None:
+                    location = Location.objects.filter(city=city)
+                    return render(request,"search.html",{'locations':location})
+                else:
+                    location = Location.objects.filter(city=city)
+                    location = location.filter(area=area)
+                    return render(request,"search.html",{'locations':location})
+        else:
+            venue = Venue.objects.filter(category=category)
+            detail = Detail.objects.filter(id=venue.detail_id)
+            location = Location.objects.filter(id=detail.loction_id.id)
+            if location.city == city:
+                pass
         return redirect('/')
     else:
         return render(request,"main.html",context)

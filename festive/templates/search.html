@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+SEARCH
+    {% for loc in locations %}
+    
+    <div>{{loc.city}}</div>
+    <div>{{loc.area}}</div><br>
+    {% endfor %}
+{% endblock %}

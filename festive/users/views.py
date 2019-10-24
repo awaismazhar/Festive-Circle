@@ -8,10 +8,6 @@ from .models import reset_codes
 import random
 from django.core.files.storage import FileSystemStorage
 from ads.views import main
-<<<<<<< HEAD
-=======
-
->>>>>>> 5337115f3b3a2f5637b8b4beb27023416fb4d9e2
 User = get_user_model()
 
 
