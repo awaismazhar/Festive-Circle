@@ -128,9 +128,15 @@ def register_request(request):
       email = request.POST.get('email')
       password = request.POST.get('password')
       name = request.POST.get('name')
-      address = request.POST.get('address')
       dob = request.POST.get('dob')
-      about_me = request.POST.get('about me')
+      address = request.POST.get('address')
+      about_me = request.POST.get('about_me')
+      
+      if about_me == "":
+        about_me = None
+      if address == "":
+        address = None
+
       if request.FILES:
         pfp = request.FILES['pfp']
       else:
