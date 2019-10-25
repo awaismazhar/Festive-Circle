@@ -135,7 +135,7 @@ def register_request(request):
         pfp = request.FILES['pfp']
       else:
         pfp = None
-      
+      print(pfp)
       if (email == "" or name == "" or 
             dob == "" or password == ""):
         context = {'message': 'Form is not filled properly'}

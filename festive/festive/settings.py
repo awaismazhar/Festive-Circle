@@ -87,26 +87,26 @@ WSGI_APPLICATION = 'festive.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER' : 'postgres',
-        'PASSWORD' : '1234',
-        'HOST' : 'localhost'
-    }
-}
-
 # DATABASES = {
-#      'default': {
-#          'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#          'NAME': 'myproject',
-#          'USER': 'postgres',
-#          'PASSWORD': 'pass',
-#          'HOST': 'localhost',
-#          'PORT': '',
-#      }
-#  }
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'postgres',
+#         'USER' : 'postgres',
+#         'PASSWORD' : '1234',
+#         'HOST' : 'localhost'
+#     }
+# }
+
+DATABASES = {
+      'default': {
+          'ENGINE': 'django.db.backends.postgresql_psycopg2',
+          'NAME': 'myproject',
+          'USER': 'postgres',
+          'PASSWORD': 'pass',
+          'HOST': 'localhost',
+          'PORT': '',
+      }
+  }
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -151,9 +151,6 @@ STATICFILES_DIRS = [
 ]
 
 AUTH_USER_MODEL = 'users.User'
-
-EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR,'static')

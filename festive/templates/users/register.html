@@ -6,7 +6,7 @@
 
 <div class="d-flex justify-content-center align-items-center"  action='' enctype='multipart/form-data' method = 'POST'> {% csrf_token %}
   
-  <form class="form-horizontal col-md-6 bg-light" method = 'POST'> {% csrf_token %}
+  <form class="form-horizontal col-md-6 bg-light" method = 'POST' enctype="multipart/form-data"> {% csrf_token %}
 
       <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10 mt-4">
@@ -25,26 +25,26 @@
     <div class="form-group">
       <label class="control-label col-sm-2" for="pwd">Password</label>
       <div class="col-sm-10">
-        <input type="password" class="form-control" id="pwd" placeholder="Enter your password here."  name="password" required>
+        <input type="password" class="form-control" id="pwd" placeholder="Enter your password here."  name="password" required minlength="6" maxlength="12">
       </div>
   </div>
 
     <div class="form-group">
             <label class="control-label col-sm-2" for="pwd">Full Name</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="pwd" placeholder="Name"  name="name" required>
+              <input type="text" class="form-control" id="pwd" placeholder="Name"  name="name" required maxlength="20" minlength="6" >
             </div>
     </div>
 
 
 
     <div class="form-group">
-            <label class="control-label col-sm-2" for="pwd">Image(Optional)</label>
+            <label class="control-label col-sm-2" for="pwd">Image (Optional)</label>
             <div class="col-sm-10">
                     <div class="input-group">
 
                             <div class="custom-file">
-                              <input id="pic" type="file" name="pfp" accept="image/*" class="custom-file-input" id="inputGroupFile01"
+                              <input id="pfp" type="file" name="pfp" accept="image/*" class="custom-file-input" id="inputGroupFile01"
                                 aria-describedby="inputGroupFileAddon01">
                               <label class="custom-file-label" for="inputGroupFile01"></label>
                             </div>
@@ -59,17 +59,17 @@
             </div>
     </div>
     <div class="form-group">
-            <label class="control-label col-md-4" for="pwd">About Me(Optional)</label>
+            <label class="control-label col-md-4" for="pwd">About Me (Optional)</label>
             <div class="col-sm-10">
-                <textarea name="about_me" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" placeholder="Tell us about yourself."></textarea>
+                <textarea name="about_me" class="form-control rounded-0" minlength="5" maxlength="15" id="exampleFormControlTextarea2" rows="3" placeholder="Tell us about yourself."></textarea>
 
             </div>
     </div>
 
     <div class="form-group">
-            <label class="control-label col-md-4" for="pwd">Address(Optional)</label>
+            <label class="control-label col-md-4" for="pwd">Address (Optional)</label>
             <div class="col-sm-10">
-                <textarea name="address" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" placeholder="Tell us your address."></textarea>
+                <textarea name="address" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" placeholder="Tell us your address." minlength="5" maxlength="15"></textarea>
 
             </div>
     </div>
@@ -83,4 +83,15 @@
   </form>
 </div>
 
+{% endblock %}
+{% block footscripts %}
+<script>
+  $('#pfp').on('change',function(){
+      //get the file name
+      var fileName = $(this).val();
+      var name = fileName.split('\\')[2];
+      //replace the "Choose a file" label
+      $(this).next('.custom-file-label').html(name);
+  })
+</script>
 {% endblock %}
