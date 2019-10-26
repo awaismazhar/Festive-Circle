@@ -204,12 +204,7 @@ def change_password_request(request):
 
 
 def home(request):
-  for key, value in request.session.items():
-    print('{} => {}'.format(key, value))
-    
-  return render(request, 'add.html')
-
-  # return redirect(main)
+  return redirect(main)
 
 @login_required
 def display_profile_request(request):
@@ -222,13 +217,21 @@ def update_profile_request(request):
     name = request.POST.get('name')
     address = request.POST.get('address')
     dob = request.POST.get('dob')
-    about_me = request.POST.get('about me')
+    about_me = request.POST.get('about_me')
+
+    if about_me == "":
+      about_me = None
+    if address == "":
+      address = None
+
     # if request.FILES['pfp'] is None:
     user = User.objects.get(id=request.session['user_id'])
     if request.FILES:
       pfp = request.FILES['pfp']
     else:
       pfp = user.pfp
+
+    print(pfp)
 
     user.email = email
     user.name = name
@@ -239,9 +242,6 @@ def update_profile_request(request):
     user.save()
     update_session_auth_hash(request, user)
 
-    context = {
-            'message': "Your profile has been updated"
-        }
     return redirect('displayprofile')      
   else:
     return render(request, 'users/updateprofile.html')
