@@ -20,9 +20,10 @@
   </head>
 
   <body >
-    <div class="col-xs-12">
+    
+    <div class="col-xs-12 bg-light">
  
-        <nav class="navbar navbar-dark py-0 navbar-expand-lg py-md-0 justify-content-end" style="background-color: #1B2631 ;">
+        <nav class="navbar navbar-dark bg-dark py-0 navbar-expand-lg py-md-0 justify-content-end" >
             {% if user.is_authenticated %}  
             <div class="navbar-collapse collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
@@ -33,16 +34,16 @@
             <div class="navbar-collapse collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item py-0"><a class="nav-link" href="{% url 'login' %}"><font size="2" >Login</font></a></li>
-                    <li class="nav-item py-0"><a class="nav-link" href="{% url 'register' %}"><font size="2" >Register</font></a></li>
+                    <li class="nav-item py-0"><a class="nav-link" href="{% url 'register' %}"><font size="2" >Signup</font></a></li>
                 </ul>
             </div>
             {% endif %}
 
         </nav>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
-        <img src="/media/icons/ball.png" class="card-img-top " style="width:45px;height:45px;">
-      <a class="lead navbar-brand ml-3" href="{% url 'home' %}"><font size="6" >Festive Circle</font></a>
+    <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: #1B2631 ;">
+      <img src="/media/icons/world.png" class="card-img-top " style="width:55px;height:55px;"> 
+      <a class="lead navbar-brand ml-3 text-white"  href="{% url 'home' %}"><font size="6"  >Festive Circle</font></a>
 
       <div class="collapse navbar-collapse " >
         <ul class="navbar-nav ml-auto">
@@ -87,12 +88,17 @@
         </ul>
       </div>
     </nav>
-
+    {% for message in messages%}
+    {% if message.tags == 'major error' %}
+    <div class="alert alert-dismissible alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Oh snap! </strong> <a class="alert-link">{{ message.tags }}</a>
+      </div>
+    {% endif %}
+    {% endfor %}
     {% block content %}
     {% endblock %}
-    {% block messages %}
-        <h2>{{ message }}</h2>
-    {% endblock %}
+
   </div>
 
     {% block footscripts %}
