@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 SEARCH
-    {% for loc in locations %}
-    
-    <div>{{loc.city}}</div>
-    <div>{{loc.area}}</div><br>
-    {% endfor %}
+<div class="container" style="margin: 10%">
+  {% for det in details %}
+  <div>
+
+    <a href="{% url 'display' det.id %}"> {{det.title}} </a>
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}

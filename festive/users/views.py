@@ -200,10 +200,7 @@ def change_password_request(request):
 def home(request):
   for key, value in request.session.items():
     print('{} => {}'.format(key, value))
-    
-  return render(request, 'add.html')
-
-  # return redirect(main)
+  return redirect(main)
 
 @login_required
 def display_profile_request(request):

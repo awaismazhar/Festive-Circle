@@ -31,6 +31,7 @@ def main(request):
     context = {
         'details':detail,
         'locations':loc1,
+        'location':loc1,
     }
     if request.method == 'POST':
         category = request.POST.get('category')
@@ -41,24 +42,31 @@ def main(request):
                 return redirect('/')
             else:
                 if area is None:
-                    location = Location.objects.filter(city=city)
-                    return render(request,"search.html",{'locations':location})
+                    # details = {}
+                    # location = Location.objects.filter(city=city)
+                    # for locs in location:
+                    #     detail = Detail.objects.get(loction_id=locs.id)
+                    #     details.add(locs.id, detail)
+                    # print(details)
+                    detail = Detail.objects.get(loction_id=city)
+                    return render(request,"search.html",{'details':details})
                 else:
                     location = Location.objects.filter(city=city)
                     location = location.filter(area=area)
-                    return render(request,"search.html",{'locations':location})
+                    detail = Detail.objects.get(loction_id=location)
+                    return render(request,"search.html",{'details':detail})
         else:
             if city is None:
                 location = Location.objects.filter(city=city)
-                return render(request,"search.html",{'locations':location})
+                return render(request,"search.html",{'details':detail})
             else:
                 if area is None:
                     location = Location.objects.filter(city=city)
-                    return render(request,"search.html",{'locations':location})
+                    return render(request,"search.html",{'details':detail})
                 else:
                     location = Location.objects.filter(city=city)
                     location = location.filter(area=area)
-                    return render(request,"search.html",{'locations':location})
+                    return render(request,"search.html",{'details':detail})
             # venue = Venue.objects.filter(category=category)
             # detail = Detail.objects.filter(id=venue.detail_id)
             # location = Location.objects.filter(id=detail.loction_id.id)

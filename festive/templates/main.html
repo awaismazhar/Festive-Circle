@@ -9,10 +9,10 @@
     <p class="lead"> Fill in the search form to find your desired venues and services.
     </p>
   </div>
+  <form action="" method="post">
+    {% csrf_token %}
   <select name="category" id="id_category" style="float:left;height:40px;width:200px">
-    <option value="">Category</option>
-
-    <option value="1">Banquet Hall</option>
+    <option value="" disabled selected>Category</option>
 
     <option value="Banquet Hall">Banquet Hall</option>
 
@@ -38,7 +38,7 @@
   </select>
   <select name="Area" id="id_area" style="float:left;height:40px;width:200px">
     <option value="" disabled selected>Area</option>
-    {% for loc in locations %}
+    {% for loc in location %}
     <option value="{{loc.area}}">{{loc.area}}</option>
     {% endfor %}
 
