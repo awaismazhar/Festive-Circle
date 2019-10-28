@@ -5,50 +5,74 @@
 {% block content %}
 	
 
-<br><br><br>
-
-
-<div class="d-flex justify-content-center align-items-center" >
+<br>
+<br>
+<div class="d-flex justify-content-center align-items-center"  >
  
-  <form class="form-horizontal col-md-6 bg-light" method = 'POST'> {% csrf_token %}
-
-      <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10 mt-4">
-              <h3> Login Form</h3>
-              <p class="lead"> Fill in your credentials to login.</p>
+  <form class="form-horizontal col-md-5 shadow p-3  border" method = 'POST' style="background-color: #E0E0E0  ;"> {% csrf_token %}
+    
+    <div class="ml-3 mr-3 mb-3">
+    
+    <div class="form-group mt-1">
+          <div class="col-sm-offset-2">
+              <h3 class="lead" ><font size="7"> Login Form</font></h3>
+              <p class="control-label ml-1"><font size="4"> Fill in your credentials to login.</font></p>
           </div>
-        </div>
+    </div>
+<div class="justify-content-center">
+    <div class="form-group mt-4 ">
+        <label class="lead " for="pwd"><font size="4" >Email</font>
+        {% for message in messages%}
+          {% if message.tags == 'email error' %}
+            <label class="text-danger" ><i class="fas fa-exclamation-circle text-danger"></i>
+            <font size="2" >{{ message }}</font></label> 
+          {% endif %}
+        {% endfor %}
+      </label>
+        <input type="email" class="form-control" id="email" placeholder="Enter your email here." name="email" minlength="10" maxlength="320"  required>
+    </div>
+    <div class="form-group ">
+      <label class="lead" for="pwd"><font size="4" >Password</font>
+        {% for message in messages%}
+          {% if message.tags == 'password error' %}
+            <label class="control-label text-danger" ><i class="fas fa-exclamation-circle text-danger"></i>
+            <font size="2" >{{ message }}</font></label> 
+          {% endif %}
+        {% endfor %}
+      </label>
+      
+        <input type="password" class="form-control" id="pwd" placeholder="Enter your password here."  name="password" minlength="6" maxlength="12" required >
 
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="email">Email</label>
-      <div class="col-sm-10">
-        <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
-      </div>
     </div>
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="pwd">Password</label>
-      <div class="col-sm-10">
-        <input type="password" class="form-control" id="pwd" placeholder="Enter password"  name="password" required>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
-        <div class="checkbox">
-          <label>   <input type="checkbox" name="remember me">  Remember me</label>
+    <div class="row ">
+        <div class="col-12 text-right">
+            <a class="lead"> <font size="3" >Click here to </font></a>
+            <a class="text-primary" href="{% url 'register' %}"><font size="3" >Sign up</font></a> 
+            <a class="lead"> <font size="3" >or</font></a>
+            <a class="text-primary mr-1" href="{% url 'recoverpassword' %}"><font size="3" >Recover password.</font></a>
+
         </div>
-      </div>
     </div>
-    <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-primary">Login</button>
-      </div>
+
+    <div class="form-group mt-1 ml-1">
+          <label class="lead mb-1">   <input type="checkbox" name="remember me"><font size="3" > Stay signed in</font>
+          </label>
     </div>
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <a href="{% provider_login_url 'google' %}" type="sumbit">Login with gmail</a><br>
-            <a href="{% url 'recoverpassword' %}" type="sumbit">Forgot Password</a>
-        </div>
-      </div>
+          <!-- <label class="control-label text-right">
+              <p class="text"><a  href="{% url 'register' %}" type="sumbit"> signup</a></p>
+          </label> 
+             -->
+            <!-- <p class="text-right"><a class="text-primary"  href="{% url 'recoverpassword' %}" type="sumbit">recover passwrord</a>
+              <a class="lead">|</a><a  href="{% url 'register' %}" type="sumbit"> signup</a></p>
+   -->
+  <!-- <a href="{% provider_login_url 'google' %}" type="sumbit">Login with gmail</a><br> -->
+    <div class="form-group mr-1">
+        <button type="submit" class="btn btn-primary float-right lead rounded-0 mb-1" style="padding: 6px 40px;"><font size="3" >Login</font></button>
+        
+    </div>
+
+  </div>
+</div>
   </form>
 
       
