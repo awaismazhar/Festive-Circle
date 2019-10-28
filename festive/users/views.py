@@ -209,11 +209,8 @@ def change_password_request(request):
 
 
 def home(request):
-<<<<<<< HEAD
   for key, value in request.session.items():
     print('{} => {}'.format(key, value))
-=======
->>>>>>> f9123f918c1ac740ea81ad8591161303eb6965dc
   return redirect(main)
 
 @login_required

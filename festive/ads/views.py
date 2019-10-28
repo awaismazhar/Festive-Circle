@@ -10,7 +10,6 @@ def display(request, id):
     venue = Venue.objects.get(detail_id=id)
     venuePrice = VenuePrice.objects.get(venue_id=venue)
     dishMenu = Dish_Menu.objects.get(venue_id=venue)
-    print(image)
     context = {
        'details':detail,
        'images':image,
@@ -42,34 +41,50 @@ def main(request):
                 return redirect('/')
             else:
                 if area is None:
-                    # details = {}
-                    # location = Location.objects.filter(city=city)
-                    # for locs in location:
-                    #     detail = Detail.objects.get(loction_id=locs.id)
-                    #     details.add(locs.id, detail)
-                    # print(details)
-                    detail = Detail.objects.get(loction_id=city)
-                    return render(request,"search.html",{'details':details})
+                    location = Location.objects.filter(city=city)
+                    detail = Detail.objects.all()
+                    context = {
+                        'details':detail,
+                        'locations':location,
+                    }
+                    return render(request,"search.html",context)
+
+
                 else:
                     location = Location.objects.filter(city=city)
-                    location = location.filter(area=area)
-                    detail = Detail.objects.get(loction_id=location)
-                    return render(request,"search.html",{'details':detail})
+                    location = location.filter(area=area)                   
+                    detail = Detail.objects.all()
+                    context = {
+                        'details':detail,
+                        'locations':location,
+                    }
+                    return render(request,"search.html",context)
         else:
             if city is None:
-                location = Location.objects.filter(city=city)
-                return render(request,"search.html",{'details':detail})
+                venue = Venue.objects.filter(category=category)
+                context = {
+                    'venues':venue,
+                }
+                return render(request,"search.html",context)
             else:
                 if area is None:
                     location = Location.objects.filter(city=city)
-                    return render(request,"search.html",{'details':detail})
+                    venue = Venue.objects.filter(category=category)
+                    context = {
+                        'venues':venue,
+                        'locations':location,
+                    }
+                    return render(request,"search.html",context)
                 else:
                     location = Location.objects.filter(city=city)
                     location = location.filter(area=area)
-                    return render(request,"search.html",{'details':detail})
-            # venue = Venue.objects.filter(category=category)
-            # detail = Detail.objects.filter(id=venue.detail_id)
-            # location = Location.objects.filter(id=detail.loction_id.id)
+                    venue = Venue.objects.filter(category=category)
+                    context = {
+                        'venues':venue,
+                        'locations':location,
+                    }
+                    return render(request,"search.html",context)
+
 
         return redirect('/')
     else:

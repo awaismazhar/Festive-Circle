@@ -2,11 +2,41 @@
 {% block content %}
 SEARCH
 <div class="container" style="margin: 10%">
+  
+{% if venues %}
+      {% for ven in venues %}
+
+        {% if locations %}
+            
+            {% for loc in locations %}
+              
+              {% if loc.id ==  ven.detail_id.loction_id.id%}
+                <div>111</div>
+                <a href="{% url 'display' ven.detail_id.id %}"> {{ven.detail_id}} </a>
+              {% endif %}
+            
+            {% endfor %}
+
+        {% else %}
+          <div>222</div>
+           <a href="{% url 'display' ven.detail_id.id %}"> {{ven.detail_id}} </a>
+        {% endif %}
+
+      {% endfor %}
+{% else %}
+  {% for loc in locations %}
   {% for det in details %}
   <div>
-
-    <a href="{% url 'display' det.id %}"> {{det.title}} </a>
+    {% if det.id == loc.id %}
+          <a href="{% url 'display' det.id %}"> {{det.title}} </a>
+    {% endif %}
   </div>
   {% endfor %}
+  {% endfor %}
+{% endif %}
+
+
+
+
 </div>
 {% endblock %}
