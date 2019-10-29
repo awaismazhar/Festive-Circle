@@ -1,9 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<script type="text/javascript" >
-    $("#id_category").val("{{venues.category}}");
-    
-</script>
+
   <div class="container" style="padding: 3%">
         <div class="row">
             <div class="container">
@@ -106,6 +103,7 @@
                                 <label class="required" for="id_category">Category</label>
                                 
                                 <select name="category" id="id_category" >
+                                    <option value="{{venues.category}}" selected>{{venues.category}}</option>
                                     <option value="Banquet Hall">Banquet Hall</option>
 
                                     <option value="Marquee">Marquee</option>
@@ -120,68 +118,68 @@
                             </div>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="{{venues.decoration}}"
+                                    <input type="checkbox" class="form-check-input" value="Decoration"
                                         name="decoration" >Decoration
                                 </label>
                             </div>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="{{venues.wifi}}" name="wifi" >Wi-fi
+                                    <input type="checkbox" class="form-check-input" value="Wifi" name="wifi" >Wi-fi
                                 </label>
                             </div>
 
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="{{venues.valet_parking}}"
+                                    <input type="checkbox" class="form-check-input" value="valet parking"
                                         name="valet_parking" >valet parking
                                 </label>
                             </div>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="{{venues.heater}}" name="heater">Heater
+                                    <input type="checkbox" class="form-check-input" value="Heater" name="heater">Heater
                                 </label>
                             </div>
                             <div class="fom-check"></div>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="{{venues.air_conditioner}}" name="ac" >Air Condition
+                                    <input type="checkbox" class="form-check-input" value="Air Condition" name="ac" >Air Condition
                                 </label>
                             </div>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="{{venues.dj_system}}" name="dj_system" >DJ
+                                    <input type="checkbox" class="form-check-input" value="DJ System" name="dj_system" >DJ
                                     System
                                 </label>
                             </div>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="{{venues.bridal_room}}"
+                                    <input type="checkbox" class="form-check-input" value="Bridal Room"
                                         name="bridal_room" >Bridal Room
                                 </label>
                             </div>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="{{venues.generator}}"
+                                    <input type="checkbox" class="form-check-input" value="Generator"
                                         name="generator" >Generator
                                 </label>
                             </div>
                             <div class="fom-check"></div>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="{{venues.outside_dj}}"
+                                    <input type="checkbox" class="form-check-input" value="Outside DJ"
                                         name="outside_dj" >Outside DJ
                                 </label>
                             </div>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="{{venues.outside_decoration}}"
+                                    <input type="checkbox" class="form-check-input" value="Outside Decoration"
                                         name="outside_decoration" >Outside
                                     Decoration
                                 </label>
                             </div>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="{{venues.outside_catering}}"
+                                    <input type="checkbox" class="form-check-input" value="Outside Catering"
                                         name="outside_catering" >Outside
                                     Catering
                                 </label>
@@ -194,7 +192,7 @@
                     <div class="form-group">
                             {% csrf_token %}
                         <button type="submit" class="btn btn-primary">
-                            Add
+                            Update
                         </button>
                         <button class="btn btn-default">
                             Cancel
