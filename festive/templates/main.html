@@ -16,7 +16,7 @@
 
 .card {
   min-width: 300px;
-  min-height: 300px;
+  min-height: 250px;
 }
 </style>
 
@@ -88,19 +88,22 @@
 
 </div>
       
-<div class=" h-100 mt-5">
-<div class="col-sm-offset-2 ml-5 ">
+<div class=" h-100 mt-5 p-5">
+ <div class="p-2 shadow p-3  border-0" style="background-color: #E0E0E0  ;"> 
+<div class="col-sm-offset-2 ml-3 mt-1">
     <h4 class="lead" ><font size="7">Featured Ads</font></h4>
+    <p class="control-label ml-1"><font size="4">These are some featured ads you are seeing.</font></p>
+
 </div>
 
-<div class="d-flex justify-content-center align-items-center mb-10 mr-4 ml-4 mt-4"  style="background-color: #E0E0E0  ;">
+<div class="d-flex justify-content-center align-items-center mb-4 mr-4 ml-4 mt-4"  style="background-color: #E0E0E0  ;">
 
 
-<div class="scroll-container shadow p-3 border">
+<div class="scroll-container shadow border">
 
     {% for detail in details %}
 
-    <div class="card m-2 h-100" style="width: 18rem;">
+    <div class="card h-100 " style="width: 18rem;">
         <img src="/media/images/la.jpeg" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">{{detail.title}}</h5>
@@ -109,17 +112,9 @@
         <button type="submit" class="btn btn-danger float-right lead rounded-0 shadow" style="padding: 7px 45px;"><font size="3" >View Ad</font></button>
 
       </div>
-      <div class="card m-2 h-100" style="width: 18rem;">
-          <img src="/media/images/la.jpeg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title"></h5>
-            <p class="card-text"></p>
-          </div>
-          <button type="submit" class="btn btn-danger float-right lead rounded-0 shadow" style="padding: 7px 45px;"><font size="3" >View Ad</font></button>
-  
-        </div>
 
-        <div class="card m-2 h-100" style="width: 18rem;">
+
+        <div class="card h-100 " style="width: 18rem;">
             <img src="/media/images/la.jpeg" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">{{detail.title}}</h5>
@@ -128,9 +123,20 @@
             <button type="submit" class="btn btn-danger float-right lead rounded-0 shadow" style="padding: 7px 45px;"><font size="3" >View Ad</font></button>
     
           </div>
+
+        <div class="card h-100" style="width: 18rem;">
+          <img src="/media/images/la.jpeg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{detail.title}}</h5>
+            <p class="card-text">{{detail.description}}</p>
+          </div>
+          <button type="submit" class="btn btn-danger float-right lead rounded-0 shadow" style="padding: 7px 45px;"><font size="3" >View Ad</font></button>
+  
+        </div>
     {% endfor %}
 
   </div>
+</div>
 </div>
 </div>
 <div class="h-100">
