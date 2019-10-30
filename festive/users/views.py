@@ -7,7 +7,7 @@ from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 
-
+from .models import reset_codes
 import random
 from django.core.files.storage import FileSystemStorage
 from ads.views import main
@@ -47,32 +47,32 @@ def password_reset_request(request):
 
             return redirect('emailcode')
         else:
-            context = {
-                'message': 'This email is not registered'
-            }
-            return render(request, 'users/enteremail.html', context)
+            messages.error(request, 
+            "This email has not been registered. Click signup to register this account.",
+            extra_tags="email")
+            return HttpResponseRedirect(request.path)
+            
     else:
         return render(request, 'users/enteremail.html')
 
 
 def match_code_request(request):
   if request.method == 'POST':
-    print("This is post")
     code1 = request.POST.get('code')
     email = request.session.get('email')
     user = User.objects.get(email=email)
     code2 = reset_codes.objects.get(user=user)
     code2 = code2.code
-    print(code1)
-    print(code2)
+
 
     if code1 == code2:
-        return redirect('newpassword')
+      return redirect('newpassword')
     else:
-        context = {
-             'message': 'You enterd wrong reset code'
-          }
-        return render(request, 'users/emailcode.html', context)
+
+      messages.error(request, 
+            "You've enterd wrong a reset code.",
+            extra_tags="code")
+      return HttpResponseRedirect(request.path)
   else:
     return render(request, 'users/emailcode.html')
 
@@ -83,7 +83,10 @@ def new_password_request(request):
     user = User.objects.get(email=request.session.get('email'))
     user.set_password(password)
     user.save()
-    return redirect('home')
+    messages.success(request, 
+            "Your password has been changed successfully.",
+            extra_tags="password")
+    return redirect(home)
   else:
     return render(request, 'users/enternewpassword.html')
 
@@ -147,18 +150,21 @@ def register_request(request):
       else:
         pfp = None
       print(pfp)
-      if (email == "" or name == "" or 
-            dob == "" or password == ""):
-        context = {'message': 'Form is not filled properly'}
-        return render(request, 'users/register.html', context)
+      # if (email == "" or name == "" or 
+      #       dob == "" or password == ""):
+      #   context = {'message': 'Form is not filled properly'}
+        
+      # return render(request, 'users/register.html', context)
 
       if address == "":
           address = None
       if about_me == "":
           about_me = None
       if User.objects.filter(email=email).exists():
-        context = {'message': 'This email is already registered'}
-        return render(request, 'users/register.html', context)
+        messages.error(request, 
+          "This email is already registered. Try login or recover password.", 
+          extra_tags="email")
+        return HttpResponseRedirect(request.path)
       else:         
         user = User.objects.create_user(email=email, password=password,
                   name=name, dob=dob, pfp=pfp, address=address, 
@@ -209,8 +215,6 @@ def change_password_request(request):
 
 
 def home(request):
-  for key, value in request.session.items():
-    print('{} => {}'.format(key, value))
   return redirect(main)
 
 @login_required

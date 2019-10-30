@@ -1,70 +1,337 @@
 {% extends 'base.html' %}
+{% block style %}
+
+<style>
+  .scroll-container{
+  width: 1200px;
+  height: 400px;
+  background: #E0E0E0;
+  overflow-x: scroll;
+  display:flex;
+  align-items:center;
+  overflow-x:scroll;
+  flex: 1;
+  
+}
+
+.card {
+  min-width: 300px;
+  min-height: 300px;
+}
+</style>
+
+{% endblock %}
 {% block content %}
 
 
-<div>
+<!-- <div>
   <br>
   <div class="ml-3">
     <h2>Festive Circle</h2>
     <p class="lead"> Fill in the search form to find your desired venues and services.
     </p>
-  </div>
-  <form action="" method="post">
-    {% csrf_token %}
-  <select name="category" id="id_category" style="float:left;height:40px;width:200px">
-    <option value="" disabled selected>Category</option>
+  </div> -->
 
-    <option value="Banquet Hall">Banquet Hall</option>
+  <div class="d-flex justify-content-center align-items-center ">
+  <form class ="form-inline col-md-10 shadow p-3  border-0 m-3" method="POST" style="background-color: #E0E0E0  ;">{% csrf_token %}
+  <div class="ml-3 mr-3 mb-3 w-100">
+    
+    <div class="form-group mt-1">
+          <div class="col-sm-offset-2">
+              <h3 class="lead" ><font size="7">Search Bar</font></h3>
+              <p class="control-label ml-1"><font size="4">Fill in the search form to find your desired venues and services.</font></p>
+          </div>
+    </div>
+    <br>
+    <select class="browser-default custom-select col-sm-10 ml-5 rounded-0 shadow" name="category" id="id_category"  style="width:250px;">
+      <option selected disabled>Choose Category</option>
 
-    <option value="Marquee">Marquee</option>
+      <option value="Banquet Hall">Banquet Hall</option>
 
-    <option value="Hotel Hall">Hotel Hall</option>
+      <option value="Marquee">Marquee</option>
+  
+      <option value="Hotel Hall">Hotel Hall</option>
+  
+      <option value="Farmhouse">Farmhouse</option>
+  
+      <option value="Lawn">Lawn</option>
+    </select>
 
-    <option value="Farmhouse">Farmhouse</option>
-
-    <option value="Lawn">Lawn</option>
-
-  </select>
-  <select name="city" id="id_city" style="float:left;height:40px;width:200px">
-
-    <option value="" disabled selected>City</option>
-
+    <select class="browser-default custom-select ml-3 rounded-0 shadow" name="city" id="id_city" style="width:250px;">
+      <option selected disabled>Select Your City</option>
+      
     {% for loc in locations %}
 
     <option value="{{loc.city}}">{{loc.city}}</option>
     {% endfor %}
 
+    </select>
 
-  </select>
-  <select name="Area" id="id_area" style="float:left;height:40px;width:200px">
-    <option value="" disabled selected>Area</option>
-    {% for loc in location %}
-    <option value="{{loc.area}}">{{loc.area}}</option>
-    {% endfor %}
 
-  </select>
+    <select class="browser-default custom-select ml-3 rounded-0 shadow" name="Area" id="id_area" style="width:250px;">
+      <option selected disabled>Select Your Area</option>
+      
+      {% for loc in locations %}
+      <option value="{{loc.area}}">{{loc.area}}</option>
+      {% endfor %}
 
-  <button type="submit" class="btn btn-primary btn-me" style="float: left">Search</button>
+    </select>
 
+      <button type="submit" class="btn btn-danger float-right lead rounded-0 mr-2 shadow" style="padding: 7px 45px;"><font size="3" >Search</font></button>
+
+  <!-- <button type="submit" class="btn btn-primary btn-me" style="float: left">Search</button> -->
 
 
 </div>
+
 </form>
 
-<div class="container" style="margin: 10%">
-  {% for det in details %}
-  <div>
-
-    <a href="{% url 'display' det.id %}"> {{det.title}} </a>
-  </div>
-  {% endfor %}
+</div>
+      
+<div class=" h-100 mt-5">
+<div class="col-sm-offset-2 ml-5 ">
+    <h4 class="lead" ><font size="7">Featured Ads</font></h4>
 </div>
 
+<div class="d-flex justify-content-center align-items-center mb-10 mr-4 ml-4 mt-4"  style="background-color: #E0E0E0  ;">
 
 
+<div class="scroll-container shadow p-3 border">
+
+    {% for detail in details %}
+
+    <div class="card m-2 h-100" style="width: 18rem;">
+        <img src="/media/images/la.jpeg" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{detail.title}}</h5>
+          <p class="card-text">{{detail.description}}</p>
+        </div>
+        <button type="submit" class="btn btn-danger float-right lead rounded-0 shadow" style="padding: 7px 45px;"><font size="3" >View Ad</font></button>
+
+      </div>
+      <div class="card m-2 h-100" style="width: 18rem;">
+          <img src="/media/images/la.jpeg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p class="card-text"></p>
+          </div>
+          <button type="submit" class="btn btn-danger float-right lead rounded-0 shadow" style="padding: 7px 45px;"><font size="3" >View Ad</font></button>
+  
+        </div>
+
+        <div class="card m-2 h-100" style="width: 18rem;">
+            <img src="/media/images/la.jpeg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{detail.title}}</h5>
+              <p class="card-text">{{detail.description}}</p>
+            </div>
+            <button type="submit" class="btn btn-danger float-right lead rounded-0 shadow" style="padding: 7px 45px;"><font size="3" >View Ad</font></button>
+    
+          </div>
+    {% endfor %}
+
+  </div>
+</div>
+</div>
+<div class="h-100">
+    <div class="col-sm-offset-2 ml-5 ">
+        <h4 class="lead" ><font size="7">Quick Links</font></h4>
+    </div>
+
+    <div class="d-flex justify-content-center align-items-center mr-4 ml-4 mt-4" style="background-color: #E0E0E0  ;" >
+        <div class="row w-100 h-100">
+            
+
+            <div class="list-group list-group-flush column m-5" style="padding: 7px 45px;">
+                <div>
+                    <i class="fas text-dark fa-hotel fa-5x"></i>
+                    <p class="lead text-muted mt-1">Search By Category</p>  
+                </div>
+                <a href="#" class="list-group-item mt-4 text-muted" style="background-color: #E0E0E0  ;">Search By Shadi Hall</a>
+                <a href="#" class="list-group-item mt-4 text-muted" style="background-color: #E0E0E0  ;">Search By Marquee</a>
+                <a href="#" class="list-group-item mt-4 text-muted" style="background-color: #E0E0E0  ;">Search By Banquet Hall</a>
+                <a href="#" class="list-group-item mt-4 text-muted" style="background-color: #E0E0E0  ;">Search By Hotel</a>
 
 
+            </div>
 
+            <div class="list-group list-group-flush column m-5" style="padding: 7px 45px;">
+              <div>
+                  <i class="fas text-dark fa-city fa-5x"></i>
+                  <p class="lead text-muted mt-1">Search By City</p>  
+              </div>  
+                <a href="#" class="list-group-item mt-4 text-muted" style="background-color: #E0E0E0  ;">Search In Lahore</a>
+                <a href="#" class="list-group-item mt-4 text-muted" style="background-color: #E0E0E0  ;">Search In Islamabad</a>
+                <a href="#" class="list-group-item mt-4 text-muted" style="background-color: #E0E0E0  ;">Search In Karachi</a>
+                <a href="#" class="list-group-item mt-4 text-muted" style="background-color: #E0E0E0  ;">Search In Gujranwala</a>                
+            </div>
 
+            <div class="list-group list-group-flush column m-5" style="padding: 7px 45px;">
+                <div>
+                    <i class="fas text-dark fa-map-marked fa-5x"></i>
+                    <p class="lead text-muted mt-1">Search By Popular Area</p>  
+                </div>  
+                <a href="#" class="list-group-item mt-4 text-muted" style="background-color: #E0E0E0  ;">Search In Johar Town, Lahore</a>
+                <a href="#" class="list-group-item mt-4 text-muted" style="background-color: #E0E0E0  ;">Search In Bahria Town. Islamabad</a>
+                <a href="#" class="list-group-item mt-4 text-muted" style="background-color: #E0E0E0  ;">Search In K-Town, Karachi</a>
+                <a href="#" class="list-group-item mt-4 text-muted" style="background-color: #E0E0E0  ;">Search In Garden Town, Gujrwanwala</a>
+            </div>
+            </div>  
+
+    
+   
+    </div>
+    </div>
+         
+<div class=" h-100 mt-5">
+  <div class="col-sm-offset-2 ml-5 ">
+      <h4 class="lead" ><font size="7">Popular Ads</font></h4>
+  </div>
+  
+  <div class="d-flex justify-content-center align-items-center mb-10 mr-4 ml-4 mt-4">
+  
+  
+  <div class="scroll-container shadow p-3  border">
+  
+      {% for detail in details %}
+  
+      <div class="card m-2 h-100 " style="width: 18rem;">
+          <img src="/media/images/la.jpeg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{detail.title}}</h5>
+            <p class="card-text">{{detail.description}}</p>
+          </div>
+          <button type="submit" class="btn btn-danger float-right lead rounded-0 shadow" style="padding: 7px 45px;"><font size="3" >View Ad</font></button>
+  
+        </div>
+        <div class="card m-2 h-100" style="width: 18rem;">
+            <img src="/media/images/la.jpeg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title"></h5>
+              <p class="card-text"></p>
+            </div>
+            <button type="submit" class="btn btn-danger float-right lead rounded-0 shadow" style="padding: 7px 45px;"><font size="3" >View Ad</font></button>
+    
+          </div>
+  
+          <div class="card m-2 h-100" style="width: 18rem;">
+              <img src="/media/images/la.jpeg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">{{detail.title}}</h5>
+                <p class="card-text">{{detail.description}}</p>
+              </div>
+              <button type="submit" class="btn btn-danger float-right lead rounded-0 shadow" style="padding: 7px 45px;"><font size="3" >View Ad</font></button>
+      
+            </div>
+      {% endfor %}
+  
+    </div>
+    
+  </div>
+  </div>
+      
+    <!-- Footer -->
+    <br>
+
+  <footer class="page-footer font-small mdb-color pt-4 " style="background-color:#EAECEE  ;">
+    <div class="container text-center text-md-left mt-5">
+      <div class="row text-center text-md-left mt-3 pb-3">
+        <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+          <h6 class="text-uppercase mb-4 font-weight-bold">Festive Circle</h6>
+          <p>Festive Circle allows users to find and book pre-qualified, trusted, and reviewed wedding vendors, get
+            special prices, and find wedding inspirations to realize your dream wedding.</p>
+        </div>
+        <hr class="w-100 clearfix d-md-none">
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+          <h6 class="text-uppercase mb-4 font-weight-bold">Categories</h6>
+          <p>
+            <a href="#!">Banquet Hall</a>
+          </p>
+          <p>
+            <a href="#!">Marquee</a>
+          </p>
+          <p>
+            <a href="#!">Hotel Hall</a>
+          </p>
+          <p>
+            <a href="#!">Farmhouse</a>
+          </p>
+          <p>
+            <a href="#!">Lawn</a>
+          </p>
+        </div>
+        <hr class="w-100 clearfix d-md-none">
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+          <h6 class="text-uppercase mb-4 font-weight-bold">Useful links</h6>
+          <p>
+            <a href="#!">Deals</a>
+          </p>
+          <p>
+            <a href="#!">About Us</a>
+          </p>
+          <p>
+            <a href="#!">Contact Us</a>
+          </p>
+          <p>
+            <a href="#!">Help</a>
+          </p>
+        </div>
+        <hr class="w-100 clearfix d-md-none">
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+          <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+          <p>
+            <i class="fas fa-home mr-3"></i> New York, NY 10012, US</p>
+          <p>
+            <i class="fas fa-envelope mr-3"></i> info@gmail.com</p>
+          <p>
+            <i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
+          <p>
+            <i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+        </div>
+      </div>
+      <hr>
+      <div class="row d-flex align-items-center">
+        <div class="col-md-7 col-lg-8">
+          <p class="text-center text-md-left">© 2019 Copyright:
+            <strong> Festive Circle All rights reserved.</strong>
+          </p>
+        </div>
+        <div class="col-md-5 col-lg-4 ml-lg-0">
+          <div class="text-center text-md-right">
+            <ul class="list-unstyled list-inline">
+              <li class="list-inline-item">
+                <a class="btn-floating btn-sm rgba-white-slight mx-1">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a class="btn-floating btn-sm rgba-white-slight mx-1">
+                  <i class="fab fa-twitter"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a class="btn-floating btn-sm rgba-white-slight mx-1">
+                  <i class="fab fa-google-plus-g"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a class="btn-floating btn-sm rgba-white-slight mx-1">
+                  <i class="fab fa-linkedin-in"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+{% endblock %}
+
+{% block footscripts %}
+
+<script>
+
+</script>
 
 {% endblock %}

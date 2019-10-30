@@ -2,82 +2,132 @@
 {% block content %}
 
 
-<br>
+<div class="d-flex justify-content-center align-items-center">
 
-<div class="d-flex justify-content-center align-items-center"  action='' enctype='multipart/form-data' method = 'POST'> {% csrf_token %}
-  
-  <form class="form-horizontal col-md-6 bg-light" method = 'POST' enctype="multipart/form-data"> {% csrf_token %}
+  <form class="form-horizontal col-md-5 shadow p-3  border" method='POST' enctype="multipart/form-data"
+    style="background-color: #E0E0E0  ;"> {% csrf_token %}
 
-      <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10 mt-4">
-              <h3>  Registeration Form</h3>
-              <p class="lead">  Fill in the form to register an account.</p>
-          </div>
+    <div class="ml-3 mr-3 mb-3">
+
+      <div class="form-group mt-1">
+        <div class="col-sm-offset-2">
+          <h3 class="lead">
+            <font size="7"> Signup Form</font>
+          </h3>
+          <p class="control-label ml-1">
+            <font size="4"> Fill in the form to register an account.</font>
+          </p>
+        </div>
+      </div>
+
+      <div class="form-group ">
+          <label class="lead " for="pwd"><font size="4" >Email</font>
+          {% for message in messages%}
+            {% if message.tags == 'email error' %}
+              <label class="text-danger" ><i class="fas fa-exclamation-circle text-danger"></i>
+              <font size="2" >{{ message }}</font></label> 
+            {% endif %}
+          {% endfor %}
+        </label>
+          <input type="email" class="form-control" id="email" placeholder="Enter your email here." name="email" minlength="10" maxlength="320"  required>
+      </div>
+
+      <div class="form-group ">
+          <label class="lead" for="pwd"><font size="4" >Password</font>
+            {% for message in messages%}
+              {% if message.tags == 'password error' %}
+                <label class="control-label text-danger" ><i class="fas fa-exclamation-circle text-danger"></i>
+                <font size="2" >{{ message }}</font></label> 
+              {% endif %}
+            {% endfor %}
+          </label>
+          
+            <input type="password" class="form-control" id="pwd" placeholder="Enter your password here."  name="password" minlength="6" maxlength="12" required >
+    
         </div>
 
-    <div class="form-group">
-      <label class="control-label col-sm-4" for="pwd">Email</label>
-      <div class="col-sm-10">
-        <input type="email" class="form-control" id="pwd" placeholder="Enter your email here." name="email" minlength="10" maxlength="320" required>
+      <div class="form-group ">
+          <label class="lead " for="pwd"><font size="4" >Full Name</font>
+          {% for message in messages%}
+            {% if message.tags == 'name error' %}
+              <label class="text-danger" ><i class="fas fa-exclamation-circle text-danger"></i>
+              <font size="2" >{{ message }}</font></label> 
+            {% endif %}
+          {% endfor %}
+        </label>
+        <input type="text" class="form-control" id="pwd" placeholder="Enter your full name here." name="name" required
+        maxlength="20" minlength="6">      
       </div>
-    </div>
 
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="pwd">Password</label>
-      <div class="col-sm-10">
-        <input type="password" class="form-control" id="pwd" placeholder="Enter your password here." name="password" required minlength="6" maxlength="12">
-      </div>
-  </div>
 
-    <div class="form-group">
-            <label class="control-label col-sm-4" for="pwd">Full Name</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="pwd" placeholder="Enter your full name here."  name="name" required maxlength="20" minlength="6" >
+
+      <div class="form-group ">
+          <label class="lead " for="pwd"><font size="4" >Image (Optional)</font>
+          {% for message in messages%}
+            {% if message.tags == 'image error' %}
+              <label class="text-danger" ><i class="fas fa-exclamation-circle text-danger"></i>
+              <font size="2" >{{ message }}</font></label> 
+            {% endif %}
+          {% endfor %}
+        </label>       
+        <div class="input-group">
+            <div class="custom-file">
+              <input id="pfp" type="file" name="pfp" accept="image/*" class="custom-file-input" id="inputGroupFile01"
+                aria-describedby="inputGroupFileAddon01">
+              <label class="custom-file-label" for="inputGroupFile01"></label>
             </div>
-    </div>
+          </div>    
+      </div>
 
-
-
-    <div class="form-group">
-            <label class="control-label col-sm-4" for="pwd">Image (Optional)</label>
-            <div class="col-sm-10">
-                    <div class="input-group">
-
-                            <div class="custom-file">
-                              <input id="pfp" type="file" name="pfp" accept="image/*" class="custom-file-input" id="inputGroupFile01"
-                                aria-describedby="inputGroupFileAddon01">
-                              <label class="custom-file-label" for="inputGroupFile01"></label>
-                            </div>
-                          </div>        
-            </div> 
-    </div>
+      <div class="form-group ">
+          <label class="lead " for="pwd"><font size="4" >Date Of Birth</font>
+          {% for message in messages%}
+            {% if message.tags == 'name error' %}
+              <label class="text-danger" ><i class="fas fa-exclamation-circle text-danger"></i>
+              <font size="2" >{{ message }}</font></label> 
+            {% endif %}
+          {% endfor %}
+        </label>
+        <input type="date" class="form-control" name="dob" required>
     
-    <div class="form-group">
-            <label class="control-label col-sm-4" for="pwd">Date Of Birth</label>
-            <div class="col-sm-10">
-              <input type="date" class="form-control" name="dob" required>
-            </div>
-    </div>
-    <div class="form-group">
-            <label class="control-label col-md-4" for="pwd">About Me (Optional)</label>
-            <div class="col-sm-10">
-                <textarea name="about_me" class="form-control rounded-0" minlength="5" maxlength="15" rows="3" placeholder="Tell us about yourself."></textarea>
-
-            </div>
-    </div>
-
-    <div class="form-group">
-            <label class="control-label col-md-4" for="pwd">Address (Optional)</label>
-            <div class="col-sm-10">
-                <textarea name="address" class="form-control rounded-0" rows="3" placeholder="Tell us your address." minlength="5" maxlength="15"></textarea>
-
-            </div>
-    </div>
+      </div>
 
 
-    <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-primary">Register</button>
+      <div class="form-group ">
+          <label class="lead " for="pwd"><font size="4" >About Me (Optional)</font>
+          {% for message in messages%}
+            {% if message.tags == 'name error' %}
+              <label class="text-danger" ><i class="fas fa-exclamation-circle text-danger"></i>
+              <font size="2" >{{ message }}</font></label> 
+            {% endif %}
+          {% endfor %}
+        </label>
+        <textarea name="about_me" class="form-control rounded-0" minlength="5" maxlength="15" rows="3"
+        placeholder="Tell us about yourself."></textarea>
+
+      </div>
+
+
+
+
+      <div class="form-group ">
+          <label class="lead " for="pwd"><font size="4" >Address (Optional)</font>
+          {% for message in messages%}
+            {% if message.tags == 'name error' %}
+              <label class="text-danger" ><i class="fas fa-exclamation-circle text-danger"></i>
+              <font size="2" >{{ message }}</font></label> 
+            {% endif %}
+          {% endfor %}
+        </label>
+        <textarea name="address" class="form-control rounded-0" rows="3" placeholder="Tell us your address."
+            minlength="5" maxlength="15"></textarea>
+
+      </div>
+
+
+      <div class="form-group mr-1">
+          <button type="submit" class="btn btn-primary float-right lead rounded-0 mb-1" style="padding: 6px 40px;"><font size="3" >Signup</font></button>
+          
       </div>
     </div>
   </form>
@@ -86,12 +136,12 @@
 {% endblock %}
 {% block footscripts %}
 <script>
-  $('#pfp').on('change',function(){
-      //get the file name
-      var fileName = $(this).val();
-      var name = fileName.split('\\')[2];
-      //replace the "Choose a file" label
-      $(this).next('.custom-file-label').html(name);
+  $('#pfp').on('change', function () {
+    //get the file name
+    var fileName = $(this).val();
+    var name = fileName.split('\\')[2];
+    //replace the "Choose a file" label
+    $(this).next('.custom-file-label').html(name);
   })
 </script>
 {% endblock %}
