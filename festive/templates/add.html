@@ -1,273 +1,521 @@
 {% extends 'base.html' %}
 {% block content %}
-<!-- 
-<br><br><br>
 
-<div class="d-flex justify-content-center align-items-center"  action='' enctype='multipart/form-data' method = 'POST'> {% csrf_token %}
-  
-  <form class="form-horizontal col-md-6 bg-light" method = 'POST'> {% csrf_token %}
+<div class="d-flex justify-content-center align-items-center">
 
-      <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10 mt-4">
-              <h3>Add Information</h3>
-              <p class="lead">Fill in information about your Venue.</p>
+  <form class="form-horizontal col-md-8 shadow p-3  border" method='POST' 
+    enctype="multipart/form-data" style="background-color: #E0E0E0  ;">
+    {% csrf_token %}
+
+    <div class="ml-3 mr-3 mb-3">
+
+      <div class="form-group mt-1">
+        <div class="col-sm-offset-2">
+          <h3 class="lead">
+            <font size="7">Post An Ad</font>
+          </h3>
+          <p class="control-label ml-1">
+            <font size="4">Fill in the form to post an Ad.</font>
+          </p>
+        </div>
+      </div>
+      <div class="justify-content-center">
+        <div class="form-group mt-4 ">
+          <label class="lead " for="pwd">
+            <font size="4">Venue Title</font>
+            {% for message in messages%}
+            {% if message.tags == 'venue_title error' %}
+            <label class="text-danger"><i class="fas fa-exclamation-circle text-danger"></i>
+              <font size="2">{{ message }}</font>
+            </label>
+            {% endif %}
+            {% endfor %}
+          </label>
+          <input type="text" class="form-control" id="email" placeholder="Enter the venue title here." name="post_title"
+            minlength="10" maxlength="20">
+        </div>
+
+
+        <div class="form-group mt-4 ">
+          <label class="lead " for="pwd">
+            <font size="4">Ad Rating</font>
+            {% for message in messages%}
+            {% if message.tags == 'rating error' %}
+            <label class="text-danger"><i class="fas fa-exclamation-circle text-danger"></i>
+              <font size="2">{{ message }}</font>
+            </label>
+            {% endif %}
+            {% endfor %}
+          </label>
+          <input type="number" class="form-control" placeholder="Enter ad rating here." name="rating" minlength="1"
+            maxlength="2">
+        </div>
+
+
+        <div class="form-group mt-4 ">
+          <label class="lead " for="pwd">
+            <font size="4">Ad Views</font>
+            {% for message in messages%}
+            {% if message.tags == 'views error' %}
+            <label class="text-danger"><i class="fas fa-exclamation-circle text-danger"></i>
+              <font size="2">{{ message }}</font>
+            </label>
+            {% endif %}
+            {% endfor %}
+          </label>
+          <input type="number" class="form-control" placeholder="Enter ad views here." name="views" minlength="1"
+            maxlength="4">
+        </div>
+
+        <div class="form-group mt-4 ">
+
+          <label class="lead"><input type="checkbox" name="feature"><i class="fas m-1 text-danger fa-medal"></i>
+            <font size="3"> Feature</font>
+          </label>
+        </div>
+
+        <div class="form-group ">
+          <label class="lead" for="pwd">
+            <font size="4">Phone Number</font>
+            {% for message in messages%}
+            {% if message.tags == 'phone_no error' %}
+            <label class="control-label text-danger"><i class="fas fa-exclamation-circle text-danger"></i>
+              <font size="2">{{ message }}</font>
+            </label>
+            {% endif %}
+            {% endfor %}
+          </label>
+
+          <input type="number" class="form-control" id="pwd" placeholder="Enter your phone number here." name="phone"
+            minlength="6" maxlength="12">
+
+        </div>
+
+        <div class="form-group ">
+          <label class="lead" for="pwd">
+            <font size="4">City</font>
+            {% for message in messages%}
+            {% if message.tags == 'city error' %}
+            <label class="control-label text-danger"><i class="fas fa-exclamation-circle text-danger"></i>
+              <font size="2">{{ message }}</font>
+            </label>
+            {% endif %}
+            {% endfor %}
+          </label>
+
+          <input type="text" class="form-control" id="pwd" placeholder="Enter your city name here." name="city"
+            minlength="6" maxlength="12">
+
+        </div>
+
+        <div class="form-group ">
+          <label class="lead" for="pwd">
+            <font size="4">Area</font>
+            {% for message in messages%}
+            {% if message.tags == 'area error' %}
+            <label class="control-label text-danger"><i class="fas fa-exclamation-circle text-danger"></i>
+              <font size="2">{{ message }}</font>
+            </label>
+            {% endif %}
+            {% endfor %}
+          </label>
+
+          <input type="text" class="form-control" id="pwd" placeholder="Enter your area name here." name="area"
+            minlength="6" maxlength="12">
+
+        </div>
+
+
+        <div class="form-group">
+          <label class="lead" for="pwd">
+            <font size="4">Street</font>
+            {% for message in messages%}
+            {% if message.tags == 'street error' %}
+            <label class="control-label text-danger"><i class="fas fa-exclamation-circle text-danger"></i>
+              <font size="2">{{ message }}</font>
+            </label>
+            {% endif %}
+            {% endfor %}
+          </label>
+
+          <input type="text" class="form-control" id="pwd" placeholder="Enter your street name here." name="street"
+            minlength="6" maxlength="12">
+
+        </div>
+
+        <div class="form-group ">
+          <label class="lead " for="pwd">
+            <font size="4">Images</font>
+            {% for message in messages%}
+            {% if message.tags == 'image error' %}
+            <label class="text-danger"><i class="fas fa-exclamation-circle text-danger"></i>
+              <font size="2">{{ message }}</font>
+            </label>
+            {% endif %}
+            {% endfor %}
+          </label>
+          <div class="input-group">
+            <div class="custom-file">
+              <input type="file" name="images" multiple class="custom-file-input" id="images">
+              <label class="custom-file-label text-truncate" for="images_group"></label>
+            </div>
           </div>
         </div>
 
-    <div class="form-group">
-      <label class="control-label col-sm-4" for="pwd">Venue Title</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="pwd" placeholder="Enter venue title"  name="post_title" required>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label class="control-label col-sm-4" for="pwd">Phone Number</label>
-      <div class="col-sm-10">
-        <input type="password" class="form-control" id="pwd" placeholder="Enter your phone number here."  name="phone" required>
-      </div>
-  </div>
-
-    <div class="form-group">
-            <label class="control-label col-sm-4" for="pwd">City</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="pwd" placeholder="Enter your city here."  name="city" required>
-            </div>
-    </div>
-    <div class="form-group">
-            <label class="control-label col-sm-4" for="pwd">Area</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="pwd" placeholder="Enter your area here."  name="area" required>
-            </div>
-    </div>
-
-    <div class="form-group">
-            <label class="control-label col-sm-4" for="pwd">Street</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="pwd" placeholder="Enter your street here."  name="street" required>
-            </div>
-    </div>
-    <div class="form-group">
-            <label class="control-label col-sm-4" for="pwd">Images</label>
-            <div class="col-sm-10">
-                    <div class="input-group">
-
-                            <div class="custom-file">
-                              <input id="pic" type="file" name="images" accept="image/*" class="custom-file-input" id="inputGroupFile01"
-                                aria-describedby="inputGroupFileAddon01" multiple>
-                              <label class="custom-file-label" for="inputGroupFile01"></label>
-                            </div>
-                          </div>        
-            </div> 
-    </div>
-    
-    <div class="form-group">
-            <label class="control-label col-md-4" for="pwd">Description</label>
-            <div class="col-sm-10">
-                <textarea name="post_description" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" ></textarea>
-
-            </div>
-    </div>
-
-  </form> 
-</div> -->
-    <div class="container" style="padding: 3%">
-        <div class="row">
-            <div class="container">
-                <form action="" method="POST" enctype="multipart/form-data"> {% csrf_token %}
-
-
-
-                    <div class="container" style="background-color:rgb(255, 255, 255); margin-bottom: 50px">
-                        <h2 style="padding: 3%">Add Information</h2>
-                        <div class="col-md-10" style="padding-left: 20%;padding-bottom:10%">
-                            <div class="form-group has-error">
-                                <label for="title">Venue Title<span class="require">*</span></label>
-                                <input type="text" class="form-control" name="post_title" />
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Phone No <span class="require">*</span></label>
-                                <input type="text" class="form-control" name="phone" />
-                            </div>
-                            <div class="form-group">
-                                <label for="location">City<span class="require">*</span></label>
-                                <input type="text" class="form-control" name="city" />
-                            </div>
-                            <div class="form-group">
-                                <label for="location">Area<span class="require">*</span></label>
-                                <input type="text" class="form-control" name="area" />
-                            </div>
-                            <div class="form-group">
-                                <label for="location">Sreet<span class="require">*</span></label>
-                                <input type="text" class="form-control" name="street" />
-                            </div>
-                            <div class="form-group">
-                                <label for="image">Images<span class="require">*</span></label>
-                                <input type="file" class="form-control" id="images" name="images"
-                                    onchange="preview_images();" multiple />
-                            </div>
-                            <div class="form-group" id="image_preview"></div>
-                            <div class="form-group">
-                                <label for="description">Description</label>
-                                <textarea rows="5" class="form-control" name="post_description"></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="container" style="background-color:rgb(255, 255, 255); margin-bottom: 50px">
-                        <h2 style="padding: 3%">Venue Price</h2>
-                        <div class="col-md-10" style="padding-left: 20%;padding-bottom:10%">
-                            <div class="form-group">
-                                <label for="Price per guest">Per guest Price<span class="require">*</span></label>
-                                <input type="text" class="form-control" name="guest_price" />
-                            </div>
-                            <div class="form-group">
-                                <label for="Air condition">Air condition Price<span class="require">*</span></label>
-                                <input type="text" class="form-control" name="ac_price" />
-                            </div>
-                            <div class="form-group">
-                                <label for="title">Heater Price<span class="require">*</span></label>
-                                <input type="text" class="form-control" name="heater_price" />
-                            </div>
-                            <div class="form-group">
-                                <label for="title">DJ System Price<span class="require">*</span></label>
-                                <input type="text" class="form-control" name="dj_system_price" />
-                            </div>
-                            <div class="form-group">
-                                <label for="title">Decoration Price<span class="require">*</span></label>
-                                <input type="text" class="form-control" name="decoration_price" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container" style="background-color:rgb(255, 255, 255); margin-bottom: 50px">
-                        <h2 style="padding: 3%">Dish Menu</h2>
-                        <div class="col-md-10" style="padding-left: 20%;padding-bottom:10%">
-                            <div class="form-group">
-                                <label for="title">Menu Title<span class="require">*</span></label>
-                                <input type="text" class="form-control" name="dish_title" />
-                            </div>
-                            <div class="form-group">
-                                <label for="description">Menu Description<span class="require">*</span></label>
-                                <input type="text" class="form-control" name="dish_description" />
-                            </div>
-                            <div class="form-group">
-                                <label for="price">Menu Price<span class="require">*</span></label>
-                                <input type="text" class="form-control" name="price" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="container" style="background-color:rgb(255, 255, 255); margin-bottom: 50px">
-                        <h2 style="padding: 3%">Details</h2>
-                        <div class="col-md-10" style="padding-left: 20%;padding-bottom:10%">
-                            <div class="form-group">
-                                <label for="Sitting Capacity">Sitting Capacity<span class="require">*</span></label>
-                                <input type="text" class="form-control" name="sitting_capacity" />
-                            </div>
-                            <div class="form-group">
-                                <label for="Parking Capacity">Parking Capacity<span class="require">*</span></label>
-                                <input type="text" class="form-control" name="parking_capacity" />
-                            </div>
-                            <div class="form-group">
-                                <label class="required" for="id_category">Category</label>
-
-                                <select name="category" id="id_category">
-                                    <option value="Banquet Hall">Banquet Hall</option>
-
-                                    <option value="Marquee">Marquee</option>
-
-                                    <option value="Hotel Hall">Hotel Hall</option>
-
-                                    <option value="Farmhouse">Farmhouse</option>
-
-                                    <option value="Lawn">Lawn</option>
-
-                                </select>
-                            </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="True"
-                                        name="decoration">Decoration
-                                </label>
-                            </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="True" name="wifi">Wi-fi
-                                </label>
-                            </div>
-
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="True"
-                                        name="valet_parking">valet parking
-                                </label>
-                            </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="True" name="heater">Heater
-                                </label>
-                            </div>
-                            <div class="fom-check"></div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="True" name="ac">Air Condition
-                                </label>
-                            </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="True" name="dj_system">DJ
-                                    System
-                                </label>
-                            </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="True"
-                                        name="bridal_room">Bridal Room
-                                </label>
-                            </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="True"
-                                        name="generator">Generator
-                                </label>
-                            </div>
-                            <div class="fom-check"></div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="True"
-                                        name="outside_dj">Outside DJ
-                                </label>
-                            </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="True"
-                                        name="outside_decoration">Outside
-                                    Decoration
-                                </label>
-                            </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="True"
-                                        name="outside_catering">Outside
-                                    Catering
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                            {% csrf_token %}
-                        <button type="submit" class="btn btn-primary">
-                            Add
-                        </button>
-                        <button class="btn btn-default">
-                            Cancel
-                        </button>
-                    </div>
-
-                </form>
-            </div>
+        <div class="form-group ">
+          <label class="lead " for="pwd">
+            <font size="4">Description</font>
+            {% for message in messages%}
+            {% if message.tags == 'description error' %}
+            <label class="text-danger"><i class="fas fa-exclamation-circle text-danger"></i>
+              <font size="2">{{ message }}</font>
+            </label>
+            {% endif %}
+            {% endfor %}
+          </label>
+          <textarea name="post_description" class="form-control rounded-0" minlength="10" maxlength="50" rows="3"
+            placeholder="Describe us your venue."></textarea>
 
         </div>
+
+
+        <div class="form-group mt-1">
+          <div class="col-sm-offset-2">
+            <h3 class="lead">
+              <font size="7">Venu Prices</font>
+            </h3>
+          </div>
+        </div>
+
+        <div class="form-group ">
+          <label class="lead" for="pwd">
+            <font size="4">Price Per Guest</font>
+            {% for message in messages%}
+            {% if message.tags == 'price_per_guest error' %}
+            <label class="control-label text-danger"><i class="fas fa-exclamation-circle text-danger"></i>
+              <font size="2">{{ message }}</font>
+            </label>
+            {% endif %}
+            {% endfor %}
+          </label>
+
+          <input type="number" class="form-control" id="pwd" placeholder="Enter price per guest." name="guest_price"
+            minlength="4" maxlength="5">
+
+        </div>
+
+        <div class="form-group ">
+          <label class="lead" for="pwd">
+            <font size="4">Air Conditioning Price</font>
+            {% for message in messages%}
+            {% if message.tags == 'ac_price error' %}
+            <label class="control-label text-danger"><i class="fas fa-exclamation-circle text-danger"></i>
+              <font size="2">{{ message }}</font>
+            </label>
+            {% endif %}
+            {% endfor %}
+          </label>
+
+          <input type="number" class="form-control" id="pwd" placeholder="Enter air conditioning price." name="ac_price"
+            minlength="4" maxlength="5">
+
+        </div>
+
+
+        <div class="form-group ">
+          <label class="lead" for="pwd">
+            <font size="4">Heater Price</font>
+            {% for message in messages%}
+            {% if message.tags == 'heater_price error' %}
+            <label class="control-label text-danger"><i class="fas fa-exclamation-circle text-danger"></i>
+              <font size="2">{{ message }}</font>
+            </label>
+            {% endif %}
+            {% endfor %}
+          </label>
+
+          <input type="number" class="form-control" id="pwd" placeholder="Enter heater price." name="heater_price"
+            minlength="4" maxlength="5">
+
+        </div>
+
+
+        <div class="form-group ">
+          <label class="lead" for="pwd">
+            <font size="4">DJ System Price</font>
+            {% for message in messages%}
+            {% if message.tags == 'dj_price error' %}
+            <label class="control-label text-danger"><i class="fas fa-exclamation-circle text-danger"></i>
+              <font size="2">{{ message }}</font>
+            </label>
+            {% endif %}
+            {% endfor %}
+          </label>
+
+          <input type="number" class="form-control" id="pwd" placeholder="Enter DJ system price." name="dj_system_price"
+            minlength="4" maxlength="5">
+
+        </div>
+
+        <div class="form-group ">
+          <label class="lead" for="pwd">
+            <font size="4">Decoration Price</font>
+            {% for message in messages%}
+            {% if message.tags == 'decoration_price error' %}
+            <label class="control-label text-danger"><i class="fas fa-exclamation-circle text-danger"></i>
+              <font size="2">{{ message }}</font>
+            </label>
+            {% endif %}
+            {% endfor %}
+          </label>
+
+          <input type="number" class="form-control" id="pwd" placeholder="Enter decoration price."
+            name="decoration_price" minlength="4" maxlength="5">
+
+        </div>
+
+
+
+
+
+        <div class="form-group mt-1">
+          <div class="col-sm-offset-2">
+            <h3 class="lead">
+              <font size="7">Dish Menu</font>
+            </h3>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="lead" for="pwd">
+            <font size="4">Menu Title</font>
+            {% for message in messages%}
+            {% if message.tags == 'menu_title error' %}
+            <label class="control-label text-danger"><i class="fas fa-exclamation-circle text-danger"></i>
+              <font size="2">{{ message }}</font>
+            </label>
+            {% endif %}
+            {% endfor %}
+          </label>
+
+          <input type="text" class="form-control" id="pwd" placeholder="Enter menu title." name="dish_title"
+            minlength="6" maxlength="12">
+
+        </div>
+
+        <div class="form-group ">
+          <label class="lead " for="pwd">
+            <font size="4">Menu Description</font>
+            {% for message in messages%}
+            {% if message.tags == 'menu_description error' %}
+            <label class="text-danger"><i class="fas fa-exclamation-circle text-danger"></i>
+              <font size="2">{{ message }}</font>
+            </label>
+            {% endif %}
+            {% endfor %}
+          </label>
+          <textarea name="dish_description" class="form-control rounded-0" minlength="10" maxlength="20" rows="3"
+            placeholder="Describe us your venue."></textarea>
+
+        </div>
+        <div class="form-group ">
+          <label class="lead" for="pwd">
+            <font size="4">Menu Price</font>
+            {% for message in messages%}
+            {% if message.tags == 'menu_price error' %}
+            <label class="control-label text-danger"><i class="fas fa-exclamation-circle text-danger"></i>
+              <font size="2">{{ message }}</font>
+            </label>
+            {% endif %}
+            {% endfor %}
+          </label>
+
+          <input type="number" class="form-control" id="pwd" placeholder="Enter menu price." name="price" minlength="4"
+            maxlength="5">
+
+        </div>
+
+
+        <div class="form-group mt-1">
+          <div class="col-sm-offset-2">
+            <h3 class="lead">
+              <font size="7">Details</font>
+            </h3>
+          </div>
+        </div>
+
+        <div class="form-group ">
+          <label class="lead" for="pwd">
+            <font size="4">Sitting Capacity</font>
+            {% for message in messages%}
+            {% if message.tags == 'sitting_capacity error' %}
+            <label class="control-label text-danger"><i class="fas fa-exclamation-circle text-danger"></i>
+              <font size="2">{{ message }}</font>
+            </label>
+            {% endif %}
+            {% endfor %}
+          </label>
+
+          <input type="number" class="form-control" id="pwd" placeholder="Enter sittinng capacity"
+            name="sitting_capacity" minlength="4" maxlength="6">
+
+        </div>
+
+
+        <div class="form-group ">
+          <label class="lead" for="pwd">
+            <font size="4">Parking Capacity</font>
+            {% for message in messages%}
+            {% if message.tags == 'parking_capacity error' %}
+            <label class="control-label text-danger"><i class="fas fa-exclamation-circle text-danger"></i>
+              <font size="2">{{ message }}</font>
+            </label>
+            {% endif %}
+            {% endfor %}
+          </label>
+
+          <input type="number" class="form-control" id="pwd" placeholder="Enter parking capacity"
+            name="parking_capacity" minlength="6" maxlength="12">
+
+        </div>
+
+
+        <div class="form-group ">
+          <label class="lead" for="pwd">
+            <font size="4">Choose Category</font>
+            {% for message in messages%}
+            {% if message.tags == 'category error' %}
+            <label class="control-label text-danger"><i class="fas fa-exclamation-circle text-danger"></i>
+              <font size="2">{{ message }}</font>
+            </label>
+            {% endif %}
+            {% endfor %}
+          </label><br>
+          <select class="browser-default custom-select rounded-0" name="category" id="id_category" style="width:250px;">
+            <option selected disabled>Select A Category</option>
+
+            <option value="Banquet Hall">Banquet Hall</option>
+
+            <option value="Marquee">Marquee</option>
+
+            <option value="Hotel Hall">Hotel Hall</option>
+
+            <option value="Farmhouse">Farmhouse</option>
+
+            <option value="Lawn">Lawn</option>
+          </select>
+
+        </div>
+
+
+
+        <label class="lead" for="pwd">
+          <font size="4">Choose Services</font>
+          {% for message in messages%}
+          {% if message.tags == 'services error' %}
+          <label class="control-label text-danger"><i class="fas fa-exclamation-circle text-danger"></i>
+            <font size="2">{{ message }}</font>
+          </label>
+          {% endif %}
+          {% endfor %}
+        </label>
+        <div class="form-group mt-1 ml-1">
+
+          <div class="d-flex justify-content-center align-items-center pr-5 pl-5 ">
+
+            <div class="row">
+              <div class="list-group list-group-flush column p-2 mr-5">
+
+                <label class="lead"><input type="checkbox" name="decoration"><i class="fas m-1 fa-swatchbook"></i>
+                  <font size="3"> Decoration</font>
+                </label><br>
+                <label class="lead"><input type="checkbox" name="wifi"><i class="fas m-1 fa-wifi"></i>
+                  <font size="3"> Wi-fi</font>
+                </label><br>
+                <label class="lead"><input type="checkbox" name="valet_parking"><i class="fas m-1 fa-parking"></i>
+                  <font size="3"> Valet Parking</font>
+                </label><br>
+                <label class="lead"><input type="checkbox" name="outside_catering"><i class="fas m-1 fa-utensils"></i>
+                  <font size="3"> Outside Catering</font>
+                </label>
+              </div>
+
+              <div class="list-group list-group-flush column p-2 ml-5 mr-5">
+
+                <label class="lead"><input type="checkbox" name="heater"><i class="fas m-1 fa-fire-alt"></i>
+                  <font size="3"> Heater</font>
+                </label><br>
+                <label class="lead"><input type="checkbox" name="ac"><i class="fas m-1 fa-fan"></i>
+                  <font size="3"> Air Conditioner</font>
+                </label><br>
+                <label class="lead"><input type="checkbox" name="dj_system"><i class="fas m-1 fa-headphones-alt"></i>
+                  <font size="3"> DJ System</font>
+                </label><br>
+                <label class="lead"><input type="checkbox" name="bridal_room"><i class="fas m-1 fa-person-booth"></i>
+                  <font size="3"> Bridal Room</font>
+                </label><br>
+              </div>
+
+              <div class="list-group list-group-flush column ml-5 p-2">
+                <label class="lead"><input type="checkbox" name="generator"><i class="fas m-1 fa-charging-station"></i>
+                  <font size="3"> Generator</font>
+                </label><br>
+                <label class="lead"><input type="checkbox" name="outside_dj"><i class="fas m-1 fa-headphones-alt"></i>
+                  <font size="3"> Outside DJ</font>
+                </label><br>
+                <label class="lead"><input type="checkbox" name="outside_decoration"><i
+                    class="fas m-1 fa-swatchbook"></i>
+                  <font size="3"> Outside Decoration</font>
+                </label>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+
+
+
+
+        <div class="form-group mr-1">
+          <button type="submit" class="btn btn-primary float-right lead rounded-0 mb-1" style="padding: 6px 40px;">
+            <font size="3">Publish</font>
+          </button>
+
+        </div>
+
+      </div>
     </div>
+  </form>
+
+
+
+</div>
+{% block footscripts %}
+<script>
+  $('input[type="file"]').on("change", function () {
+    let filenames = [];
+    let files = document.getElementById("images").files;
+    if (files.length > 1) {
+      if (files.length > 4) {
+        $('input[type="file"]').val('');
+        $('#images').val('');
+      } else {
+        filenames.push("Uploaded " + files.length + " files");
+      }
+    } else {
+      for (let i in files) {
+        if (files.hasOwnProperty(i)) {
+          filenames.push(files[i].name);
+        }
+      }
+    }
+    $(this)
+      .next(".custom-file-label")
+      .html(filenames.join(","));
+  });
+</script>
+{% endblock %}
 {% endblock %}
