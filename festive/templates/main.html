@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block style %}
 
+
 <style>
   .scroll-container{
   width: 1200px;
@@ -101,10 +102,16 @@
 
 <div class="scroll-container shadow border">
 
-    {% for detail in details %}
+    {% for detail in featured_details %}
 
     <div class="card h-100 " style="width: 18rem;">
-        <img src="/media/images/la.jpeg" class="card-img-top" alt="not found">
+      {% for key, value in featured_details_images.items %}
+        {% if detail.id == key %}        
+          <img {% if value.image %} src="{{ value.image.url }}" {% else %} src="/media/images/no_pfp.png" {% endif %} class="card-img-top" 
+           style="width:300px;height:250px;">        
+        {% endif %}
+      {% endfor %}
+        
         <div class="card-body">
           <h5 class="card-title">{{detail.title}}</h5>
           <p class="card-text">{{detail.description}}</p>
@@ -113,26 +120,6 @@
 
       </div>
 
-
-        <div class="card h-100 " style="width: 18rem;">
-            <img src="/media/images/la.jpeg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">{{detail.title}}</h5>
-              <p class="card-text">{{detail.description}}</p>
-            </div>
-            <button type="submit" class="btn btn-danger float-right lead rounded-0 shadow" style="padding: 7px 45px;"><font size="3" >View Ad</font></button>
-    
-          </div>
-
-        <div class="card h-100" style="width: 18rem;">
-          <img src="/media/images/la.jpeg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">{{detail.title}}</h5>
-            <p class="card-text">{{detail.description}}</p>
-          </div>
-          <button type="submit" class="btn btn-danger float-right lead rounded-0 shadow" style="padding: 7px 45px;"><font size="3" >View Ad</font></button>
-  
-        </div>
     {% endfor %}
 
   </div>
@@ -195,59 +182,46 @@
           </div>
     </div>
     </div>
-         
-    <div class=" h-100 mt-5 p-5">
-        <div class="shadow p-3 border-0" style="background-color: #E0E0E0  ;"> 
-       <div class="col-sm-offset-2 ml-3 mt-1">
-           <h4 class="lead" ><font size="7">Popular Ads</font></h4>
-           <p class="control-label ml-1"><font size="4">These are some popular ads you are seeing.</font></p>
-       
-       </div>
-       
-       <div class="d-flex justify-content-center align-items-center mb-4 mr-4 ml-4 mt-4"  style="background-color: #E0E0E0  ;">
-       
-       
-       <div class="scroll-container shadow border">
-       
-           {% for detail in details %}
-       
-           <div class="card h-100 " style="width: 18rem;">
-               <img src="/media/images/la.jpeg" class="card-img-top" alt="...">
-               <div class="card-body">
-                 <h5 class="card-title">{{detail.title}}</h5>
-                 <p class="card-text">{{detail.description}}</p>
-               </div>
-               <button type="submit" class="btn btn-danger float-right lead rounded-0 shadow" style="padding: 7px 45px;"><font size="3" >View Ad</font></button>
-       
-             </div>
-       
-       
-               <div class="card h-100 " style="width: 18rem;">
-                   <img src="/media/images/la.jpeg" class="card-img-top" alt="...">
-                   <div class="card-body">
-                     <h5 class="card-title">{{detail.title}}</h5>
-                     <p class="card-text">{{detail.description}}</p>
-                   </div>
-                   <button type="submit" class="btn btn-danger float-right lead rounded-0 shadow" style="padding: 7px 45px;"><font size="3" >View Ad</font></button>
-           
-                 </div>
-       
-               <div class="card h-100" style="width: 18rem;">
-                 <img src="/media/images/la.jpeg" class="card-img-top" alt="...">
-                 <div class="card-body">
-                   <h5 class="card-title">{{detail.title}}</h5>
-                   <p class="card-text">{{detail.description}}</p>
-                 </div>
-                 <button type="submit" class="btn btn-danger float-right lead rounded-0 shadow" style="padding: 7px 45px;"><font size="3" >View Ad</font></button>
-         
-               </div>
+      
+    <div class=" h-100 mt-2 p-5">
+      <div class=" shadow p-3  border-0" style="background-color: #E0E0E0  ;"> 
+     <div class="col-sm-offset-2 ml-3 mt-1">
+         <h4 class="lead" ><font size="7">Popular Ads</font></h4>
+         <p class="control-label ml-1"><font size="4">These are some ads with most views.</font></p>
+     
+     </div>
+     
+     <div class="d-flex justify-content-center align-items-center mb-4 mr-4 ml-4 mt-4"  style="background-color: #E0E0E0  ;">
+     
+     
+     <div class="scroll-container shadow border">
+     
+         {% for detail in top_4_popular_details %}
+     
+         <div class="card h-100 " style="width: 18rem;">
+           {% for key, value in top_4_popular_details_images.items %}
+             {% if detail.id == key %}        
+               <img {% if value.image %} src="{{ value.image.url }}" {% else %} src="/media/images/no_pfp.png" {% endif %} class="card-img-top" 
+                style="width:300px;height:250px;">        
+             {% endif %}
            {% endfor %}
-       
-         </div>
+             
+             <div class="card-body">
+               <h5 class="card-title">{{detail.title}}</h5>
+               <p class="card-text">{{detail.description}}  Views: {{detail.views}} Rating: {{detail.rating}}</p>
+
+             </div>
+             <button type="submit" class="btn btn-danger float-right lead rounded-0 shadow" style="padding: 7px 45px;"><font size="3" >View Ad</font></button>
+     
+           </div>
+     
+         {% endfor %}
+     
        </div>
-       </div>
-       </div>    <!-- Footer -->
-    <br>
+     </div>
+     </div>
+     </div>   
+ <br>
 
   <footer class="page-footer font-small mdb-color pt-4 " style="background-color:#EAECEE  ;">
     <div class="container text-center text-md-left mt-5">

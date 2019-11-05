@@ -65,6 +65,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'festive.urls'
 
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -77,6 +78,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+           
+            
         },
     },
 ]
