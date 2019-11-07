@@ -147,7 +147,8 @@ def edit(request, id):
         category = request.POST.get('category')
 
 
-        Location.objects.filter(id=id).update(city=city,area=area,street=street)
+        Location.objects.filter(id=id).update(city=city, area=area, street=street)
+        
         Detail.objects.filter(id=id).update(title=post_title,phoneNo=phone,description=post_description)
         for img in request.FILES.getlist('images'):
             images.objects.filter(detail_id=id).update(title=post_title,image=img)
