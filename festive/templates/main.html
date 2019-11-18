@@ -9,7 +9,7 @@
   
   .scroll-container{
   width: 1200px;
-  height: 450px;
+  height: 500px;
   background: #E0E0E0;
   overflow-x: scroll;
   display:flex;
@@ -21,7 +21,7 @@
 
 .card {
   min-width: 300px;
-  min-height: 250px;
+  min-height: 150px;
 }
 </style>
 
@@ -94,7 +94,7 @@
 </div>
       
 <div class=" h-100 mt-2 p-5">
- <div class=" shadow p-3  border-0" style="background-color: #E0E0E0  ;"> 
+ <div class="shadow p-3  border-0" style="background-color: #E0E0E0  ;"> 
 <div class="col-sm-offset-2 ml-3 mt-1">
     <h4 class="lead" ><font size="7">Featured Ads</font></h4>
     <p class="control-label ml-1"><font size="4">These are some featured ads you are seeing.</font></p>
@@ -107,22 +107,30 @@
 <div class="scroll-container shadow border slide">
 
     {% for detail in featured_details %}
+    <a href="{% url 'display' detail.id %}" class="text-dark">
 
-    <div class="card h-100 " style="width: 18rem;">
+    <div class="card h-100 p-2" style="width: 18rem;">
       {% for key, value in featured_details_images.items %}
         {% if detail.id == key %}        
           <img {% if value.image %} src="{{ value.image.url }}" {% else %} src="/media/images/no_pfp.png" {% endif %} class="card-img-top" 
-           style="width:300px;height:250px;">        
+           style="width:300px;height:300px;">        
         {% endif %}
       {% endfor %}
         
         <div class="card-body">
           <h5 class="card-title">{{detail.title}}</h5>
-          <p class="card-text">{{detail.description}}</p>
-        </div>
-        <button type="submit" class="btn btn-danger float-right lead rounded-0 shadow" style="padding: 7px 45px;"><font size="3" >View Ad</font></button>
-
+          <p class="card-text"><i class="fas fa-map-marker-alt"></i> {{detail.loction_id}}</p>
+          
+        {% for key, value in featured_details_paarize.items %}
+        {% if detail.id == key %}
+        <p class="card-text"><i class="fas fa-money-bill-wave"></i> {{value}} rs per person</p>
+        
+        {% endif %}
+      {% endfor %} 
+        
+        </div>        
       </div>
+    </a>
 
     {% endfor %}
 
@@ -196,11 +204,11 @@
               </div>
 
         <div class="row ">
-        {% for detail in featured_details %}       
-        
+        {% for detail in top_4_popular_details %}       
         <div class="col-md-4">
+            <a href="{% url 'display' detail.id %}" class="text-dark">
             <div class="card h-100 " style="width: 18rem;">
-              {% for key, value in featured_details_images.items %}
+              {% for key, value in top_4_popular_details_images.items %}
                 {% if detail.id == key %}        
                   <img {% if value.image %} src="{{ value.image.url }}" {% else %} src="/media/images/no_pfp.png" {% endif %} class="card-img-top" 
                   style="width:300px;height:250px;">        
@@ -209,11 +217,20 @@
                 
                 <div class="card-body">
                   <h5 class="card-title">{{detail.title}}</h5>
-                  <p class="card-text">{{detail.description}}</p>
-                </div>
-                <button type="submit" class="btn btn-danger float-right lead rounded-0 shadow" style="padding: 7px 45px;"><font size="3" >View Ad</font></button>
-        
+                  <p class="card-text"><i class="fas fa-map-marker-alt"></i> {{ detail.loction_id}}</p>
+                  {% for key, value in top_4_popular_details_paarize.items %}
+                  {% if detail.id == key %}
+                  <p class="card-text"><i class="fas fa-money-bill-wave"></i> {{value}} rs per person</p>
+                  
+                  {% endif %}
+                {% endfor %} 
+                  
+
+            
+              
+                </div>   
               </div>
+            </a>
         </div>
         {% if forloop.counter|divisibleby:3 %}
           </div>

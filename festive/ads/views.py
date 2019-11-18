@@ -23,23 +23,37 @@ def display(request, id):
 def main(request):
     
     featured_details = Detail.objects.filter(featured=True)
-    featured_details_images = {}
-    top_4_popular_details = Detail.objects.all().order_by('-views')[:4]
-    top_4_popular_details_images = {}
+    featured_details_images   = {}
+    featured_details_paarize  = {}
+
     
-    for detail in top_4_popular_details:
-        top_4_popular_details_images[detail.id] = images.objects.filter(detail_id=detail).first()
+    for detail in featured_details:
+        featured_details_images[detail.id] = images.objects.filter(detail_id=detail).first()
+        featured_details_paarize[detail.id] = str(Dish_Menu.objects
+        .get(venue_id = Venue.objects.get(detail_id = detail.id)))
     
 
-    for detail in featured_details:
-        featured_details_images[detail.id] = images.objects.filter(detail_id=detail).first() 
+
+    top_4_popular_details = Detail.objects.all().order_by('-views')[:4]
+    top_4_popular_details_images   = {}
+    top_4_popular_details_paarize  = {}
+
+    for detail in top_4_popular_details:
+        top_4_popular_details_images[detail.id]   = images.objects.filter(detail_id=detail).first()
+        top_4_popular_details_paarize[detail.id] = str(Dish_Menu.objects
+        .get(venue_id = Venue.objects.get(detail_id = detail.id)))
+
+    print("pop ", top_4_popular_details_paarize)
+    print("featured ", featured_details_paarize)
 
     
     context = {
         'featured_details' : featured_details,
         'featured_details_images': featured_details_images,
+        'featured_details_paarize': featured_details_paarize,
         'top_4_popular_details': top_4_popular_details,
         'top_4_popular_details_images': top_4_popular_details_images,
+        'top_4_popular_details_paarize' : top_4_popular_details_paarize,
     }
 
     if request.method == 'POST':

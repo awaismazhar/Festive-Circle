@@ -22,7 +22,7 @@ class Location(models.Model):
 		verbose_name_plural = "Locations"
 
 	def __str__(self):
-		return '%s, %s, %s' % (self.street, self.area,self.city)
+		return '%s, %s, %s' % (self.street, self.area, self.city)
 
 	def get_absolute_url(self):
 		return reverse("Location_detail", kwargs={"pk": self.pk})
@@ -36,7 +36,7 @@ class Detail(models.Model):
 		('4','4'),
 		('5','5'),
 	)
-
+	
 	title = models.CharField(max_length=100)
 	loction_id = models.ForeignKey(Location, verbose_name="Location", on_delete=models.CASCADE)
 	phoneNo = models.CharField( max_length=20)
@@ -160,7 +160,7 @@ class Dish_Menu(models.Model):
 		verbose_name_plural = "Dish Menus"
 
 	def __str__(self):
-		return self.title
+		return str(self.price)
 
 	def get_absolute_url(self):
 		return reverse("Dish_Menu_detail", kwargs={"pk": self.pk})
