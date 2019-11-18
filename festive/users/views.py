@@ -10,7 +10,7 @@ from django.contrib import messages
 from .models import reset_codes
 import random
 from django.core.files.storage import FileSystemStorage
-from ads.views import main
+from ads import views as ads_views
 User = get_user_model()
 
 
@@ -215,7 +215,7 @@ def change_password_request(request):
 
 
 def home(request):
-  return redirect(main)
+  return redirect(ads_views.main)
 
 @login_required
 def display_profile_request(request):

@@ -1,19 +1,93 @@
 {% extends 'base.html' %}
 {% block content %}
-<div>
-    <a href="{% url 'edit' details.id %}">edit</a>/ <a href="{% url 'delete' details.id %}">delete</a> 
-</div>
-    <form action="" method="get" enctype="multipart/form-data">
-        
-        <div>{{details.title}}</div>
-        <div>{{details.loction_id}}</div>
-        <div>{{details.phoneNo}}</div>
-        <div>{{details.postDate}}</div>
-        <div>{{details.description}}</div>
+<br><br><br>
 
+<div class="d-flex justify-content-center align-items-center p-5">
+    <div class="jumbotron w-100">
+        <div class="row text-left">
+            <div class="col-md-6">
+                <h3>{{details.title}} <label class="lead"><font size=1> Posted by {{venues.author.name}} </font></label><br>
+                </h3>
+                <label class="lead"><i class="fas fa-building"></i> {{venues.category}}</label><br>
+                <label class="lead"><i class="fas fa-map-marker-alt"></i> {{details.loction_id}}</label>
+
+            </div>
+            <div class="col-md-6 text-right">
+                    <br>
+                    <label class="lead">{{details.postDate}} <i class="far fa-clock"></i></label><br>                   
+                    <label class="lead"> {{details.phoneNo}} <i class="fas fa-phone"></i></label>                   
+    
+           </div>
+        </div>
+        <div class="row text-left">
+            <div class="col-md-12">
+                {% for image in images %}
+                {% if  forloop.first %}
+                    <img class="p-2 border-0 shadow image-flex mr-5" src="{{image.image.url}}"
+                    style="width:300px;height:300px;" />
+                {% else %}
+                    <img class="p-2 border-0 shadow image-flex" src="{{image.image.url}}"
+                    style="width:200px;height:200px;" />
+                {% endif %}
+
+                {% endfor %}
+            </div>
+        </div>
+        <div>{{venues.air_conditioner}}</div>
+        <div>{{venues.heater}}</div>
+        
+
+ 
+        <div class="row"">
+            
+                
+            <div class="list-group column" >
+                    <h4>Dish Details</h4>
+                    <label>{{dishMenus.title}}<br>
+                        <label>
+                        <font size="1">{{dishMenus.description}}</font><br>
+                        <font size="1">{{dishMenus.price}} res per head</font>
+                        </label>
+                    </label>
+            </div>
+
+            <div class="list-group column" >
+                    <h4>Other Prices</h4>
+                        <label>
+                        <font size="1">Rent per head {{venuePrices.per_guest}}</font><br>
+                        <font size="1">Ac Prices {{venuePrices.air_conditioner}}</font><br>
+                        <font size="1">Heater Prices {{venuePrices.heater}}</font><br>
+                        <font size="1">Dj System Price {{venuePrices.dj_system}}</font><br>
+                        <font size="1">Decoration Prices {{venuePrices.decoration}}</font><br>
+
+                        </label>
+                    </label>
+            </div>
+    
+            <div class="list-group list-group-flush column ml-5 p-2" >
+                    <div class="mb-4">
+                        <i class="fas text-dark fa-map-marked fa-5x"></i>
+                        <p class="lead text-dark">Search By Popular Area</p>  
+                    </div>  
+                    <a href="#" class="text-muted p-2 lead" style="background-color: #E0E0E0  ;">Search In Johar Town, Lahore</a>
+                    <a href="#" class="text-muted p-2 lead" style="background-color: #E0E0E0  ;">Search In Bahria Town. Islamabad</a>
+                    <a href="#" class="text-muted p-2 lead" style="background-color: #E0E0E0  ;">Search In K-Town, Karachi</a>
+                    <a href="#" class="text-muted p-2 lead" style="background-color: #E0E0E0  ;">Search In Gujranwala</a>                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div>
+<div>{{details.title}}</div>
+<div>{{details.loction_id}}</div>
+<div>{{details.phoneNo}}
+<div>{{details.postDate}}
+    <div>{{details.description}}
         {% for image in images %}
         <div>{{image.title}}</div>
-        <div><img src="{{image.image.url}}" style="width:200px;height:200px;"/></div>
+        <div><img src="{{image.image.url}}" style="width:200px;height:200px;" /></div>
         {% endfor %}
 
         <div>{{venues.category}}</div>
@@ -32,15 +106,7 @@
         <div>{{venues.outside_dj}}</div>
         <div>{{venues.outside_decoration}}</div>
 
-        <div>{{venuePrices.per_guest}}</div>
-        <div>{{venuePrices.air_conditioner}}</div>
-        <div>{{venuePrices.heater}}</div>
-        <div>{{venuePrices.dj_system}}</div>
-        <div>{{venuePrices.decoration}}</div>
 
-        <div>{{dishMenus.title}}</div>
-        <div>{{dishMenus.description}}</div>
-        <div>{{dishMenus.price}}</div>
-    </form>
+        </form>
 
-{% endblock %}
+        {% endblock %}

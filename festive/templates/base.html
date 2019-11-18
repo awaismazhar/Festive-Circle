@@ -101,9 +101,14 @@
         <strong>{{ message }}</strong>
     </div>
     {% endif %}
+    {% if message.tags == 'message error' %}
+    <div class="alert alert-dismissible alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>{{ message }}</strong>
+    </div>
+    {% endif %}
     {% endfor %}
     {% else %}
-    
 
     {% endif %}
 

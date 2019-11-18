@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import Location,Detail,images,Venue,VenuePrice,Dish_Menu
+from users import views as users_views
+from django.contrib import messages
 
 # Create your views here.
 
@@ -183,87 +185,93 @@ def delete(request,id):
         return redirect('/')
     return render(request,'delete.html')
 
-# @login_required
 def add(request):
-    if request.method == 'POST':
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            
+            #for detail
+            post_title =request.POST.get('post_title')
+            phone =request.POST.get('phone')
+            
+            if request.POST.get('feature') == 'on':
+                feature = True
+            else:
+                feature = False
+            
+            post_description =request.POST.get('post_description')
+            rating = request.POST.get('rating')
+            views = request.POST.get('views')
+
+            #for location
+            city =request.POST.get('city')
+            area =request.POST.get('area')
+            street =request.POST.get('street')
+
+
+            #for dish menu
+            dish_title =request.POST.get('dish_title')
+            dish_description =request.POST.get('dish_description')
+            price =request.POST.get('price')
+            
+            
+            #for venue
+            sitting_capacity =request.POST.get('sitting_capacity')
+            category = request.POST.get('category')
+            parking_capacity =request.POST.get('parking_capacity')
+            heater = request.POST.get('heater')
+            ac = request.POST.get('ac')
+            dj_system = request.POST.get('dj_system')
+            wifi =request.POST.get('wifi')
+            valet_parking =request.POST.get('valet_parking')
+            bridal_room =request.POST.get('bridal_room')
+            generator =request.POST.get('generator')
+            outside_dj =request.POST.get('outside_dj')
+            outside_decoration =request.POST.get('outside_decoration')
+            outside_catering =request.POST.get('outside_catering')
+            decoration =request.POST.get('decoration')    
+
+            #for venue price
+            guest_price =request.POST.get('guest_price')
+            ac_price =request.POST.get('ac_price')
+            heater_price =request.POST.get('heater_price')
+            dj_system_price =request.POST.get('dj_system_price')
+            decoration_price =request.POST.get('decoration_price')
         
-        #for detail
-        post_title =request.POST.get('post_title')
-        phone =request.POST.get('phone')
-        
-        if request.POST.get('feature') == 'on':
-            feature = True
+
+
+            
+            
+            # print(post_title, rating, views,
+            # feature, phone, city, area, street, images, post_description)
+            # print(guest_price, ac_price, heater_price, dj_system_price,
+            # decoration_price)
+            # print(dish_title, dish_description, price, sitting_capacity,
+            # parking_capacity, category )
+
+            location = Location.objects.create(city=city, area=area, street=street)
+            detail = Detail.objects.create(title=post_title, loction_id=location, phoneNo=phone, 
+                featured=feature, description=post_description, rating=rating, views=views)
+            
+            for img in request.FILES.getlist('images'):
+                image = images.objects.create(title=post_title, detail_id=detail, image=img)
+            print("cat ", category)
+            venue = Venue.objects.create(author=request.user, detail_id=detail, sitting_capacity=sitting_capacity, 
+                parking_capacity=parking_capacity) 
+            # air_conditioner=ac, heater=heater, 
+            # dj_system=dj_system, wifi=wifi, bridal_room=bridal_room, valet_parking=valet_parking, 
+            # decoration=decoration, generator=generator, outside_catering=outside_catering, 
+            # outside_dj=outside_dj, outside_decoration=outside_decoration)
+            VenuePrice.objects.create(venue_id=venue, per_guest=guest_price, air_conditioner=ac_price, heater=heater_price, 
+                dj_system=dj_system_price, decoration=decoration_price)
+            Dish_Menu.objects.create(venue_id=venue, title=dish_title, description=dish_description, price=price)
+            return redirect('/')
+
         else:
-            feature = False
-        
-        post_description =request.POST.get('post_description')
-        rating = request.POST.get('rating')
-        views = request.POST.get('views')
-
-        #for location
-        city =request.POST.get('city')
-        area =request.POST.get('area')
-        street =request.POST.get('street')
-
-
-        #for dish menu
-        dish_title =request.POST.get('dish_title')
-        dish_description =request.POST.get('dish_description')
-        price =request.POST.get('price')
-        
-        
-        #for venue
-        sitting_capacity =request.POST.get('sitting_capacity')
-        category = request.POST.get('category')
-        parking_capacity =request.POST.get('parking_capacity')
-        heater =request.POST.get('heater')
-        ac =request.POST.get('ac')
-        dj_system =request.POST.get('dj_system')
-        wifi =request.POST.get('wifi')
-        valet_parking =request.POST.get('valet_parking')
-        bridal_room =request.POST.get('bridal_room')
-        generator =request.POST.get('generator')
-        outside_dj =request.POST.get('outside_dj')
-        outside_decoration =request.POST.get('outside_decoration')
-        outside_catering =request.POST.get('outside_catering')
-        decoration =request.POST.get('decoration')    
-
-        #for venue price
-        guest_price =request.POST.get('guest_price')
-        ac_price =request.POST.get('ac_price')
-        heater_price =request.POST.get('heater_price')
-        dj_system_price =request.POST.get('dj_system_price')
-        decoration_price =request.POST.get('decoration_price')
-       
-
-
-        
-        
-        # print(post_title, rating, views,
-        # feature, phone, city, area, street, images, post_description)
-        # print(guest_price, ac_price, heater_price, dj_system_price,
-        # decoration_price)
-        # print(dish_title, dish_description, price, sitting_capacity,
-        # parking_capacity, category )
-
-        location = Location.objects.create(city=city, area=area, street=street)
-        detail = Detail.objects.create(title=post_title, loction_id=location, phoneNo=phone, 
-            featured=feature, description=post_description, rating=rating, views=views)
-        
-        for img in request.FILES.getlist('images'):
-            image = images.objects.create(title=post_title, detail_id=detail, image=img)
-        print("cat ", category)
-        venue = Venue.objects.create(author=request.user, detail_id=detail, sitting_capacity=sitting_capacity, 
-            parking_capacity=parking_capacity) 
-        # air_conditioner=ac, heater=heater, 
-        # dj_system=dj_system, wifi=wifi, bridal_room=bridal_room, valet_parking=valet_parking, 
-        # decoration=decoration, generator=generator, outside_catering=outside_catering, 
-        # outside_dj=outside_dj, outside_decoration=outside_decoration)
-        VenuePrice.objects.create(venue_id=venue, per_guest=guest_price, air_conditioner=ac_price, heater=heater_price, 
-            dj_system=dj_system_price, decoration=decoration_price)
-        Dish_Menu.objects.create(venue_id=venue, title=dish_title, description=dish_description, price=price)
-        return redirect('/')
-
+            return render(request,'add.html')
     else:
-        return render(request,'add.html')
+        messages.error(request, 
+            "You have to login first to post an Ad.",
+            extra_tags="message")
+        return redirect(users_views.login)
+
 

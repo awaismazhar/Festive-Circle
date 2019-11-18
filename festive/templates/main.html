@@ -218,16 +218,13 @@
                 <div class="card-body">
                   <h5 class="card-title">{{detail.title}}</h5>
                   <p class="card-text"><i class="fas fa-map-marker-alt"></i> {{ detail.loction_id}}</p>
+                  
                   {% for key, value in top_4_popular_details_paarize.items %}
-                  {% if detail.id == key %}
-                  <p class="card-text"><i class="fas fa-money-bill-wave"></i> {{value}} rs per person</p>
+                    {% if detail.id == key %}
+                      <p class="card-text"><i class="fas fa-money-bill-wave"></i> {{value}} rs per person</p>
+                    {% endif %}
+                  {% endfor %} 
                   
-                  {% endif %}
-                {% endfor %} 
-                  
-
-            
-              
                 </div>   
               </div>
             </a>
