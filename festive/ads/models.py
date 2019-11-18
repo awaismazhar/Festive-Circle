@@ -93,7 +93,7 @@ class images(models.Model):
 			img.paste(img2, (0, 0), img2)
 
 			img.save( save_buff,format='JPEG', optimize=True, quality=100)
-			self.image = InMemoryUploadedFile( save_buff, 'ImageField', "%s.jpg" %self.image.name, 'image/jpeg',save_buff.__le__,  None )
+			self.image = InMemoryUploadedFile( save_buff, 'ImageField', "%s" %self.title, 'image/jpeg',save_buff.__le__,  None )
 		super( images, self ).save( *args, **kwargs )
 
 
