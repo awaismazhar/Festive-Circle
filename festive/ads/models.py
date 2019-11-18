@@ -58,7 +58,7 @@ class Detail(models.Model):
 
 
 def upload_location(instance, filename):
-    return "%s/%s/%s" % (instance.detail_id.loction_id.city,instance.detail_id.title, filename)
+    return "%s/%s/%s/%s" % ('Ads',instance.detail_id.loction_id.city,instance.detail_id.title, filename)
 
 
 class images(models.Model):
