@@ -1,112 +1,110 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<br><br><br>
 
-<div class="d-flex justify-content-center align-items-center p-5">
-    <div class="jumbotron w-100">
-        <div class="row text-left">
-            <div class="col-md-6">
-                <h3>{{details.title}} <label class="lead"><font size=1> Posted by {{venues.author.name}} </font></label><br>
-                </h3>
-                <label class="lead"><i class="fas fa-building"></i> {{venues.category}}</label><br>
-                <label class="lead"><i class="fas fa-map-marker-alt"></i> {{details.loction_id}}</label>
-
-            </div>
-            <div class="col-md-6 text-right">
-                    <br>
-                    <label class="lead">{{details.postDate}} <i class="far fa-clock"></i></label><br>                   
-                    <label class="lead"> {{details.phoneNo}} <i class="fas fa-phone"></i></label>                   
-    
-           </div>
-        </div>
-        <div class="row text-left">
-            <div class="col-md-12">
-                {% for image in images %}
-                {% if  forloop.first %}
-                    <img class="p-2 border-0 shadow image-flex mr-5" src="{{image.image.url}}"
-                    style="width:300px;height:300px;" />
-                {% else %}
-                    <img class="p-2 border-0 shadow image-flex" src="{{image.image.url}}"
-                    style="width:200px;height:200px;" />
-                {% endif %}
-
+<div class="jumbotron bg-white p-5">
+    <div class="row ml-5 mr-5 d-flex justify-content-center align-items-center">
+        <div class="col-md-5 ml-5 border border border-secondary">
+            <h1 class="bold text-primary pt-1">
+                <font size="5">{{details.title}}</font>
+            </h1>
+            <h5 class="bold lead text-dark">
+                <font size="2">{{details.loction_id}}</font>
+            </h5>
+            <div class="pt-2">
+                {% for image in images|slice:":1"  %}
+                <img class="img-fluid" src="{{image.image.url}}" style="width:100%;height:300px;" />
                 {% endfor %}
             </div>
+            <div class="pt-1">
+                {% for image in images|slice:"1:"  %}
+                <img class="img-thumbnail" src="{{image.image.url}}" style="width:70px;height:65px;" />
+                {% endfor %}
+            </div>
+            <div class="container-full-bg mt-3">
+                Some Text
+            </div>
+
         </div>
-        <div>{{venues.air_conditioner}}</div>
-        <div>{{venues.heater}}</div>
-        
 
- 
-        <div class="row"">
+        <div class="col-md-3 text-center text-dark ml-3">
+            <div class="border border-secondary">
+                <label class="mt-2">
+                    <font size="4" class="lead">PKR {{venuePrices.per_guest}} -
+                        {{venuePrices.per_guest | add:dishMenus.price}}</font>
+                    <br>
+                    <font size="3" class="text-primary">Managed by FestiveCircle</font>
+                </label>
+
+                <div class="container" style="background-color: #33b5e5">
+                    <div class="row justify-content-center">
+                        <font size="2">
+                            Managed by FestiveCircle with confidence!
+                        </font>
+                    </div>
+                    <div class="row justify-content-center mt-2">
+                        <div class="column">
+                            <i class="fas fa-check-circle fa-2x" style="color: #F4D03F"></i><br>
+                            <label class="mt-1" style="font-family:helvetica,arial,courier;">
+                                <font size="2">Durable</font>
+                            </label>
+                        </div>
+                        <div class="column">
+                            <i class="fas fa-check-circle fa-2x" style="color: #ff4444"></i><br>
+                            <label class="mt-1" style="font-family:helvetica,arial,courier;">
+                                <font size="2">Reliable</font>
+                            </label>
+                        </div>
+                        <div class="column">
+                            <i class="fas fa-check-circle fa-2x" style="color: #ff6f00"></i><br>
+                            <label class="mt-1" style="font-family:helvetica,arial,courier;">
+                                <font size="2">Liable</font>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-2 ml-4 mr-4 text-white rounded-sm" style="background-color: #ff4444">
+                    <i class="fas fa-phone mt-1"> <label class="mt-1">
+                            <font size="2"> 111-222-333</font>
+                        </label></i>
+                </div>
+                <div class="mt-2 ml-4 mr-4 mb-4 text-white border border-secondary rounded-sm text-primary">
+                    <i class="fas fa-sms mt-1"> <label class="mt-1 text-dark">
+                            <font size="2"> Send Message</font>
+                        </label></i>
+                </div>
+            </div>
+            <div class="border border-secondary mt-4 p-4">
+                    <div class="row justify-content-center text-primary">
+                            <font size="3">
+                                Safety tips for transactions
+                            </font>
+                    </div>
+                    <div class="row justify-content-center text-dark mt-2">
+                            <font size="2">
+                                    Use a safe location to meet seller!
+                            </font>
+                            <font size="2">
+                                    Avoid cash transaction!
+                            </font>
+                            <font size="2">
+                                    Beware of unrealistic offers!
+                            </font>
+                            <font class="pt-3 text-danger" size="2">
+                                    Read More >>
+                            </font>
+                    </div>
+            </div>
             
-                
-            <div class="list-group column" >
-                    <h4>Dish Details</h4>
-                    <label>{{dishMenus.title}}<br>
-                        <label>
-                        <font size="1">{{dishMenus.description}}</font><br>
-                        <font size="1">{{dishMenus.price}} res per head</font>
-                        </label>
-                    </label>
-            </div>
-
-            <div class="list-group column" >
-                    <h4>Other Prices</h4>
-                        <label>
-                        <font size="1">Rent per head {{venuePrices.per_guest}}</font><br>
-                        <font size="1">Ac Prices {{venuePrices.air_conditioner}}</font><br>
-                        <font size="1">Heater Prices {{venuePrices.heater}}</font><br>
-                        <font size="1">Dj System Price {{venuePrices.dj_system}}</font><br>
-                        <font size="1">Decoration Prices {{venuePrices.decoration}}</font><br>
-
-                        </label>
-                    </label>
-            </div>
-    
-            <div class="list-group list-group-flush column ml-5 p-2" >
-                    <div class="mb-4">
-                        <i class="fas text-dark fa-map-marked fa-5x"></i>
-                        <p class="lead text-dark">Search By Popular Area</p>  
-                    </div>  
-                    <a href="#" class="text-muted p-2 lead" style="background-color: #E0E0E0  ;">Search In Johar Town, Lahore</a>
-                    <a href="#" class="text-muted p-2 lead" style="background-color: #E0E0E0  ;">Search In Bahria Town. Islamabad</a>
-                    <a href="#" class="text-muted p-2 lead" style="background-color: #E0E0E0  ;">Search In K-Town, Karachi</a>
-                    <a href="#" class="text-muted p-2 lead" style="background-color: #E0E0E0  ;">Search In Gujranwala</a>                
-            </div>
         </div>
     </div>
 </div>
 
 
-</div>
-<div>{{details.title}}</div>
-<div>{{details.loction_id}}</div>
-<div>{{details.phoneNo}}
-<div>{{details.postDate}}
-    <div>{{details.description}}
-        {% for image in images %}
-        <div>{{image.title}}</div>
-        <div><img src="{{image.image.url}}" style="width:200px;height:200px;" /></div>
-        {% endfor %}
-
-        <div>{{venues.category}}</div>
-        <div>{{venues.sitting_capacity}}</div>
-        <div>{{venues.author}}</div>
-        <div>{{venues.parking_capacity}}</div>
-        <div>{{venues.air_conditioner}}</div>
-        <div>{{venues.heater}}</div>
-        <div>{{venues.dj_system}}</div>
-        <div>{{venues.wifi}}</div>
-        <div>{{venues.bridal_room}}</div>
-        <div>{{venues.valet_parking}}</div>
-        <div>{{venues.decoration}}</div>
-        <div>{{venues.generator}}</div>
-        <div>{{venues.outside_catering}}</div>
-        <div>{{venues.outside_dj}}</div>
-        <div>{{venues.outside_decoration}}</div>
 
 
-        </form>
 
-        {% endblock %}
+
+
+
+{% endblock %}
