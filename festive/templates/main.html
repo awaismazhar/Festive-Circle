@@ -10,19 +10,22 @@
   .scroll-container{
   width: 1200px;
   height: 500px;
-  background: #E0E0E0;
   overflow-x: scroll;
   display:flex;
   align-items:center;
   overflow-x:scroll;
   flex: 1;
-  
-}
+  }
 
-.card {
-  min-width: 300px;
-  min-height: 150px;
-}
+  .separate-right {
+  border-right: thin solid black;
+  }
+  .separate-left {
+  border-left: thin solid black;
+  }
+
+
+
 </style>
 
 {% endblock %}
@@ -91,154 +94,241 @@
 
 </form>
 
-</div>
-      
-<div class=" h-100 mt-2 p-5">
- <div class="shadow p-3  border-0" style="background-color: #E0E0E0  ;"> 
-<div class="col-sm-offset-2 ml-3 mt-1">
-    <h4 class="lead" ><font size="7">Featured Ads</font></h4>
-    <p class="control-label ml-1"><font size="4">These are some featured ads you are seeing.</font></p>
 
 </div>
-
-<div class="d-flex justify-content-center align-items-center mb-4 mr-4 ml-4 mt-4"  style="background-color: #E0E0E0  ;">
-
-
-<div class="scroll-container shadow border slide">
-
-    {% for detail in featured_details %}
-    <a href="{% url 'display' detail.id %}" class="text-dark">
-
-    <div class="card h-100 p-2" style="width: 18rem;">
-      {% for key, value in featured_details_images.items %}
-        {% if detail.id == key %}        
-          <img {% if value.image %} src="{{ value.image.url }}" {% else %} src="/media/images/no_pfp.png" {% endif %} class="card-img-top" 
-           style="width:300px;height:300px;">        
-        {% endif %}
-      {% endfor %}
-        
-        <div class="card-body">
-          <h5 class="card-title">{{detail.title}}</h5>
-          <p class="card-text"><i class="fas fa-map-marker-alt"></i> {{detail.loction_id}}</p>
-          
-        {% for key, value in featured_details_paarize.items %}
-        {% if detail.id == key %}
-        <p class="card-text"><i class="fas fa-money-bill-wave"></i> {{value}} rs per person</p>
-        
-        {% endif %}
-      {% endfor %} 
-        
-        </div>        
-      </div>
-    </a>
-
-    {% endfor %}
-
-  </div>
-</div>
-</div>
-</div>
-<div class="h-100 p-5 mt-5"  >
-    <div class="p-2 shadow p-3  border-0" style="background-color: #E0E0E0  ;"> 
-    
-    <div class="form-group">
-        <div class="col-sm-offset-2  ml-3 mt-1">
-            <h3 class="lead" ><font size="7">Quick Links</font></h3>
-            <p class="control-label ml-1"><font size="4">Select from a quick link below.</font></p>
-        </div>
-  </div>
-
-
-    <div class="d-flex justify-content-center align-items-center p-5" >
-        
+<div class="d-flex justify-content-center align-items-center bg-light" >
+   <div class="jumbotron bg-light">
       <div class="row">
-            
+        <div class="separate-right p-5">
+          <label class="text-left pb-4">
+            <font class="text-primary bold" size="5">Post your Ad on festive circle</font><br>
+          </label><br>
+          <label class="text-left">
+              <font class="text-dark" size="3">
+                <i class="fas fa-check-circle"></i>
+                 Get your events booked fast</font><br>
+          </label><br>
+          <label class="text-left">
+              <font class="text-dark" size="3"> 
+                  <i class="fas fa-check-circle"></i>
+                  Get genuine offers</font><br>
+          </label><br>
+          <label class="text-left">
+              <font class="text-dark" size="3">
+                <i class="fas fa-check-circle"></i>
+                Get you events booked at good offers</font>
+          </label><br><br><br>
+          <button type="submit" class="btn btn-danger shadow float-right lead rounded-0 mb-1" 
+          style="padding: 6px 40px;"><font size="3" >Post Ad</font></button>
 
-            <div class="list-group list-group-flush column p-2 mr-5" >
-                <div class="mb-4">
-                    <i class="fas text-dark fa-hotel fa-5x"></i>
-                    <p class="lead text-dark mt-1">Search By Category</p>  
-                </div>
-                <a href="#" class="text-muted p-2 lead" style="background-color: #E0E0E0  ;">Search By Shadi Hall</a>
-                <a href="#" class="text-muted p-2 lead" style="background-color: #E0E0E0  ;">Search By Marquee</a>
-                <a href="#" class="text-muted p-2 lead" style="background-color: #E0E0E0  ;">Search By Banquet Hall</a>
-                <a href="#" class="text-muted p-2 lead" style="background-color: #E0E0E0  ;">Search By Hotel</a>
-
-
-            </div>
-
-            <div class="list-group list-group-flush column p-2 ml-5 mr-5" >
-              <div class="mb-4">
-                  <i class="fas text-dark fa-city fa-5x"></i>
-                  <p class="lead text-dark mt-1">Search By City</p>  
-              </div>  
-                <a href="#" class="text-muted p-2 lead" style="background-color: #E0E0E0  ;">Search In Lahore</a>
-                <a href="#" class="text-muted p-2 lead" style="background-color: #E0E0E0  ;">Search In Islamabad</a>
-                <a href="#" class="text-muted p-2 lead" style="background-color: #E0E0E0  ;">Search In Karachi</a>
-                <a href="#" class="text-muted p-2 lead" style="background-color: #E0E0E0  ;">Search In Gujranwala</a>                
-            </div>
-
-            <div class="list-group list-group-flush column ml-5 p-2" >
-                <div class="mb-4">
-                    <i class="fas text-dark fa-map-marked fa-5x"></i>
-                    <p class="lead text-dark">Search By Popular Area</p>  
-                </div>  
-                <a href="#" class="text-muted p-2 lead" style="background-color: #E0E0E0  ;">Search In Johar Town, Lahore</a>
-                <a href="#" class="text-muted p-2 lead" style="background-color: #E0E0E0  ;">Search In Bahria Town. Islamabad</a>
-                <a href="#" class="text-muted p-2 lead" style="background-color: #E0E0E0  ;">Search In K-Town, Karachi</a>
-                <a href="#" class="text-muted p-2 lead" style="background-color: #E0E0E0  ;">Search In Gujranwala</a>                
-            </div>
-            </div>  
-
-    
-          </div>
-    </div>
-    </div>
-       
-
-      <div class="jumbotron m-5">
-              <div class="col-sm-offset-2">
-                  <h4 class="lead" ><font size="7">Popular Ads</font></h4>
-                  <p class="control-label ml-1"><font size="4">These are some ads with most views.</font></p>
-              
-              </div>
-
-        <div class="row ">
-        {% for detail in top_4_popular_details %}       
-        <div class="col-md-4">
-            <a href="{% url 'display' detail.id %}" class="text-dark">
-            <div class="card h-100 " style="width: 18rem;">
-              {% for key, value in top_4_popular_details_images.items %}
-                {% if detail.id == key %}        
-                  <img {% if value.image %} src="{{ value.image.url }}" {% else %} src="/media/images/no_pfp.png" {% endif %} class="card-img-top" 
-                  style="width:300px;height:250px;">        
-                {% endif %}
-              {% endfor %}
-                
-                <div class="card-body">
-                  <h5 class="card-title">{{detail.title}}</h5>
-                  <p class="card-text"><i class="fas fa-map-marker-alt"></i> {{ detail.loction_id}}</p>
-                  
-                  {% for key, value in top_4_popular_details_paarize.items %}
-                    {% if detail.id == key %}
-                      <p class="card-text"><i class="fas fa-money-bill-wave"></i> {{value}} rs per person</p>
-                    {% endif %}
-                  {% endfor %} 
-                  
-                </div>   
-              </div>
-            </a>
         </div>
-        {% if forloop.counter|divisibleby:3 %}
-          </div>
-          <br>
-          <div class="row">
+        <div class="separate-left p-5">
+            <label class="text-left pb-4">
+                <font class="text-primary bold" size="5">Try FestiveCircle for booking a venue</font><br>
+              </label><br>
+              <label class="text-left">
+                  <font class="text-dark" size="3">
+                    <i class="fas fa-check-circle"></i>
+                     Get your events booked fast</font><br>
+              </label><br>
+              <label class="text-left">
+                  <font class="text-dark" size="3"> 
+                      <i class="fas fa-check-circle"></i>
+                      Get genuine offers</font><br>
+              </label><br>
+              <label class="text-left">
+                  <font class="text-dark" size="3">
+                    <i class="fas fa-check-circle"></i>
+                    Get you events booked at good offers</font>
+              </label><br><br><br>
+              <button type="submit" class="btn btn-warning shadow float-right lead rounded-0 mb-1" 
+              style="padding: 6px 40px;"><font size="3" >Post Your Featured Ad</font></button>
+        </div>
+      </div>
+
+        
+   </div>
+</div>
+
+<div class="jumbotron bg-white">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+                <label class="text-dark bold">
+                        <font size="5"> Featured Ads</font>
+                </label> 
+        </div>
+        <div class="col-md-3 ml-4 text-right">
+                <a href="#" class="text-primary bold mt-4 ">
+                        <font size="3"> View all featured ads >></font>
+                </a> 
+        </div>
+    </div>
+    <div class="row justify-content-center">
+            {% for detail in featured_details %}       
+            <div class="column p-1">
+                <a href="{% url 'display' detail.id %}" class="text-dark">
+                <div class="card bg-light border rounded-0" style="width: 16em;">
+                    <div>
+                        <label class="badge badge-danger rounded-0 shadow">
+                            <font size="3" class="lead">Featured ad</font>
+                        </label>
+                    </div>
+                  {% for key, value in featured_details_images.items %}
+                    {% if detail.id == key %}
+                    <div class="pl-3 pr-3">        
+                      <img class="shadow border border-secondary" 
+                      {% if value.image %} src="{{ value.image.url }}" {% else %} src="/media/images/no_pfp.png" {% endif %} class="card-img-top" 
+                      style="width:100%;height:200px;"> 
+                    </div>       
+                    {% endif %}
+                  {% endfor %}
+                    
+                    <div class="card-body text-center pb-0 pt-4">
+                        <label >
+                                <font class="text-dark bold" size="4">{{detail.title}}</font><br>
+                                {% for key, value in featured_details_paarize.items %}
+                                    {% if detail.id == key %}
+                                    <font class="text-primary" size="4">
+                                    Rs-/ {{value}} per head
+                                     </font>
+                                    {% endif %}
+                                {% endfor %} 
+                                <font size="4"class="text-uppercase bold">
+                                        {{ detail.loction_id.city}}
+                                  </font> 
+
+                        </label>
+
+                    </div>   
+                  </div>
+                </a>
+            </div>
+            {% if forloop.counter|divisibleby:4 %}
+              </div>
               <br>
-        {% endif %}
-        {% endfor %}
-      </div>
-      </div>
+              <div class="row  justify-content-center">
+            {% endif %}
+            {% endfor %}
+            </div>
+    </div>
+
+    <div class="jumbotron bg-white">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                    <label class="text-dark bold">
+                            <font size="6">Quick Search</font>
+                    </label> 
+            </div>
+            <div class="col-md-3 ml-4 text-right">
+                    <a href="#" class="text-primary bold mt-4 ">
+                            <font size="4"> View all ads >></font>
+                    </a> 
+            </div>
+        </div>
+    
+        <div class="row justify-content-center">
+              
+  
+              <div class="list-group list-group-flush column p-2 mr-5" >
+                  <div class="mb-1">
+                      <i class="fas text-dark fa-hotel fa-2x"></i>
+                      <p class="text-dark mt-1 bold"><font size="5">Search By Category</font></p>  
+                  </div>
+                  <a href="#" class="text-muted p-1 bg-white" style="background-color: #E0E0E0  ;">Search By Shadi Hall</a>
+                  <a href="#" class="text-muted p-1 bg-white" style="background-color: #E0E0E0  ;">Search By Marquee</a>
+                  <a href="#" class="text-muted p-1 bg-white" style="background-color: #E0E0E0  ;">Search By Banquet Hall</a>
+                  <a href="#" class="text-muted p-1 bg-white" style="background-color: #E0E0E0  ;">Search By Hotel</a>
+  
+              </div>
+  
+              <div class="list-group list-group-flush column p-2 ml-5 mr-5" >
+                  <div class="mb-1">
+                      <i class="fas text-dark fa-map-marked fa-2x"></i>
+                      <p class="text-dark mt-1 bold"><font size="5">Search By City</font></p>  
+                  </div>  
+                  <a href="#" class="text-muted p-1" >Search In Lahore</a>
+                  <a href="#" class="text-muted p-1">Search In Islamabad</a>
+                  <a href="#" class="text-muted p-1">Search In Karachi</a>
+                  <a href="#" class="text-muted p-1">Search In Gujranwala</a>                
+              </div>
+  
+              <div class="list-group list-group-flush column ml-5 p-2" >
+                  <div class="mb-1">
+                      <i class="fas text-dark fa-map-marked fa-2x"></i>
+                      <p class="text-dark mt-1 bold"><font size="5">Search By Popular Area</font></p>  
+                  </div>  
+                  <a href="#" class="text-muted p-1">Search In Johar Town, Lahore</a>
+                  <a href="#" class="text-muted p-1">Search In Bahria Town. Islamabad</a>
+                  <a href="#" class="text-muted p-1">Search In K-Town, Karachi</a>
+                  <a href="#" class="text-muted p-1">Search In Gujranwala</a>                
+              </div>
+              </div> 
+            </div>
  <br>
+ <div class="jumbotron bg-white">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+                <label class="text-dark bold">
+                        <font size="5">Popular Ads</font>
+                </label> 
+        </div>
+        <div class="col-md-3 ml-4 text-right">
+                <a href="#" class="text-primary bold mt-4 ">
+                        <font size="3"> View all popular ads >></font>
+                </a> 
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+            {% for detail in top_4_popular_details %}       
+            <div class="column p-1">
+                <a href="{% url 'display' detail.id %}" class="text-dark">
+                <div class="card bg-light border rounded-0" style="width: 16em;">
+                    <div class>
+                        <label class="badge badge-warning rounded-0 shadow">
+                            
+                            <font size="3" class="lead">Popular ad</font>
+                        </label>
+                    </div>
+                  {% for key, value in top_4_popular_details_images.items %}
+                    {% if detail.id == key %}
+                    <div class="pl-3 pr-3">        
+                      <img class="shadow border border-secondary" 
+                      {% if value.image %} src="{{ value.image.url }}" {% else %} src="/media/images/no_pfp.png" {% endif %} class="card-img-top" 
+                      style="width:100%;height:200px;"> 
+                    </div>       
+                    {% endif %}
+                  {% endfor %}
+                    
+                    <div class="card-body text-center pb-0 pt-4">
+                        <label >
+                                <font class="text-dark bold" size="4">{{detail.title}}</font><br>
+                                {% for key, value in top_4_popular_details_paarize.items %}
+                                    {% if detail.id == key %}
+                                    <font class="text-primary" size="4">
+                                    Rs-/ {{value}} per head
+                                     </font>
+                                    {% endif %}
+                                {% endfor %} 
+                                <font size="4"class="text-uppercase bold">
+                                        {{ detail.loction_id.city}}
+                                  </font> 
+
+                        </label>
+
+                    </div>   
+                  </div>
+                </a>
+            </div>
+            {% if forloop.counter|divisibleby:4 %}
+              </div>
+              <br>
+              <div class="row  justify-content-center">
+            {% endif %}
+            {% endfor %}
+            </div>
+    </div>
+
 
   <footer class="page-footer font-small mdb-color pt-4 " style="background-color:#EAECEE  ;">
     <div class="container text-center text-md-left mt-5">

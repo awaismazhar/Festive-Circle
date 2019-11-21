@@ -9,13 +9,14 @@ from django.contrib import messages
 
 def display(request, id):
 
-    top_4_popular_details = Detail.objects.all().order_by('-views')[:8]
-    top_4_popular_details_images   = {}
-    top_4_popular_details_paarize  = {}
+    featured_details = Detail.objects.filter(featured=True)
+    featured_details_images   = {}
+    featured_details_paarize  = {}
 
-    for detail in top_4_popular_details:
-        top_4_popular_details_images[detail.id]   = images.objects.filter(detail_id=detail).first()
-        top_4_popular_details_paarize[detail.id] = str(Dish_Menu.objects
+    
+    for detail in featured_details:
+        featured_details_images[detail.id] = images.objects.filter(detail_id=detail).first()
+        featured_details_paarize[detail.id] = str(Dish_Menu.objects
         .get(venue_id = Venue.objects.get(detail_id = detail.id)))
 
     detail = Detail.objects.get(id=id)
@@ -29,9 +30,9 @@ def display(request, id):
        'venues':venue,
        'venuePrices':venuePrice,
        'dishMenus':dishMenu,
-       'top_4_popular_details':top_4_popular_details,
-       'top_4_popular_details_images':top_4_popular_details_images,
-       'top_4_popular_details_paarize':top_4_popular_details_paarize,
+       'featured_details':featured_details,
+       'featured_details_images':featured_details_images,
+       'featured_details_paarize':featured_details_paarize,
     }
     return render(request,"display.html", context)
     

@@ -495,12 +495,12 @@
 </div>
 {% block footscripts %}
 <script>
-  $('input[type="file"]').on("change", function () {
+  $('#images').on("change", function () {
     let filenames = [];
     let files = document.getElementById("images").files;
     if (files.length > 1) {
-      if (files.length > 4) {
-        $('input[type="file"]').val('');
+      if (files.length > 8) {
+        $('#images').val('');
         $('#images').val('');
       } else {
         filenames.push("Uploaded " + files.length + " files");

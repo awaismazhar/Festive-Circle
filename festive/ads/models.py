@@ -21,7 +21,7 @@ class Location(models.Model):
 		verbose_name_plural = "Locations"
 
 	def __str__(self):
-		return '%s, %s, %s' % (self.street, self.area, self.city)
+		return '%s, %s, %s' % (self.area, self.street, self.city)
 
 	def get_absolute_url(self):
 		return reverse("Location_detail", kwargs={"pk": self.pk})
