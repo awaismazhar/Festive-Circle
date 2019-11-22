@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -29,7 +30,7 @@ SECRET_KEY = '-pu7c_7l2w=xxe9tm0#^9x7o-f9425#2vkm+u8%hw(0z+#pc9('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['f1f457a3.ngrok.io', '127.0.0.1']
 
 
 # Application definition
@@ -188,3 +189,5 @@ EMAIL_HOST_USER = 'aliey8998@gmail.com'
 EMAIL_HOST_PASSWORD = 'iamasinner'
 
 SOCIALACCOUNT_ADAPTER = 'users.adapter.DontPopulateUserModel'
+
+GEOIP_PATH =os.path.join(BASE_DIR, 'geoip/GeoLite2-City.mmdb')

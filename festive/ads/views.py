@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Location,Detail,images,Venue,VenuePrice,Dish_Menu
 from users import views as users_views
 from django.contrib import messages
-
+from django.contrib.gis.geoip2 import GeoIP2
 # Create your views here.
 
 def display(request, id):
@@ -37,7 +37,23 @@ def display(request, id):
     return render(request,"display.html", context)
     
 def main(request):
+
+    g = GeoIP2()
+    if request.META.get('HTTP_X_FORWARDED_FOR'):
+        ip_address = request.META.get('HTTP_X_FORWARDED_FOR')
+        print("XFWD: ", ip_address)
+    elif request.META.get('REMOTE_ADDR'):
+        ip_address = request.META.get('REMOTE_ADDR')
+        print("RMT: ", ip_address)
     
+    if ip_address == '127.0.0.1':
+        city = 'Lahore'
+        print('IP: 27')
+    else:
+        city = g.city(ip_address)['city']
+        if not city:
+            city = 'Lahore'
+
     featured_details = Detail.objects.filter(featured=True)
     featured_details_images   = {}
     featured_details_paarize  = {}
@@ -49,27 +65,29 @@ def main(request):
         .get(venue_id = Venue.objects.get(detail_id = detail.id)))
     
 
-
-    top_4_popular_details = Detail.objects.all().order_by('-views')[:4]
-    top_4_popular_details_images   = {}
-    top_4_popular_details_paarize  = {}
-
-    for detail in top_4_popular_details:
-        top_4_popular_details_images[detail.id]   = images.objects.filter(detail_id=detail).first()
-        top_4_popular_details_paarize[detail.id] = str(Dish_Menu.objects
-        .get(venue_id = Venue.objects.get(detail_id = detail.id)))
-
-    print("pop ", top_4_popular_details_paarize)
-    print("featured ", featured_details_paarize)
-
+    locs = Location.objects.filter(city='Lahore')[:8]
+    loc_based_details = {}
+    loc_based_images = {}
+    loc_based_prices = {}
     
+    for loc in locs:
+        loc_based_details[Detail.objects.get(loction_id=loc).id] = Detail.objects.get(loction_id=loc)
+        loc_based_images[Detail.objects.get(loction_id=loc).id] = images.objects.filter(detail_id=
+                Detail.objects.get(loction_id=loc).id).first()
+        loc_based_prices[Detail.objects.get(loction_id=loc).id] = str(Dish_Menu.objects
+        .get(venue_id = Venue.objects.get(detail_id = Detail.objects.get(loction_id=loc).id)))
+    
+
+
+
     context = {
         'featured_details' : featured_details,
         'featured_details_images': featured_details_images,
         'featured_details_paarize': featured_details_paarize,
-        'top_4_popular_details': top_4_popular_details,
-        'top_4_popular_details_images': top_4_popular_details_images,
-        'top_4_popular_details_paarize' : top_4_popular_details_paarize,
+        'loc_based_details': loc_based_details,
+        'loc_based_images': loc_based_images,
+        'loc_based_prices' : loc_based_prices,
+        'location' : 'Lahore',
     }
 
     if request.method == 'POST':
