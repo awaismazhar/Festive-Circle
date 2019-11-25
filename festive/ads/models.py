@@ -3,8 +3,9 @@ from PIL import Image as PILImage
 from django.utils import timezone
 from django.urls import reverse
 from django.contrib.auth import get_user_model as user_model
+
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from io import BytesIO, StringIO
+from io import BytesIO,StringIO
 # Create your models here.
 User = user_model()
 
@@ -21,7 +22,7 @@ class Location(models.Model):
 		verbose_name_plural = "Locations"
 
 	def __str__(self):
-		return '%s, %s, %s' % (self.area, self.street, self.city)
+		return '%s, %s, %s' % (self.street, self.area, self.city)
 
 	def get_absolute_url(self):
 		return reverse("Location_detail", kwargs={"pk": self.pk})
@@ -143,7 +144,6 @@ class VenuePrice(models.Model):
 	class Meta:
 		verbose_name = "Venue Price"
 		verbose_name_plural = "Venue Prices"
-
 	def get_absolute_url(self):
 		return reverse("VenuePrice_detail", kwargs={"pk": self.pk})
 

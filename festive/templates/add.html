@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-
+<br> <br>
 <div class="d-flex justify-content-center align-items-center">
 
-  <form class="form-horizontal col-md-8 shadow p-3  border" method='POST' 
-    enctype="multipart/form-data" style="background-color: #E0E0E0  ;">
+  <form class="form-horizontal col-md-8 shadow p-3  border" method='POST' enctype="multipart/form-data"
+    style="background-color: #E0E0E0  ;">
     {% csrf_token %}
 
     <div class="ml-3 mr-3 mb-3">
@@ -285,54 +285,16 @@
             </h3>
           </div>
         </div>
+        <select class="browser-default custom-select rounded-0" name="menu" id="id_menu" style="width:250px;">
+          <option selected disabled>Total Menu</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
 
-
-        <div class="form-group">
-          <label class="lead" for="pwd">
-            <font size="4">Menu Title</font>
-            {% for message in messages%}
-            {% if message.tags == 'menu_title error' %}
-            <label class="control-label text-danger"><i class="fas fa-exclamation-circle text-danger"></i>
-              <font size="2">{{ message }}</font>
-            </label>
-            {% endif %}
-            {% endfor %}
-          </label>
-
-          <input type="text" class="form-control" id="pwd" placeholder="Enter menu title." name="dish_title"
-            minlength="6" maxlength="12">
-
-        </div>
-
-        <div class="form-group ">
-          <label class="lead " for="pwd">
-            <font size="4">Menu Description</font>
-            {% for message in messages%}
-            {% if message.tags == 'menu_description error' %}
-            <label class="text-danger"><i class="fas fa-exclamation-circle text-danger"></i>
-              <font size="2">{{ message }}</font>
-            </label>
-            {% endif %}
-            {% endfor %}
-          </label>
-          <textarea name="dish_description" class="form-control rounded-0" minlength="10" maxlength="100" rows="3"
-            placeholder="Describe us your venue."></textarea>
-
-        </div>
-        <div class="form-group ">
-          <label class="lead" for="pwd">
-            <font size="4">Menu Price</font>
-            {% for message in messages%}
-            {% if message.tags == 'menu_price error' %}
-            <label class="control-label text-danger"><i class="fas fa-exclamation-circle text-danger"></i>
-              <font size="2">{{ message }}</font>
-            </label>
-            {% endif %}
-            {% endfor %}
-          </label>
-
-          <input type="number" class="form-control" id="pwd" placeholder="Enter menu price." name="price" minlength="4"
-            maxlength="5">
+        <div id="AddControll">
 
         </div>
 
@@ -493,14 +455,82 @@
 
 
 </div>
+<br> <br>
 {% block footscripts %}
+
 <script>
-  $('#images').on("change", function () {
+  $(document).ready(function () {
+    load();
+  });
+
+  function load() {
+    $("#id_menu").change(function () {
+      $("#AddControll").empty();
+      var NoOfRec = $("#id_menu").val();
+      if (NoOfRec > 0) {
+
+        createControll(NoOfRec);
+      }
+    });
+  }
+
+  function createControll(NoOfRec) {
+    var tbl = "";
+
+    for (i = 1; i <= NoOfRec; i++) {
+      tbl = "Menu " +i+
+        "<div class='form-group'>" +
+        "<label class='lead' for='pwd'>" +
+        " <font size='4'>Menu Title</font>" +
+        "{% for message in messages%}" +
+        "{% if message.tags == 'menu_title error' %}" +
+        "<label class='control-label text-danger'><i class='fas fa-exclamation-circle text-danger'></i>" +
+        " <font size='2'>{{ message }}</font>" +
+        "</label>" +
+        "{% endif %}" +
+        "{% endfor %}" +
+        "</label>" +
+        "<input type='text' class='form-control' id='pwd' placeholder='Enter menu title.'' name='dish_title"+i+"'minlength='6' maxlength='12'>"+
+      "</div>" +
+      "<div class='form-group '>" +
+      "<label class='lead' for='pwd'>" +
+      "<font size='4'>Menu Description</font>" +
+      "{% for message in messages%}" +
+      "{% if message.tags == 'menu_description error' %}" +
+      "<label class='text-danger'><i class='fas fa-exclamation-circle text-danger'></i>" +
+      "<font size='2'>{{ message }}</font>" +
+      "</label>" +
+      "{% endif %}" +
+      "{% endfor %}" +
+      "</label>" +
+      "<textarea name='dish_description"+i+"' class='form-control rounded-0' minlength='10' maxlength='100' rows='3'placeholder='Describe us your venue.''></textarea>" +
+      "</div>" +
+      "<div class='form-group'>" +
+      "<label class='lead' for='pwd'>" +
+      "<font size='4'>Menu Price</font>" +
+      "{% for message in messages%}" +
+      "{% if message.tags == 'menu_price error' %}" +
+      "<label class='control-label text-danger'><i class='fas fa-exclamation-circle text-danger'></i>" +
+      "<font size='2'>{{ message }}</font>" +
+      "</label>" +
+      "{% endif %}" +
+      "{% endfor %}" +
+      "</label>" +
+      "<input type='number' class='form-control' id='pwd' placeholder='Enter menu price.' name='price"+i+"' minlength='4'maxlength='5'>" +
+
+      "</div>";
+      $("#AddControll").append(tbl);
+    }
+
+  }
+</script>
+<script>
+  $('input[type="file"]').on("change", function () {
     let filenames = [];
     let files = document.getElementById("images").files;
     if (files.length > 1) {
-      if (files.length > 8) {
-        $('#images').val('');
+      if (files.length > 4) {
+        $('input[type="file"]').val('');
         $('#images').val('');
       } else {
         filenames.push("Uploaded " + files.length + " files");

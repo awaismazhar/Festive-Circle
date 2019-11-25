@@ -1,19 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
-<br>
+<br><br>
 {% if  user.socialaccount_set.all.0.uid == None %}
 <div class="d-flex justify-content-center align-items-center" > 
 
-<div class="card text-center mx-auto bg-light" style="width: 25rem;">
+<div class="card text-left mx-auto bg-light" style="width: 25rem;">
     <div class="mx-auto text-center mt-4">
-        <img {% if user.pfp %} src="{{ user.pfp.url }}" {% else %} src="/media/images/no_pfp.png" {% endif %} class="card-img-top " style="width:250px;height:300px;">
+        <img {% if user.pfp %} src="{{ user.pfp.url }}" {% else %} 
+        src="/media/images/no_pfp.png" {% endif %} class="card-img-top " 
+        style="width:330px;height:250px;">
     </div>
     <div class="card-body">
-      <h4 class="card-title">{{ user.name }}</h4>
-      <h5 class="card-title">Email: <a class="lead">{{ user.email }}</a></h5>
-      <h5 class="card-title">DOB: <a class="lead">{{ user.dob }}</a></h5>
-      <h5 class="card-title">Address: <a class="lead">{{ user.address }}</a></h5>
-      <h5 class="card-title">About Me: <a class="lead">{{ user.about_me }}</a></h5>
+      <label class="card-title"><font size="4" class="lead">{{ user.name }}</font></label>
+      <label class="card-title">Email: <font size="2" class="lead">{{ user.email }}</font></label>
+      <label class="card-title">DOB: <font size="2" class="lead">{{ user.dob }}</font></label>
+      <label class="card-title">Address: <font size="2" class="lead">{{ user.address }}</font></label>
+      <label class="card-title">About Me: <font size="2" class="lead">{{ user.about_me }}</font></label>
 
     </div>
 </div>
@@ -24,5 +26,6 @@
     <h5>Email: {{ user.email }} </h5>
     <h5>UID: {{ user.socialaccount_set.all.0.uid }} </h5>
 {% endif %}
-
+</div>
+<br><br>
 {% endblock %}
