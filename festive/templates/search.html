@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
-{% block content %}
+{% block main %}
+{% block top %}
+
+
+
+  {% block nav %}
+  {{ block.super }}
+  {% endblock nav %}
 SEARCH
 <div class="container" style="margin: 10%">
  {% for key, value in det.items %}
@@ -32,4 +39,10 @@ SEARCH
  {% endfor %}
 {% endif %}
 </div> -->
-{% endblock %}
+{% endblock top %}
+{% block end %}
+{{ block.super }}
+
+{% endblock end %}
+{% endblock main %}
+  

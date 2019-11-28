@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
-{% block content %}
-<br><br>
+{% block main %}
+{% block top %}
+
+
+
+  {% block nav %}
+  {{ block.super }}
+  {% endblock nav %}
+
 {% if  user.socialaccount_set.all.0.uid == None %}
 <div class="d-flex justify-content-center align-items-center" > 
 
@@ -28,4 +35,9 @@
 {% endif %}
 </div>
 <br><br>
-{% endblock %}
+{% endblock top %}
+{% block end %}
+{{ block.super }}
+
+{% endblock end %}
+{% endblock main %}

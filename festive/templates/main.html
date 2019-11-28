@@ -31,77 +31,59 @@
 </style>
 
 {% endblock %}
-{% block content %}
 
 
-<!-- <div>
-  <br>
-  <div class="ml-3">
-    <h2>Festive Circle</h2>
-    <p class="lead"> Fill in the search form to find your desired venues and services.
-    </p>
-  </div> -->
 
-<div class="d-flex justify-content-center align-items-center bgimg" style="height: 100vh;">
-  <form class="form-inline col-md-10 border-0" method="POST" style=" background: rgba(0, 0, 0, 0.2);">{% csrf_token %}
-    <div class="w-100">
 
-      <div class="form-group text-white">
-        <div class="col-sm-offset-2">
-          <h3 class="lead">
-            <font size="7">Search Bar</font>
-          </h3>
-          <p class="control-label ml-1">
-            <font size="4">Fill in the search form to find your desired venues and services.</font>
-          </p>
-        </div>
+{% block main %}
+{% block top %}
+
+<div class="bgimg container-fluid " style="height: 100vh;">
+
+  {% block nav %}
+  {{ block.super }}
+  {% endblock nav %}
+  <div class="row justify-content-center pt-5">
+    <form class="form-inline" method="POST bg-dark">{% csrf_token %}
+      <div class="col-md-4 text-center  pl-0 pr-0">
+        <select class="browser-default custom-select border border-secondary rounded-0" name="category" id="id_category">
+          <option selected disabled>Choose Category</option>
+
+          <option value="Banquet Hall">Banquet Hall</option>
+
+          <option value="Marquee">Marquee</option>
+
+          <option value="Hotel Hall">Hotel Hall</option>
+
+          <option value="Farmhouse">Farmhouse</option>
+
+          <option value="Lawn">Lawn</option>
+        </select>
       </div>
-      <br>
-      <select class="browser-default custom-select col-sm-10 ml-5 rounded-left" name="category" id="id_category"
-        style="width:250px;">
-        <option selected disabled>Choose Category</option>
+      <div class="col-md-4 text-center pl-0 pr-0">
+        <select class="browser-default custom-select border border-secondary rounded-0" name="Area" id="id_area" style="width:100%;">
+          <option selected disabled>Select Your Area</option>
 
-        <option value="Banquet Hall">Banquet Hall</option>
+          {% for loc in locations %}
+          <option value="{{loc.area}}">{{loc.area}}</option>
+          {% endfor %}
 
-        <option value="Marquee">Marquee</option>
+        </select>
+      </div>
+      <div class="col-md-4 text-center pl-0 pr-0">
+        <select class="browser-default custom-select border border-secondary rounded-0" name="city" id="id_city" style="width:100%">
+          <option selected disabled>Select Your City</option>
 
-        <option value="Hotel Hall">Hotel Hall</option>
+          <option value="Lahore">Lahore</option>
+          <option value="Karachi">Karachi</option>
+          <option value="Islamabad">Islamabad</option>
+          <option value="Gujranwala">Gujranwala</option>
 
-        <option value="Farmhouse">Farmhouse</option>
+        </select>
+      </div>
+    </form>
 
-        <option value="Lawn">Lawn</option>
-      </select>
-
-      <select class="browser-default custom-select rounded-0" name="city" id="id_city" style="width:250px;">
-        <option selected disabled>Select Your City</option>
-
-        <option value="Lahore">Lahore</option>
-        <option value="Karachi">Karachi</option>
-        <option value="Islamabad">Islamabad</option>
-        <option value="Gujranwala">Gujranwala</option>
-
-      </select>
-
-
-      <select class="browser-default custom-select rounded-0" name="Area" id="id_area" style="width:250px;">
-        <option selected disabled>Select Your Area</option>
-
-        {% for loc in locations %}
-        <option value="{{loc.area}}">{{loc.area}}</option>
-        {% endfor %}
-
-      </select>
-
-      <button type="submit" class="btn btn-danger lead rounded-0 mr-2 shadow" style="padding: 7px 45px;">
-        <font size="3">Search</font>
-      </button>
-
-      <!-- <button type="submit" class="btn btn-primary btn-me" style="float: left">Search</button> -->
-
-
-    </div>
-
-  </form>
+  </div>
 
 
 </div>
@@ -165,7 +147,9 @@
 
   </div>
 </div>
+{% endblock top %}
 
+{% block mid %}
 <div class="jumbotron bg-white">
   <div class="row justify-content-center">
     <div class="col-md-6">
@@ -349,12 +333,12 @@
   </div>
 </div>
 
-{% endblock %}
+{% endblock mid %}
 
-{% block footscripts %}
+{% block end %}
+{{ block.super }}
 
-<script>
+{% endblock end %}
 
-</script>
 
-{% endblock %}
+{% endblock main%}

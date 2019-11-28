@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
-{% block content %}
+{% block main %}
+{% block top %}
 
+
+
+  {% block nav %}
+  {{ block.super }}
+  {% endblock nav %}
 
 <br><br>
 
@@ -49,5 +55,10 @@
       
     
 </div>
-<br><br>
-{% endblock %}
+
+{% endblock top %}
+{% block end %}
+{{ block.super }}
+
+{% endblock end %}
+{% endblock main %}

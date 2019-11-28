@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
-{% block content %}
+{% block main %}
+{% block top %}
 
 
-<br><br>
+
+  {% block nav %}
+  {{ block.super }}
+  {% endblock nav %}
+
 
 <div class="d-flex justify-content-center align-items-center" > 
   
@@ -83,23 +88,24 @@
   </form>
 </div>
 <br><br>
-{% endblock %}
+{% endblock top %}
+{% block end %}
+{{ block.super }}
+
+{% endblock end %}
+{% endblock main %}
 {% block footscripts %}
 <script>
   $('#pfp').on('change',function(){
       //get the file name
-      var fileName = $(this).val();<br><br><br>
+      var fileName = $(this).val();
 
-<div class="d-flex justify-content-center align-items-center" > 
-      var name = fileName.split('\\<br><br><br>
+      var name = fileName.split('\\')
 
-<div class="d-flex justify-content-center align-items-center" > 
       //replace the "Choose a file"<br><br><br>
 
-<div class="d-flex justify-content-center align-items-center" > 
-      $(this).next('.custom-file-la<br><br><br>
+      $(this).next('.custom-file-label')
 
-<div class="d-flex justify-content-center align-items-center" > html(name);
   })
 </script>
-{% endblock %}
+{% endblock footscripts%}

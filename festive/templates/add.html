@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
-{% block content %}
-<br> <br>
+{% block main %}
+{% block top %}
+
+
+
+  {% block nav %}
+  {{ block.super }}
+  {% endblock nav %}
 <div class="d-flex justify-content-center align-items-center">
 
   <form class="form-horizontal col-md-8 shadow p-3  border" method='POST' enctype="multipart/form-data"
@@ -456,6 +462,12 @@
 
 </div>
 <br> <br>
+{% endblock top %}
+{% block end %}
+{{ block.super }}
+
+{% endblock end %}
+{% endblock main %}
 {% block footscripts %}
 
 <script>
@@ -547,5 +559,4 @@
       .html(filenames.join(","));
   });
 </script>
-{% endblock %}
 {% endblock %}
