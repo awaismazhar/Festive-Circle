@@ -43,50 +43,85 @@
   {% block nav %}
   {{ block.super }}
   {% endblock nav %}
-  <div class="row justify-content-center pt-5">
-    <form class="form-inline" method="POST bg-dark">{% csrf_token %}
-      <div class="col-md-4 text-center  pl-0 pr-0">
-        <select class="browser-default custom-select border border-secondary rounded-0" name="category" id="id_category">
-          <option selected disabled>Choose Category</option>
 
-          <option value="Banquet Hall">Banquet Hall</option>
-
-          <option value="Marquee">Marquee</option>
-
-          <option value="Hotel Hall">Hotel Hall</option>
-
-          <option value="Farmhouse">Farmhouse</option>
-
-          <option value="Lawn">Lawn</option>
-        </select>
+  <div class="row justify-content-center h-100">
+   <div class="col-md-2 my-auto text-center">
+      <div class="dropdown">
+          <button type="button" class="btn border-secondary rounded-0 dropdown-toggle" data-toggle="dropdown"
+          style="width: 200px; background-color: white;">
+            <font size="2">Select Category</font>
+          </button>
+          <div class="dropdown-menu rounded-0" style="width: 200px;">
+            <a class="dropdown-item" href="#">
+                <font size="2">Banquet Hall</font>
+              </a>
+            <a class="dropdown-item" href="#">
+                <font size="2">Marquee</font>
+              </a>
+            <a class="dropdown-item" href="#">
+                <font size="2">Hotel Hall</font>
+              </a>
+              <a class="dropdown-item" href="#">
+                  <font size="2">Farmhouse</font>
+                </a>
+          </div>
       </div>
-      <div class="col-md-4 text-center pl-0 pr-0">
-        <select class="browser-default custom-select border border-secondary rounded-0" name="Area" id="id_area" style="width:100%;">
-          <option selected disabled>Select Your Area</option>
+    </div>
 
-          {% for loc in locations %}
-          <option value="{{loc.area}}">{{loc.area}}</option>
-          {% endfor %}
+    <div class="col-md-2 my-auto text-center">
+      <div class="dropdown" >
+            <button type="button" class="btn border-secondary rounded-0 dropdown-toggle" data-toggle="dropdown"
+            style="width: 200px; background-color: white;">
+            <font size="2">Select City</font>
+            </button>
+            <div class="dropdown-menu rounded-0" style="width: 200px;">
+              <a class="dropdown-item" href="#">
+                  <font size="2">Lahore</font>
+                </a>
+              <a class="dropdown-item" href="#">
+                  <font size="2">Karachi</font>
+                </a>
+              <a class="dropdown-item" href="#">
+                  <font size="2">Islamabad</font>
+                </a>
+                <a class="dropdown-item" href="#">
+                    <font size="2">Gujranwala</font>
+                  </a>
 
-        </select>
+              <a class="dropdown-item" href="#">
+                  <font size="2">Faislabad</font>
+                </a>
+            </div>
       </div>
-      <div class="col-md-4 text-center pl-0 pr-0">
-        <select class="browser-default custom-select border border-secondary rounded-0" name="city" id="id_city" style="width:100%">
-          <option selected disabled>Select Your City</option>
+    </div>
 
-          <option value="Lahore">Lahore</option>
-          <option value="Karachi">Karachi</option>
-          <option value="Islamabad">Islamabad</option>
-          <option value="Gujranwala">Gujranwala</option>
+    <div class="col-md-2 my-auto text-center">
+      <div class="dropdown">
+              <button type="button" class="btn border-secondary rounded-0 dropdown-toggle" data-toggle="dropdown"
+              style="width: 200px; background-color: white;">
+              <font size="2">Select Price</font>
+              </button>
+              <div class="dropdown-menu rounded-0" style="width: 200px;">
+                <a class="dropdown-item" href="#">
+                    <font size="2">Select Category</font>
+                  </a>
+                <a class="dropdown-item" href="#">
+                    <font size="2">Select Category</font>
+                  </a>
+                <a class="dropdown-item" href="#">
+                    <font size="2">Select Category</font>
+                  </a>
+              </div>
+            </div>
 
-        </select>
-      </div>
-    </form>
+          </div>
+
+   </div>
 
   </div>
-
-
-</div>
+    
+      
+      
 <div class="d-flex justify-content-center align-items-center bg-light">
   <div class="jumbotron bg-light">
     <div class="row">
