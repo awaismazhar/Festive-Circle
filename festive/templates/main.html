@@ -45,83 +45,91 @@
   {% endblock nav %}
 
   <div class="row justify-content-center h-100">
-   <div class="col-md-2 my-auto text-center">
-      <div class="dropdown">
-          <button type="button" class="btn border-secondary rounded-0 dropdown-toggle" data-toggle="dropdown"
-          style="width: 200px; background-color: white;">
+    <form class="form-inline w-100 h-100 justify-content-center" method="POST" >{% csrf_token %}
+      <div class="col-md-2 my-auto">
+        <div class="dropdown">
+          <button type="button" class="btn border-secondary rounded-0 dropdown-toggle text-left" data-toggle="dropdown"
+            style="width: 200px; height: 40px; background-color: white;">
             <font size="2">Select Category</font>
           </button>
           <div class="dropdown-menu rounded-0" style="width: 200px;">
             <a class="dropdown-item" href="#">
-                <font size="2">Banquet Hall</font>
-              </a>
+              <font size="2">Banquet Hall</font>
+            </a>
             <a class="dropdown-item" href="#">
-                <font size="2">Marquee</font>
-              </a>
+              <font size="2">Marquee</font>
+            </a>
             <a class="dropdown-item" href="#">
-                <font size="2">Hotel Hall</font>
-              </a>
-              <a class="dropdown-item" href="#">
-                  <font size="2">Farmhouse</font>
-                </a>
+              <font size="2">Hotel Hall</font>
+            </a>
+            <a class="dropdown-item" href="#">
+              <font size="2">Farmhouse</font>
+            </a>
           </div>
+        </div>
       </div>
-    </div>
 
-    <div class="col-md-2 my-auto text-center">
-      <div class="dropdown" >
-            <button type="button" class="btn border-secondary rounded-0 dropdown-toggle" data-toggle="dropdown"
-            style="width: 200px; background-color: white;">
+      <div class="col-md-2 my-auto text-center">
+        <div class="dropdown">
+          <button type="button" class="btn border-secondary rounded-0 dropdown-toggle text-left" data-toggle="dropdown"
+            style="width: 200px; height: 40px; background-color: white;">
             <font size="2">Select City</font>
-            </button>
-            <div class="dropdown-menu rounded-0" style="width: 200px;">
-              <a class="dropdown-item" href="#">
-                  <font size="2">Lahore</font>
-                </a>
-              <a class="dropdown-item" href="#">
-                  <font size="2">Karachi</font>
-                </a>
-              <a class="dropdown-item" href="#">
-                  <font size="2">Islamabad</font>
-                </a>
-                <a class="dropdown-item" href="#">
-                    <font size="2">Gujranwala</font>
-                  </a>
+          </button>
+          <div class="dropdown-menu rounded-0" style="width: 200px;">
+            <a class="dropdown-item" href="#">
+              <font size="2">Lahore</font>
+            </a>
+            <a class="dropdown-item" href="#">
+              <font size="2">Karachi</font>
+            </a>
+            <a class="dropdown-item" href="#">
+              <font size="2">Islamabad</font>
+            </a>
+            <a class="dropdown-item" href="#">
+              <font size="2">Gujranwala</font>
+            </a>
 
-              <a class="dropdown-item" href="#">
-                  <font size="2">Faislabad</font>
-                </a>
-            </div>
-      </div>
-    </div>
-
-    <div class="col-md-2 my-auto text-center">
-      <div class="dropdown">
-              <button type="button" class="btn border-secondary rounded-0 dropdown-toggle" data-toggle="dropdown"
-              style="width: 200px; background-color: white;">
-              <font size="2">Select Price</font>
-              </button>
-              <div class="dropdown-menu rounded-0" style="width: 200px;">
-                <a class="dropdown-item" href="#">
-                    <font size="2">Select Category</font>
-                  </a>
-                <a class="dropdown-item" href="#">
-                    <font size="2">Select Category</font>
-                  </a>
-                <a class="dropdown-item" href="#">
-                    <font size="2">Select Category</font>
-                  </a>
-              </div>
-            </div>
-
+            <a class="dropdown-item" href="#">
+              <font size="2">Faislabad</font>
+            </a>
           </div>
+        </div>
+      </div>
 
-   </div>
+      <div class="col-md-2 my-auto text-center">
+        <div class="dropdown">
+          <button type="button" class="btn border-secondary rounded-0 dropdown-toggle text-left" data-toggle="dropdown"
+            style="width: 200px; height: 40px; background-color: white;">
+            <font size="2">Select Price</font>
+          </button>
+          <div class="dropdown-menu rounded-0" style="width: 200px;">
+            <a class="dropdown-item" href="#">
+              <font size="2">1000</font>
+            </a>
+            <a class="dropdown-item" href="#">
+              <font size="2">2000</font>
+            </a>
+            <a class="dropdown-item" href="#">
+              <font size="2">3000</font>
+            </a>
+            <a class="dropdown-item" href="#">
+              <font size="2">4000</font>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2 my-auto text-center">
+        <button type="submit" class="btn btn-danger rounded-0" style="padding-left: 40px; padding-right: 40px;">
+          Search</button>
+      </div>
 
   </div>
-    
-      
-      
+  </form>
+
+</div>
+
+
+
 <div class="d-flex justify-content-center align-items-center bg-light">
   <div class="jumbotron bg-light">
     <div class="row">

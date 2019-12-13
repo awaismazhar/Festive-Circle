@@ -1,48 +1,17 @@
 {% extends 'base.html' %}
 {% block main %}
 {% block top %}
-
-
-
   {% block nav %}
   {{ block.super }}
   {% endblock nav %}
 SEARCH
 <div class="container" style="margin: 10%">
  {% for key, value in det.items %}
-    <div>{{value}}</div>
+    <div><a href="{% url 'display' value.id %}"> {{value}} </a></div>
  {% endfor %}
 </div>
-<!--
-<div class="container" style="margin: 10%">
-{% if venues %}
-     {% for ven in venues %}
-       {% if locations %}
-           {% for loc in locations %}
-             {% if loc.id ==  ven.detail_id.loction_id.id%}
-               <a href="{% url 'display' ven.detail_id.id %}"> {{ven.detail_id}} </a>
-             {% endif %}
-           {% endfor %}
-       {% else %}
-          <a href="{% url 'display' ven.detail_id.id %}"> {{ven.detail_id}} </a>
-       {% endif %}
-     {% endfor %}
-{% else %}
- {% for loc in locations %}
- {% for det in details %}
- <div>
-   {% if det.id == loc.id %}
-         <a href="{% url 'display' det.id %}"> {{det.title}} </a>
-   {% endif %}
- </div>
- {% endfor %}
- {% endfor %}
-{% endif %}
-</div> -->
 {% endblock top %}
 {% block end %}
 {{ block.super }}
-
 {% endblock end %}
 {% endblock main %}
-  

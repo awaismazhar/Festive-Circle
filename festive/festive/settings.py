@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -52,6 +53,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount', 
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
+    #for chat
+
 ]
 
 MIDDLEWARE = [
@@ -148,10 +151,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR,'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    '/users/static',
+    os.path.join(BASE_DIR, 'static'),
 ]
 
 AUTH_USER_MODEL = 'users.User'

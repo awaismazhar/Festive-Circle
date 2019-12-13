@@ -35,12 +35,13 @@ def display(request, id):
        'featured_details_paarize':featured_details_paarize,
     }
     return render(request,"display.html", context)
+
 def search(request, category, city,  min_price, max_price):
     venuePrice = VenuePrice.objects.filter(per_guest__gte=min_price)
     dic = {}     
     if category == 'None':
         if city == 'None':
-            if max_price == '0':
+            if max_price == '0' and min_price == '0':
                 detail = Detail.objects.all()
                 for deta in detail:
                     dic[deta.id] = deta
@@ -51,7 +52,7 @@ def search(request, category, city,  min_price, max_price):
             else:
                 for ven in venuePrice:
                     new=int(max_price)-ven.per_guest
-                    dishMenu = Dish_Menu.objects.get(venue_id=ven.venue_id.id)
+                    dishMenu = Dish_Menu.objects.filter(venue_id=ven.venue_id.id).order_by('-price').first()
                     if new > dishMenu.price:
                         venue = Venue.objects.get(id=dishMenu.venue_id.id)
                         dic[ven.venue_id.detail_id.id] = Detail.objects.get(id=venue.detail_id.id)
@@ -61,18 +62,18 @@ def search(request, category, city,  min_price, max_price):
                 }
                 return render(request,"search.html",context)  
         else:
-            if max_price == '0':
-                print('ssssssssssss')
+            if max_price == '0' and min_price == '0':
                 location = Location.objects.filter(city=city)
-                detail = Detail.objects.get(loction_id=location.id)
+                for loc in location:
+                   dic[loc.id] = Detail.objects.get(loction_id=loc.id)
                 context = {
-                    'details' : detail,
+                    'det' : dic,
                 }
                 return render(request,"search.html",context)
-            else: 
+            else:
                 for ven in venuePrice:
                     new=int(max_price)-ven.per_guest
-                    dishMenu = Dish_Menu.objects.get(venue_id=ven.venue_id.id)
+                    dishMenu = Dish_Menu.objects.filter(venue_id=ven.venue_id.id).order_by('-price').first()
                     if new > dishMenu.price:
                         venue = Venue.objects.get(id=dishMenu.venue_id.id)
                         if ven.venue_id.detail_id.loction_id.city == city:
@@ -83,37 +84,44 @@ def search(request, category, city,  min_price, max_price):
                 return render(request,"search.html",context)
     else:    
         if city == 'None':
-            if max_price == '0':
+            if max_price == '0' and min_price == '0':
                 venue = Venue.objects.filter(category=category)
-                detail = Detail.objects.filter(id=venue.detail_id)
+                for ven in venue:
+                    dic[ven.detail_id.id] = Detail.objects.get(id=ven.detail_id.id)
                 context = {
-                    'venues':venue,
+                    'det' : dic,
                 }
                 return render(request,"search.html",context)
             else:
+
                 for ven in venuePrice:
                     new=int(max_price)-ven.per_guest
-                    dishMenu = Dish_Menu.objects.get(venue_id=ven.venue_id.id)
+                    dishMenu = Dish_Menu.objects.filter(venue_id=ven.venue_id.id).order_by('-price').first()
                     if new > dishMenu.price:
                         venue = Venue.objects.get(id=dishMenu.venue_id.id)
                         if venue.category == category:
-                            dic[ven.venue_id.detail_id.id] = Detail.objects.get(id=venue.detail_id.id)     
+                            dic[venue.detail_id.id] = Detail.objects.get(id=venue.detail_id.id)     
                 context = {
                     'det' : dic,
                 }
                 return render(request,"search.html",context)  
         else:
-            if max_price == '0':
+            if max_price == '0' and min_price == '0':
                 location = Location.objects.filter(city=city)
-                detail = Detail.objects.get(loction_id=location.id)
+                for loc in location:
+                    detail = Detail.objects.get(loction_id=loc.id)
+                    venue = Venue.objects.get(detail_id=detail.id)
+                    if venue.category == category:
+                        dic[venue.detail_id.id] = Detail.objects.get(id=venue.detail_id.id)
+
                 context = {
-                        'details' : detail,
+                    'det' : dic,
                 }
                 return render(request,"search.html",context)
             else:
                 for ven in venuePrice:
                     new=int(max_price)-ven.per_guest
-                    dishMenu = Dish_Menu.objects.get(venue_id=ven.venue_id.id)
+                    dishMenu = Dish_Menu.objects.filter(venue_id=ven.venue_id.id).order_by('-price').first()
                     if new > dishMenu.price:
                         venue = Venue.objects.get(id=dishMenu.venue_id.id)
                         if venue.category == category:
@@ -123,7 +131,7 @@ def search(request, category, city,  min_price, max_price):
                     'det' : dic,
                 }
                 return render(request,"search.html",context)
-
+                
 def main(request):
 
     g = GeoIP2()
